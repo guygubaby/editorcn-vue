@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import { isTextSelection } from "@tiptap/core";
+import type { Editor as CoreEditor } from "@tiptap/core";
+import type { EditorState } from "@tiptap/pm/state";
+import type { Editor } from "@tiptap/vue-3";
+import { BubbleMenu as TiptapBubbleMenu } from "@tiptap/vue-3/menus";
+
+import { useEditorState } from "../composables";
+import ColorSelector from "./color-selector.vue";
+import LanguageSelector from "./language-selector.vue";
+import TextButtons from "./text-buttons.vue";
+
+const props = defineProps<{ editor: Editor | null }>();
+
+const isCodeBlock = useEditorState(
+  () => props.editor,
+  (editor) => editor?.isActive("codeBlock") ?? false
+);
+
+const shouldShow = ({
+  editor,
+  state,
+}: {
+  editor: CoreEditor;
+  state: EditorState;
+}) => {
+  const { selection } = state;
+  if (!editor.isEditable) {
+    return false;
+  }
+  if (selection.empty && !editor.isActive("codeBlock")) {
+    return false;
+  }
+  if (!selection.empty && !isTextSelection(selection)) {
+    return false;
+  }
+  return true;
+};
+</script>
+
+<template>
+  <TiptapBubbleMenu
+    v-if="editor"
+    :editor="editor"
+    :options="{ offset: 8, placement: 'top' }"
+    :should-show="shouldShow"
+  >
+    <div class="rte-bubble-menu">
+      <LanguageSelector v-if="isCodeBlock" :editor="editor" />
+      <template v-else>
+        <TextButtons :editor="editor" />
+        <div class="rte-bubble-separator" />
+        <ColorSelector :editor="editor" />
+      </template>
+    </div>
+  </TiptapBubbleMenu>
+</template>
