@@ -17,6 +17,8 @@ export interface ExtensionLabels {
   rows: string;
   splitCell: string;
   tableActions: string;
+  video: string;
+  videoPlaceholder: string;
 }
 
 export type ExtensionLabelKey = keyof ExtensionLabels;
@@ -40,4 +42,6 @@ export const DEFAULT_EXTENSION_LABELS: ExtensionLabels = {
   rows: "Rows",
   splitCell: "Split cell",
   tableActions: "Table actions",
+  video: "Video",
+  videoPlaceholder: "Add a video",
 };

@@ -26,7 +26,11 @@ import {
   Table,
   TableHoverOverlay,
   TableToolbar,
+  Video,
+  VideoPlaceholder,
+  VideoToolbar,
 } from "./extensions";
+import type { UploadHandler } from "./extensions";
 import { StaticRenderer } from "./static-renderer";
 import type { RichTextEditorVariant } from "./editor";
 
@@ -67,7 +71,18 @@ const extensionContent = `
 <p></p>
 <div data-type="imagePlaceholder"></div>
 <p></p>
+<div data-type="videoPlaceholder"></div>
+<p></p>
 `;
+
+// Demo uploader: swap this for your OSS/COS presigned PUT or API call.
+const fakeUpload: UploadHandler = async (file, kind) => {
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  return {
+    src: URL.createObjectURL(file),
+    width: kind === "video" ? "100%" : "60%",
+  };
+};
 
 const staticJson = {
   type: "doc",
@@ -156,8 +171,10 @@ const extensionEditor = useEditor({
     TextStyle,
     Color,
     Table,
-    ImagePlaceholder,
+    ImagePlaceholder.configure({ upload: fakeUpload }),
     ResizableImage,
+    Video,
+    VideoPlaceholder.configure({ upload: fakeUpload }),
     CharacterCount,
   ],
 });
@@ -323,6 +340,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
         <RichTextEditor.ControlsGroup>
           <TableToolbar :editor="extensionEditor ?? null" />
           <ImagePlaceholderToolbar :editor="extensionEditor ?? null" />
+          <VideoToolbar :editor="extensionEditor ?? null" />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>

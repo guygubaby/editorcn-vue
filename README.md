@@ -6,7 +6,7 @@ This repo currently contains four packages:
 
 - **toolbar editor** — `RichTextEditor` with 25+ controls, the bubble menu, the link popover, word count, and three visual variants.
 - **block editor** — `BlockEditor` with slash commands, a drag handle, a node selector, the bubble menu, and the mobile bottom bar.
-- **extensions** — `Table` with hover grips and add handles, plus `ImagePlaceholder` / `ResizableImage` with upload, embed, resize, align, duplicate and delete.
+- **extensions** — `Table` with hover grips and add handles, `ImagePlaceholder` / `ResizableImage` with upload, embed, resize, align, duplicate and delete, and a `Video` block with a pluggable uploader.
 - **static renderer** — `StaticRenderer` for read-only HTML or ProseMirror JSON.
 
 ## Getting started
@@ -196,6 +196,45 @@ const editor = useEditor({
 - `ResizableImage` adds `align` / `width` attributes and a drag-to-resize node view with a floating action bar.
 - Wrap any of them in `<ToolbarProvider :editor :labels="...">` to translate labels or inject the editor once.
 
+## Uploads
+
+Uploading is not built in — you supply one function and the blocks do the rest:
+
+```ts
+import type { UploadHandler } from "./extensions";
+
+const upload: UploadHandler = async (file, kind) => {
+  // e.g. presigned PUT to OSS/COS, or your own API
+  const { url, poster, width } = await api.upload(file, kind);
+  return { src: url, poster, width };
+};
+
+const editor = useEditor({
+  extensions: [
+    ImagePlaceholder.configure({ upload }),
+    Video,
+    VideoPlaceholder.configure({ upload }),
+  ],
+});
+```
+
+`UploadHandler` receives `(file, "image" | "video")` and resolves to:
+
+| field | required | used by | notes |
+| --- | --- | --- | --- |
+| `src` | yes | both | final URL of the file |
+| `poster` | no | video | cover image shown before playback |
+| `width` | no | both | number (px) or string (`"60%"`); image defaults to `60%`, video to `100%` |
+| `height` | no | both | optional fixed height |
+| `alt` | no | image | alt text |
+
+Notes:
+
+- Without `upload`, the image block falls back to a base64 data URL; the video block shows an error instead.
+- Multiple images are uploaded in parallel and inserted in order.
+- Upload failures keep the placeholder in place and show the message inside it.
+- Both blocks also accept a direct URL instead of a file, so a pasted CDN link works without an uploader.
+
 ## Static renderer
 
 ```vue
@@ -225,7 +264,7 @@ import "./static-renderer/style.css";
 
 ## Not ported yet
 
-- Twitter / YouTube embed controls
+- Twitter / YouTube embed controls (skipped — the video block covers self-hosted media, and platform embeds need a per-platform iframe node)
 - shadcn registry distribution and the docs site
 
 ## License

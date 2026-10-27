@@ -1,0 +1,23 @@
+/* Video block. The placeholder reuses the image placeholder chrome,
+ * so only the rendered node needs its own rules. */
+.ext-video-view {
+  display: block;
+  max-width: 100%;
+  margin: 0.75rem 0;
+  border-radius: var(--radius);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition: outline-color 120ms ease-out;
+}
+
+.ext-video-view--selected {
+  outline-color: var(--ring);
+}
+
+.ext-video-element {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  background: var(--muted);
+}

@@ -5,6 +5,8 @@ import { computed, ref, useId } from "vue";
 
 import { useToolbar } from "../core/context";
 import { isValidUrl } from "../core/utils";
+import type { ImagePlaceholderOptions } from "./index";
+import type { UploadResult } from "../upload";
 import Popover from "../ui/popover.vue";
 
 const props = defineProps(nodeViewProps);
@@ -18,10 +20,24 @@ const url = ref("");
 const urlError = ref(false);
 const isDragActive = ref(false);
 const isDragReject = ref(false);
+const uploading = ref(false);
+const uploadError = ref<string | null>(null);
 
-const replaceWithImage = (src: string) => {
+const options = () => props.extension.options as ImagePlaceholderOptions;
+
+const readAsDataUrl = (file: File) =>
+  new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(reader.result as string));
+    reader.addEventListener("error", () =>
+      reject(reader.error ?? new Error("Could not read file"))
+    );
+    reader.readAsDataURL(file);
+  });
+
+const insertImages = (results: UploadResult[]) => {
   const pos = props.getPos();
-  if (typeof pos !== "number") {
+  if (typeof pos !== "number" || results.length === 0) {
     return;
   }
   props.editor
@@ -29,21 +45,41 @@ const replaceWithImage = (src: string) => {
     .focus()
     .insertContentAt(
       { from: pos, to: pos + props.node.nodeSize },
-      { attrs: { src, width: "60%" }, type: "image" }
+      results.map((result) => ({
+        attrs: {
+          alt: result.alt ?? null,
+          height: result.height ?? null,
+          src: result.src,
+          width: result.width ?? "60%",
+        },
+        type: "image",
+      }))
     )
     .run();
 };
 
-const handleAcceptedFiles = (files: File[]) => {
-  for (const file of files) {
-    const reader = new FileReader();
-    reader.addEventListener("load", () =>
-      replaceWithImage(reader.result as string)
-    );
-    reader.readAsDataURL(file);
+const handleAcceptedFiles = async (files: File[]) => {
+  if (files.length === 0) {
+    return;
   }
-  const options = props.extension.options;
-  options.onDrop?.(files, props.editor);
+  uploading.value = true;
+  uploadError.value = null;
+  try {
+    const upload = options().upload;
+    const results = upload
+      ? await Promise.all(files.map((file) => upload(file, "image")))
+      : await Promise.all(
+          files.map(async (file) => ({ src: await readAsDataUrl(file) }))
+        );
+    insertImages(results);
+    options().onDrop?.(files, props.editor);
+  } catch (error) {
+    uploadError.value =
+      error instanceof Error ? error.message : "Upload failed";
+    options().onDropRejected?.(files, props.editor);
+  } finally {
+    uploading.value = false;
+  }
 };
 
 const handleDragOver = (event: DragEvent) => {
@@ -75,15 +111,13 @@ const handleDrop = (event: DragEvent) => {
     return;
   }
 
-  const options = props.extension.options;
+  const current = options();
   const accepted: File[] = [];
   const rejected: File[] = [];
 
   for (const file of files) {
-    const mimeTypes = options.allowedMimeTypes as
-      | Record<string, string[]>
-      | undefined;
-    const tooLarge = Boolean(options.maxSize) && file.size > options.maxSize!;
+    const mimeTypes = current.allowedMimeTypes;
+    const tooLarge = Boolean(current.maxSize) && file.size > current.maxSize!;
 
     if (
       mimeTypes &&
@@ -99,7 +133,7 @@ const handleDrop = (event: DragEvent) => {
 
   if (rejected.length > 0) {
     isDragReject.value = true;
-    options.onDropRejected?.(rejected, props.editor);
+    current.onDropRejected?.(rejected, props.editor);
   }
 
   if (accepted.length > 0) {
@@ -117,19 +151,17 @@ const handleInsertEmbed = () => {
     urlError.value = true;
     return;
   }
-  replaceWithImage(url.value);
-  props.extension.options.onEmbed?.(url.value, props.editor);
+  insertImages([{ src: url.value }]);
+  options().onEmbed?.(url.value, props.editor);
 };
 
 const mimeTypeList = computed(() =>
-  Object.keys(
-    (props.extension.options.allowedMimeTypes as
-      | Record<string, string[]>
-      | undefined) ?? { "image/*": ["image/*"] }
-  ).join(",")
+  Object.keys(options().allowedMimeTypes ?? { "image/*": ["image/*"] }).join(
+    ","
+  )
 );
 
-const multiple = computed(() => props.extension.options.maxFiles !== 1);
+const multiple = computed(() => options().maxFiles !== 1);
 </script>
 
 <template>
@@ -199,13 +231,21 @@ const multiple = computed(() => props.extension.options.maxFiles !== 1);
               type="file"
               :accept="mimeTypeList"
               :multiple="multiple"
+              :disabled="uploading"
               class="ext-sr-only"
               @change="handleFileInputChange"
             />
-            <label :for="fileInputId" class="ext-image-upload-label">
+            <label
+              :for="fileInputId"
+              class="ext-image-upload-label"
+              :style="uploading ? 'pointer-events: none; opacity: 0.6' : ''"
+            >
               <Upload />
-              Drag &amp; drop or click to upload
+              {{
+                uploading ? "Uploading…" : "Drag & drop or click to upload"
+              }}
             </label>
+            <p v-if="uploadError" class="ext-image-error">{{ uploadError }}</p>
           </div>
         </div>
 
