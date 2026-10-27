@@ -47,6 +47,15 @@ export const Video = Node.create<VideoOptions>({
       poster: { default: null },
       width: { default: "100%" },
       height: { default: null },
+      /** CSS object-fit: contain | cover | fill | none | scale-down */
+      objectFit: { default: "cover" },
+      align: { default: "center" },
+      autoplay: { default: false },
+      loop: { default: false },
+      muted: { default: false },
+      controls: { default: true },
+      playsInline: { default: true },
+      preload: { default: "metadata" },
     };
   },
 
@@ -67,12 +76,28 @@ export const Video = Node.create<VideoOptions>({
     return [{ tag: "video[src]" }];
   },
 
-  renderHTML({ HTMLAttributes }) {
+  renderHTML({ node, HTMLAttributes }) {
+    const align = node.attrs.align as string;
+    const style = [
+      "display:block",
+      align === "left"
+        ? "margin-right:auto"
+        : align === "right"
+          ? "margin-left:auto"
+          : "margin-left:auto;margin-right:auto",
+      `object-fit:${node.attrs.objectFit}`,
+    ].join(";");
+
     return [
       "video",
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-        controls: "true",
-        playsinline: "true",
+        autoplay: node.attrs.autoplay ? "true" : null,
+        controls: node.attrs.controls ? "true" : null,
+        loop: node.attrs.loop ? "true" : null,
+        muted: node.attrs.muted ? "true" : null,
+        playsinline: node.attrs.playsInline ? "true" : null,
+        preload: node.attrs.preload ?? null,
+        style,
       }),
     ];
   },

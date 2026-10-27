@@ -29,6 +29,7 @@ export interface RichTextEditorIcons {
   highlightControlIcon: Component;
   subscriptControlIcon: Component;
   superscriptControlIcon: Component;
+  taskListControlIcon: Component;
   languageIcons: Record<string, Component>;
 }
 

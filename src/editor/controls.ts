@@ -282,3 +282,10 @@ export const SuperscriptControl = createControl({
   label: "superscriptControlLabel",
   operation: { name: "toggleSuperscript" },
 });
+
+export const TaskListControl = createControl({
+  iconKey: "taskListControlIcon",
+  isActive: { name: "taskList" },
+  label: "taskListControlLabel",
+  operation: { name: "toggleTaskList" },
+});

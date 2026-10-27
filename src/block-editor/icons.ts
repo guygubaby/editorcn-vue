@@ -27,6 +27,7 @@ import {
   Trash2,
   Type,
   Underline,
+  Video,
 } from "@lucide/vue";
 
 import { DEFAULT_LANGUAGE_ICONS } from "../editor/language-icons";
@@ -59,6 +60,7 @@ export const DEFAULT_ICONS: BlockEditorIcons = {
   slashTableIcon: Table,
   slashTaskListIcon: ListTodo,
   slashTextIcon: Type,
+  slashVideoIcon: Video,
   strikethroughIcon: Strikethrough,
   underlineIcon: Underline,
   unlinkIcon: Link2Off,

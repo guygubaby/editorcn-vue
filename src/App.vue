@@ -22,6 +22,7 @@ import { RichTextEditor } from "./editor";
 import {
   ImagePlaceholder,
   ImagePlaceholderToolbar,
+  MediaUpload,
   ResizableImage,
   Table,
   TableHoverOverlay,
@@ -152,6 +153,8 @@ const editor = useEditor({
   content: toolbarContent,
   extensions: [
     ...baseExtensions,
+    TaskList,
+    TaskItem.configure({ nested: true }),
     Placeholder.configure({ placeholder: "Start typing..." }),
     CharacterCount,
   ],
@@ -175,6 +178,7 @@ const extensionEditor = useEditor({
     ResizableImage,
     Video,
     VideoPlaceholder.configure({ upload: fakeUpload }),
+    MediaUpload.configure({ upload: fakeUpload, maxSize: 20 * 1024 * 1024 }),
     CharacterCount,
   ],
 });
@@ -283,6 +287,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.BulletList />
           <RichTextEditor.OrderedList />
+          <RichTextEditor.TaskList />
           <RichTextEditor.Blockquote />
           <RichTextEditor.Hr />
         </RichTextEditor.ControlsGroup>

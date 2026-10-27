@@ -12,6 +12,8 @@ export const ResizableImage = Image.extend({
       src: { default: null },
       title: { default: null },
       width: { default: "100%" },
+      /** CSS object-fit: contain | cover | fill | none | scale-down */
+      objectFit: { default: "contain" },
     };
   },
   addNodeView() {

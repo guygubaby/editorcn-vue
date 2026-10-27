@@ -1,6 +1,8 @@
 export { ImagePlaceholder, ResizableImage } from "./image-placeholder";
 export type { ImagePlaceholderOptions } from "./image-placeholder";
 export { default as ImagePlaceholderToolbar } from "./image-placeholder/toolbar.vue";
+export { MediaUpload } from "./media-upload";
+export type { MediaUploadOptions } from "./media-upload";
 export { Video, VideoPlaceholder } from "./video";
 export type { VideoOptions, VideoPlaceholderOptions } from "./video";
 export { default as VideoToolbar } from "./video/toolbar.vue";

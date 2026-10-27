@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { Extensions, JSONContent } from "@tiptap/core";
-import type { Mark, Node } from "@tiptap/pm/model";
-import { renderToHTMLString } from "@tiptap/static-renderer/pm/html-string";
 import type { TiptapStaticRendererOptions } from "@tiptap/static-renderer";
 import type { StaticEditorOptions } from "@tiptap/static-renderer/pm/html-string";
+import type { Extensions, JSONContent } from "@tiptap/core";
+import type { Mark, Node } from "@tiptap/pm/model";
 import { computed } from "vue";
 import type { Component } from "vue";
+
+import { renderStaticHTML } from "./render";
 
 const props = withDefaults(
   defineProps<{
@@ -23,25 +24,14 @@ const props = withDefaults(
   { as: "div" }
 );
 
-const resolveUniqueExtensions = (extensions: Extensions) => {
-  const byName = new Map<string, Extensions[number]>();
-  for (const extension of extensions) {
-    byName.set(extension.name, extension);
-  }
-  return [...byName.values()];
-};
-
-const html = computed(() => {
-  if (typeof props.content === "string") {
-    return props.content;
-  }
-  return renderToHTMLString({
+const html = computed(() =>
+  renderStaticHTML({
     content: props.content,
-    extensions: resolveUniqueExtensions(props.extensions ?? []),
+    extensions: props.extensions,
     options: props.options,
     staticEditorOptions: props.staticEditorOptions,
-  });
-});
+  })
+);
 </script>
 
 <template>

@@ -194,6 +194,7 @@ onBeforeUnmount(() => {
       :src="props.node.attrs.src"
       :alt="props.node.attrs.alt"
       :title="props.node.attrs.title"
+      :style="{ objectFit: props.node.attrs.objectFit ?? 'contain' }"
     />
     <NodeViewContent
       v-if="props.node.attrs.title"

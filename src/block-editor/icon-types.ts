@@ -11,6 +11,7 @@ export interface BlockEditorIcons {
   slashDividerIcon: Component;
   slashImageIcon: Component;
   slashTableIcon: Component;
+  slashVideoIcon: Component;
   searchIcon: Component;
   fallbackIcon: Component;
   dragHandleIcon: Component;

@@ -13,6 +13,8 @@ export interface SlashCommandSuggestionItem {
   description: string;
   keywords: string[];
   icon?: Component;
+  /** Hide the item unless the editor has the extensions it needs. */
+  isAvailable?: (editor: Editor) => boolean;
   command: OnCommandSelect;
 }
 

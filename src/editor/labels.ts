@@ -27,6 +27,7 @@ export interface RichTextEditorLabels {
   highlightControlLabel: string;
   subscriptControlLabel: string;
   superscriptControlLabel: string;
+  taskListControlLabel: string;
   // link editor
   linkEditorInputLabel: string;
   linkEditorInputPlaceholder: string;
@@ -62,6 +63,7 @@ export const DEFAULT_LABELS: RichTextEditorLabels = {
   strikeControlLabel: "Strikethrough",
   subscriptControlLabel: "Subscript",
   superscriptControlLabel: "Superscript",
+  taskListControlLabel: "To-do list",
   underlineControlLabel: "Underline",
   undoControlLabel: "Undo",
   unlinkControlLabel: "Remove link",

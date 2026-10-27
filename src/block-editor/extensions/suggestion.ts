@@ -122,6 +122,63 @@ export const defaultSlashCommandItems: SlashCommandSuggestionItem[] = [
     keywords: ["divider"],
     title: "Divider",
   },
+  {
+    command: ({ editor, range }) => {
+      chainFocus(editor).deleteRange(range).run();
+      (
+        editor.commands as unknown as {
+          insertImagePlaceholder?: () => boolean;
+        }
+      ).insertImagePlaceholder?.();
+    },
+    description: "Upload or embed an image.",
+    icon: DEFAULT_ICONS.slashImageIcon,
+    id: "image",
+    isAvailable: (editor) =>
+      editor.extensionManager.extensions.some(
+        (extension) => extension.name === "imagePlaceholder"
+      ),
+    keywords: ["image", "img", "picture", "photo"],
+    title: "Image",
+  },
+  {
+    command: ({ editor, range }) => {
+      chainFocus(editor).deleteRange(range).run();
+      (
+        editor.commands as unknown as {
+          insertVideoPlaceholder?: () => boolean;
+        }
+      ).insertVideoPlaceholder?.();
+    },
+    description: "Upload or link a video.",
+    icon: DEFAULT_ICONS.slashVideoIcon,
+    id: "video",
+    isAvailable: (editor) =>
+      editor.extensionManager.extensions.some(
+        (extension) => extension.name === "videoPlaceholder"
+      ),
+    keywords: ["video", "movie", "mp4"],
+    title: "Video",
+  },
+  {
+    command: ({ editor, range }) => {
+      chainFocus(editor).deleteRange(range).run();
+      (
+        editor.commands as unknown as {
+          insertTableWithHeader?: () => boolean;
+        }
+      ).insertTableWithHeader?.();
+    },
+    description: "Insert a table with a header row.",
+    icon: DEFAULT_ICONS.slashTableIcon,
+    id: "table",
+    isAvailable: (editor) =>
+      editor.extensionManager.extensions.some(
+        (extension) => extension.name === "table"
+      ),
+    keywords: ["table", "grid", "sheet"],
+    title: "Table",
+  },
 ];
 
 const updatePosition = async (
@@ -169,12 +226,15 @@ export const getSlashCommandSuggestion = (
     : defaultSlashCommandItems;
 
   return {
-    items: ({ query }) =>
-      items.filter((item) =>
-        item.keywords.some((keyword) =>
-          keyword.startsWith(query.toLowerCase())
-        )
-      ),
+    items: ({ editor, query }) => {
+      const needle = query.toLowerCase();
+      return items.filter(
+        (item) =>
+          (!item.isAvailable || item.isAvailable(editor)) &&
+          (item.title.toLowerCase().startsWith(needle) ||
+            item.keywords.some((keyword) => keyword.startsWith(needle)))
+      );
+    },
     render: () => {
       let component: VueRenderer | undefined;
 
