@@ -13,6 +13,16 @@ import "@/components/extensions/image-placeholder-style.css";
 import "@/components/extensions/video-style.css";
 ```
 
+## 在线演示
+
+表格（悬停行/列，显示抓手与追加按钮）：
+
+<DemoTable />
+
+图片与视频（可点击占位块选择本地文件，或直接粘贴 URL；演示里的「上传」用 object URL，不会出网）：
+
+<DemoMedia />
+
 ## 表格
 
 ```ts

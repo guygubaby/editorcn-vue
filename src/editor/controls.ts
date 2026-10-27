@@ -84,7 +84,8 @@ export const createControl = ({
             title: ariaLabel.value,
             onClick: run,
           },
-          () => h(icons.value[iconKey], { class: "rte-editor-icon" })
+          // Object form keeps the slot inside the render context.
+          { default: () => h(icons.value[iconKey], { class: "rte-editor-icon" }) }
         );
     },
   });

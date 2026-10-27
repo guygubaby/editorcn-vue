@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { cn } from "../utils";
-import { toggleVariants } from "./toggle";
 
 defineOptions({ inheritAttrs: false });
 
@@ -18,7 +17,7 @@ withDefaults(defineProps<{ active?: boolean; disabled?: boolean }>(), {
     :data-state="active ? 'on' : 'off'"
     :aria-pressed="active"
     :disabled="disabled"
-    :class="cn(toggleVariants({ size: 'sm' }), 'rte-control-button')"
+    :class="cn('rte-control-button', $attrs.class as string)"
     @mousedown.prevent
   >
     <slot />

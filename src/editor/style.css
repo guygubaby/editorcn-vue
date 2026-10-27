@@ -1413,3 +1413,75 @@ button.rte-control-button:active {
 .rte-theme-transitioning *::after {
   transition: none !important;
 }
+
+/* ── Wrapper (replaces Tailwind `relative`) ── */
+.rte-content-wrapper {
+  position: relative;
+}
+
+.rte-content {
+  width: 100%;
+}
+
+/* ── Link popover (self-contained, no Tailwind utilities) ── */
+.rte-link-popover {
+  z-index: 50;
+  width: 18rem;
+  padding: 0.75rem;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  font-size: 0.75rem;
+  box-shadow: 0 4px 6px -1px oklch(0 0 0 / 0.1);
+  outline: none;
+  animation: rte-bubble-pop-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.rte-link-editor-input,
+.rte-link-editor-save {
+  height: 2rem;
+  font-size: 0.875rem;
+}
+
+.rte-link-editor-input {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--input);
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: inherit;
+  outline: none;
+  box-shadow: 0 1px 2px oklch(0 0 0 / 0.05);
+  transition:
+    color 150ms ease-out,
+    box-shadow 150ms ease-out;
+}
+
+.rte-link-editor-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.rte-link-editor-input:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+}
+
+.rte-link-editor-save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 0.75rem;
+  border: none;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 1px 2px oklch(0 0 0 / 0.05);
+}
+
+.rte-link-editor-save:hover {
+  background: color-mix(in srgb, var(--primary) 90%, transparent);
+}

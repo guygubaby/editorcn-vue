@@ -6,6 +6,12 @@
 pnpm dlx shadcn-vue@latest add https://raw.githubusercontent.com/guygubaby/editorcn-vue/main/registry/static-renderer.json
 ```
 
+## 在线演示
+
+下面是 ProseMirror JSON 的实时渲染结果（没有 Editor 实例）：
+
+<DemoStatic />
+
 ```vue
 <script setup lang="ts">
 import { StaticRenderer } from "@/components/static-renderer";

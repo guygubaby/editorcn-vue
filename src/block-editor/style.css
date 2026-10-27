@@ -821,6 +821,11 @@
   flex-shrink: 0;
 }
 
+.block-editor-slash-menu-search-svg {
+  width: 0.875rem;
+  height: 0.875rem;
+}
+
 .block-editor-slash-menu-search-input {
   width: 100%;
   border: none;

@@ -2,6 +2,10 @@
 
 Vue 3 port of [editorcn](https://github.com/shadcn-labs/editorcn) — rich text editor components built on Tiptap, themed with shadcn/ui tokens.
 
+Works in any Vue 3 project: the components ship plain CSS and read shadcn CSS variables. Tailwind is optional, not required.
+
+Docs: https://editorcn-vue.pages.dev
+
 This repo currently contains four packages:
 
 - **toolbar editor** — `RichTextEditor` with 25+ controls, the bubble menu, the link popover, word count, and three visual variants.
@@ -96,7 +100,7 @@ const editor = useEditor({
 </template>
 ```
 
-Import `./editor/style.css` after your global stylesheet — the editor reads shadcn CSS variables (`--border`, `--background`, `--muted`, `--radius`, …).
+Import `./editor/style.css` after your global stylesheet — the editor reads shadcn CSS variables (`--border`, `--background`, `--muted`, `--radius`, …). A plain Vue 3 app only needs those variables defined on `:root`; no Tailwind setup is involved.
 
 ## Components
 

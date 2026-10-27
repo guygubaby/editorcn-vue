@@ -86,7 +86,7 @@ defineExpose({ onKeyDown });
   <div class="block-editor-slash-menu">
     <div class="block-editor-slash-menu-search">
       <span class="block-editor-slash-menu-search-icon">
-        <component :is="DEFAULT_ICONS.searchIcon" class="size-3.5" />
+        <component :is="DEFAULT_ICONS.searchIcon" class="block-editor-slash-menu-search-svg" />
       </span>
       <input
         v-model="searchQuery"

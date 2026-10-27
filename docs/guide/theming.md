@@ -1,6 +1,16 @@
 # 主题与样式
 
-组件读取 shadcn/ui 的 CSS 变量，不依赖 Tailwind 的类名扫描。换主题只需要换变量。
+组件读取 shadcn/ui 的 CSS 变量，不依赖 Tailwind。
+
+- 不需要 Tailwind CSS，也不扫描类名。
+- 组件内部只用普通的 `style.css`，样式文件随 registry 一起装。
+- 你把下面的变量定义在 `:root`（普通 Vue 项目也一样），编辑器就能正常显示 shadcn 的观感。
+
+## 在线演示
+
+点击色板切换 `--muted` 与 `--ring`，编辑器外观随之变化：
+
+<DemoTheming />
 
 ## 依赖的变量
 

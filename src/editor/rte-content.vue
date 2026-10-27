@@ -10,10 +10,10 @@ const { editor } = useRichTextEditorContext();
 </script>
 
 <template>
-  <div class="relative">
+  <div class="rte-content-wrapper">
     <EditorContent
       :editor="editor ?? undefined"
-      :class="cn('rte-content w-full', $props.class)"
+      :class="cn('rte-content', $props.class)"
     />
     <slot />
   </div>

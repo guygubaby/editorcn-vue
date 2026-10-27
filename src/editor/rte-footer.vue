@@ -55,12 +55,7 @@ const stickyStyle = computed(() => {
   <div
     v-if="showWordCount || $slots.default"
     :class="
-      cn(
-        'rte-footer',
-        variant !== 'default' && `rte-footer--${variant}`,
-        sticky && 'sticky z-10',
-        $props.class
-      )
+      cn('rte-footer', variant !== 'default' && `rte-footer--${variant}`, $props.class)
     "
     :data-sticky="sticky ? '' : undefined"
     :style="stickyStyle"

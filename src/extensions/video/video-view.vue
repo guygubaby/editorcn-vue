@@ -208,7 +208,7 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
             }
           "
         >
-          <span class="flex-1 text-left">{{ fit.label }}</span>
+          <span class="ext-dropdown-label">{{ fit.label }}</span>
           <Check v-if="attrs.objectFit === fit.value" />
         </button>
       </DropdownMenu>
@@ -233,7 +233,7 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
           class="ext-dropdown-item"
           @click="update({ loop: !attrs.loop })"
         >
-          <span class="flex-1 text-left">Loop</span>
+          <span class="ext-dropdown-label">Loop</span>
           <Check v-if="attrs.loop" />
         </button>
         <button
@@ -243,7 +243,7 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
           class="ext-dropdown-item"
           @click="update({ autoplay: !attrs.autoplay })"
         >
-          <span class="flex-1 text-left">Autoplay</span>
+          <span class="ext-dropdown-label">Autoplay</span>
           <Check v-if="attrs.autoplay" />
         </button>
         <button
@@ -253,7 +253,7 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
           class="ext-dropdown-item"
           @click="update({ muted: !attrs.muted })"
         >
-          <span class="flex-1 text-left">Muted</span>
+          <span class="ext-dropdown-label">Muted</span>
           <Check v-if="attrs.muted" />
         </button>
         <button
@@ -263,7 +263,7 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
           class="ext-dropdown-item"
           @click="update({ controls: !attrs.controls })"
         >
-          <span class="flex-1 text-left">Controls</span>
+          <span class="ext-dropdown-label">Controls</span>
           <Check v-if="attrs.controls" />
         </button>
         <div class="ext-dropdown-separator" />

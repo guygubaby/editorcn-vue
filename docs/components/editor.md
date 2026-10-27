@@ -2,6 +2,14 @@
 
 带工具栏、气泡菜单和页脚的基础富文本编辑器。所有子组件挂在 `RichTextEditor` 上，模板里可以直接写 `<RichTextEditor.Bold />`。
 
+## 在线演示
+
+<DemoRichText />
+
+## 视觉变体
+
+<DemoVariants />
+
 ## 基本用法
 
 ```vue

@@ -27,13 +27,7 @@ const stickyStyle = computed(() => {
 <template>
   <div
     v-if="editable"
-    :class="
-      cn(
-        'rte-toolbar',
-        variant !== 'default' && `rte-toolbar--${variant}`,
-        sticky && 'sticky z-10'
-      )
-    "
+    :class="cn('rte-toolbar', variant !== 'default' && `rte-toolbar--${variant}`)"
     :data-sticky="sticky ? '' : undefined"
     :style="stickyStyle"
   >

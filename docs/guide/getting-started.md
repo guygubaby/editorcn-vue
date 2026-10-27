@@ -2,15 +2,22 @@
 
 组件以 **shadcn registry** 形式分发：CLI 把源码写进你的项目，依赖自动安装。不需要等 npm 包，也不会有版本锁死。
 
+下面是本站直接加载的真实组件（不是截图），可以直接编辑、选中文字、切换变体：
+
+<DemoRichText />
+
 ## 1. 准备项目
 
-需要一个 Vue 3 + Tailwind CSS v4 项目，并初始化过 shadcn-vue（`components.json`）：
+只需要 **Vue 3**。不要求 Tailwind、不要求 shadcn-vue 初始化。
+
+- 如果项目已经初始化过 shadcn-vue（有 `components.json`），文件会装到 `aliases.components`（默认 `@/components`）。
+- 如果是普通 Vue 3 / Vite 项目，先跑一次 `init` 生成 `components.json` 即可，它只用来决定文件位置：
 
 ```bash
 pnpm dlx shadcn-vue@latest init
 ```
 
-`components.json` 里的 `aliases.components` 决定文件装到哪里，默认是 `@/components`。
+组件的样式全部是自带的普通 CSS（`style.css` + CSS 变量），没有 Tailwind 类名依赖，也没有 Preflight 依赖。
 
 ## 2. 安装组件
 
@@ -91,7 +98,7 @@ const editor = useEditor({
 
 ## 4. 样式顺序
 
-`style.css` 依赖 shadcn 的 CSS 变量（`--border`、`--background`、`--muted`、`--radius` 等），请在全局样式之后导入；组件自身不生成 Tailwind 类，也不要求 content 扫描。
+`style.css` 依赖 shadcn 的 CSS 变量（`--border`、`--background`、`--muted`、`--radius` 等），请在全局样式之后导入。没有 Tailwind 的项目，把 [主题与样式](/guide/theming) 里的变量块贴进全局 CSS 即可。
 
 ## 注意事项
 
