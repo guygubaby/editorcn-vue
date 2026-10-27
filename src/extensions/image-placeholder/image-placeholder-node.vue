@@ -62,6 +62,13 @@ const handleAcceptedFiles = async (files: File[]) => {
   if (files.length === 0) {
     return;
   }
+  const limit = options().maxFiles;
+  const tooMany = Boolean(limit) && files.length > limit!;
+  const accepted = tooMany ? files.slice(0, limit) : files;
+  if (tooMany) {
+    options().onDropRejected?.(files.slice(limit), props.editor);
+  }
+  files = accepted;
   uploading.value = true;
   uploadError.value = null;
   try {

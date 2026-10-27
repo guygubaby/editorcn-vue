@@ -18,6 +18,7 @@ const state = useEditorState(
 
 type TextItem = {
   key: string;
+  label: string;
   markup: string;
   isActive: () => boolean;
   run: (editor: Editor) => void;
@@ -26,6 +27,7 @@ type TextItem = {
 const items: TextItem[] = [
   {
     key: "bold",
+    label: "Bold",
     markup:
       '<path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" /><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z" />',
     isActive: () => state.value.isBold,
@@ -35,6 +37,7 @@ const items: TextItem[] = [
   },
   {
     key: "italic",
+    label: "Italic",
     markup:
       '<line x1="19" y1="4" x2="10" y2="4" /><line x1="14" y1="20" x2="5" y2="20" /><line x1="15" y1="4" x2="9" y2="20" />',
     isActive: () => state.value.isItalic,
@@ -44,6 +47,7 @@ const items: TextItem[] = [
   },
   {
     key: "underline",
+    label: "Underline",
     markup:
       '<path d="M6 4v6a6 6 0 0 0 12 0V4" /><line x1="4" y1="20" x2="20" y2="20" />',
     isActive: () => state.value.isUnderline,
@@ -53,6 +57,7 @@ const items: TextItem[] = [
   },
   {
     key: "strike",
+    label: "Strikethrough",
     markup:
       '<path d="M16 4H9.5a3.5 3.5 0 0 0-2.9 5.4" /><path d="M14.5 14.6a3.5 3.5 0 0 1-2.9 5.4H8" /><line x1="4" y1="12" x2="20" y2="12" />',
     isActive: () => state.value.isStrike,
@@ -62,6 +67,7 @@ const items: TextItem[] = [
   },
   {
     key: "code",
+    label: "Code",
     markup:
       '<polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />',
     isActive: () => state.value.isCode,
@@ -79,6 +85,9 @@ const items: TextItem[] = [
       :key="item.key"
       type="button"
       :class="['rte-bubble-btn', item.isActive() && 'rte-bubble-btn--active']"
+      :aria-label="item.label"
+      :title="item.label"
+      :aria-pressed="item.isActive()"
       @mousedown.prevent
       @click="item.run(editor)"
     >
