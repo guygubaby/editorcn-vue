@@ -2,10 +2,11 @@
 
 Vue 3 port of [editorcn](https://github.com/shadcn-labs/editorcn) — rich text editor components built on Tiptap, themed with shadcn/ui tokens.
 
-This repo currently contains two packages:
+This repo currently contains three packages:
 
 - **toolbar editor** — `RichTextEditor` with 25+ controls, the bubble menu, the link popover, word count, and three visual variants.
 - **block editor** — `BlockEditor` with slash commands, a drag handle, a node selector, the bubble menu, and the mobile bottom bar.
+- **extensions** — `Table` with hover grips and add handles, plus `ImagePlaceholder` / `ResizableImage` with upload, embed, resize, align, duplicate and delete.
 
 ## Getting started
 
@@ -149,6 +150,51 @@ const editor = useEditor({
 - The bottom bar only shows on touch devices (`hover: none` + `pointer: coarse`); desktop uses the drag handle and bubble menu.
 - Node selector actions include copy and delete for the current block.
 
+## Extensions
+
+```vue
+<script setup lang="ts">
+import {
+  ImagePlaceholder,
+  ImagePlaceholderToolbar,
+  ResizableImage,
+  Table,
+  TableHoverOverlay,
+  TableToolbar,
+} from "./extensions";
+import "./extensions/ui/style.css";
+import "./extensions/table/style.css";
+import "./extensions/image-placeholder/style.css";
+
+const editor = useEditor({
+  extensions: [
+    StarterKit.configure({ gapcursor: false }), // Table registers its own gapcursor
+    Table,
+    ImagePlaceholder,
+    ResizableImage,
+  ],
+});
+</script>
+
+<template>
+  <RichTextEditor :editor="editor">
+    <RichTextEditor.Toolbar>
+      <TableToolbar :editor="editor" />
+      <ImagePlaceholderToolbar :editor="editor" />
+    </RichTextEditor.Toolbar>
+    <RichTextEditor.Content>
+      <TableHoverOverlay :editor="editor" />
+    </RichTextEditor.Content>
+  </RichTextEditor>
+</template>
+```
+
+- `TableToolbar` opens a drag-selectable grid picker; inside a table it shows row/column actions instead.
+- `TableHoverOverlay` draws the row and column grips, the trailing add handles, and their menus. It measures the table every frame so the handles follow scroll and resize.
+- `ImagePlaceholder` is an atom block that drops or embeds a file and replaces itself with the image node.
+- `ResizableImage` adds `align` / `width` attributes and a drag-to-resize node view with a floating action bar.
+- Wrap any of them in `<ToolbarProvider :editor :labels="...">` to translate labels or inject the editor once.
+
 ## Differences from the React original
 
 - Compound components are Vue components attached to the `RichTextEditor` object; `<RichTextEditor.Bold />` works in templates.
@@ -157,7 +203,6 @@ const editor = useEditor({
 
 ## Not ported yet
 
-- `extensions` package (table, image placeholder)
 - `static-renderer` (`@tiptap/static-renderer` has no Vue entry; use its `html-string` output)
 - Twitter / YouTube embed controls
 - shadcn registry distribution and the docs site

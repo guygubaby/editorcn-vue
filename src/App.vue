@@ -19,6 +19,14 @@ import {
   getSlashCommandSuggestion,
 } from "./block-editor";
 import { RichTextEditor } from "./editor";
+import {
+  ImagePlaceholder,
+  ImagePlaceholderToolbar,
+  ResizableImage,
+  Table,
+  TableHoverOverlay,
+  TableToolbar,
+} from "./extensions";
 import type { RichTextEditorVariant } from "./editor";
 
 const toolbarContent = `
@@ -45,7 +53,22 @@ const blockContent = `
 </ul>
 `;
 
-const mode = ref<"toolbar" | "block">("toolbar");
+const extensionContent = `
+<h2>Tables and images</h2>
+<p>Insert a table from the toolbar, then hover a row or column to reveal its grip. The image block accepts a URL or a local file.</p>
+<table>
+  <tbody>
+    <tr><th>Block</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Table</td><td>Ported</td><td>Hover grips, add handles</td></tr>
+    <tr><td>Image</td><td>Ported</td><td>Resize, align, duplicate</td></tr>
+  </tbody>
+</table>
+<p></p>
+<div data-type="imagePlaceholder"></div>
+<p></p>
+`;
+
+const mode = ref<"toolbar" | "block" | "extensions">("toolbar");
 const isDark = ref(true);
 const editable = ref(true);
 const variant = ref<RichTextEditorVariant>("default");
@@ -67,6 +90,26 @@ const editor = useEditor({
   extensions: [
     ...baseExtensions,
     Placeholder.configure({ placeholder: "Start typing..." }),
+    CharacterCount,
+  ],
+});
+
+const extensionEditor = useEditor({
+  content: extensionContent,
+  extensions: [
+    StarterKit.configure({
+      codeBlock: false,
+      gapcursor: false,
+      link: false,
+    }),
+    Link,
+    CodeBlock,
+    Highlight.configure({ multicolor: true }),
+    TextStyle,
+    Color,
+    Table,
+    ImagePlaceholder,
+    ResizableImage,
     CharacterCount,
   ],
 });
@@ -103,7 +146,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
       <div class="flex items-center gap-2 text-xs">
         <div class="flex rounded-md border border-border p-0.5">
           <button
-            v-for="option in (['toolbar', 'block'] as const)"
+            v-for="option in (['toolbar', 'block', 'extensions'] as const)"
             :key="option"
             type="button"
             class="rounded px-2 py-1 capitalize transition-colors"
@@ -203,6 +246,48 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
       <RichTextEditor.Footer show-word-count />
     </RichTextEditor>
 
-    <BlockEditor v-else :editor="blockEditor" />
+    <BlockEditor v-else-if="mode === 'block'" :editor="blockEditor" />
+
+    <RichTextEditor v-else :editor="extensionEditor">
+      <RichTextEditor.Toolbar sticky>
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Bold />
+          <RichTextEditor.Italic />
+          <RichTextEditor.Underline />
+          <RichTextEditor.Strikethrough />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.H2 />
+          <RichTextEditor.H3 />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.BulletList />
+          <RichTextEditor.OrderedList />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Link />
+          <RichTextEditor.Unlink />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <TableToolbar :editor="extensionEditor ?? null" />
+          <ImagePlaceholderToolbar :editor="extensionEditor ?? null" />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <RichTextEditor.Undo />
+          <RichTextEditor.Redo />
+        </RichTextEditor.ControlsGroup>
+      </RichTextEditor.Toolbar>
+
+      <RichTextEditor.Content>
+        <TableHoverOverlay :editor="extensionEditor ?? null" />
+      </RichTextEditor.Content>
+
+      <RichTextEditor.Footer show-word-count />
+    </RichTextEditor>
   </main>
 </template>
