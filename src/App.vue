@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CharacterCount from "@tiptap/extension-character-count";
 import Highlight from "@tiptap/extension-highlight";
+import { TaskItem, TaskList } from "@tiptap/extension-list";
 import Placeholder from "@tiptap/extension-placeholder";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
@@ -10,10 +11,17 @@ import StarterKit from "@tiptap/starter-kit";
 import { useEditor } from "@tiptap/vue-3";
 import { ref } from "vue";
 
-import { CodeBlock, Link, RichTextEditor } from "./editor";
+import {
+  BlockEditor,
+  CodeBlock,
+  Link,
+  SlashCommand,
+  getSlashCommandSuggestion,
+} from "./block-editor";
+import { RichTextEditor } from "./editor";
 import type { RichTextEditorVariant } from "./editor";
 
-const content = `
+const toolbarContent = `
 <h2>Welcome to editorcn-vue</h2>
 <p><code>RichTextEditor</code> is a Vue 3 port of <a href="https://github.com/shadcn-labs/editorcn">editorcn</a>, built on <a href="https://tiptap.dev/">Tiptap</a> and styled with shadcn/ui tokens.</p>
 <ul>
@@ -26,24 +34,51 @@ const content = `
 <pre><code class="language-typescript">const greet = (name: string) => \`Hello, \${name}!\`;</code></pre>
 `;
 
+const blockContent = `
+<p>Type <code>/</code> on an empty line to open the slash menu. Hover a block to grab its drag handle.</p>
+<h2>A block editor</h2>
+<p>Everything is a block: headings, lists, quotes, code and dividers. Select text for the bubble menu.</p>
+<ul>
+  <li>Try the node selector on the left of the bubble menu</li>
+  <li>Copy or delete a whole block from the same menu</li>
+  <li>The bottom bar stays above the mobile keyboard</li>
+</ul>
+`;
+
+const mode = ref<"toolbar" | "block">("toolbar");
 const isDark = ref(true);
 const editable = ref(true);
 const variant = ref<RichTextEditorVariant>("default");
 
+const baseExtensions = [
+  StarterKit.configure({ codeBlock: false, link: false }),
+  Link,
+  CodeBlock,
+  TextAlign.configure({ types: ["heading", "paragraph"] }),
+  Highlight.configure({ multicolor: true }),
+  TextStyle,
+  Color,
+  Subscript,
+  Superscript,
+];
+
 const editor = useEditor({
-  content,
+  content: toolbarContent,
   extensions: [
-    StarterKit.configure({ codeBlock: false, link: false }),
-    Link,
-    CodeBlock,
-    TextAlign.configure({ types: ["heading", "paragraph"] }),
+    ...baseExtensions,
     Placeholder.configure({ placeholder: "Start typing..." }),
-    Highlight.configure({ multicolor: true }),
-    TextStyle,
-    Color,
-    Subscript,
-    Superscript,
     CharacterCount,
+  ],
+});
+
+const blockEditor = useEditor({
+  content: blockContent,
+  extensions: [
+    ...baseExtensions,
+    Placeholder.configure({ placeholder: "Type '/' for commands..." }),
+    TaskList,
+    TaskItem.configure({ nested: true }),
+    SlashCommand.configure({ suggestion: getSlashCommandSuggestion() }),
   ],
 });
 
@@ -67,6 +102,22 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
 
       <div class="flex items-center gap-2 text-xs">
         <div class="flex rounded-md border border-border p-0.5">
+          <button
+            v-for="option in (['toolbar', 'block'] as const)"
+            :key="option"
+            type="button"
+            class="rounded px-2 py-1 capitalize transition-colors"
+            :class="
+              mode === option
+                ? 'bg-muted text-foreground'
+                : 'text-muted-foreground hover:text-foreground'
+            "
+            @click="mode = option"
+          >
+            {{ option }}
+          </button>
+        </div>
+        <div v-if="mode === 'toolbar'" class="flex rounded-md border border-border p-0.5">
           <button
             v-for="option in variants"
             :key="option"
@@ -99,7 +150,12 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
       </div>
     </header>
 
-    <RichTextEditor :editor="editor" :editable="editable" :variant="variant">
+    <RichTextEditor
+      v-if="mode === 'toolbar'"
+      :editor="editor"
+      :editable="editable"
+      :variant="variant"
+    >
       <RichTextEditor.Toolbar sticky>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />
@@ -146,5 +202,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
 
       <RichTextEditor.Footer show-word-count />
     </RichTextEditor>
+
+    <BlockEditor v-else :editor="blockEditor" />
   </main>
 </template>
