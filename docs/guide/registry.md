@@ -13,6 +13,29 @@
 
 `block-editor` 和 `extensions` 在 registry 里声明了对 `editor` 的依赖，CLI 会顺着 URL 自动把它一起装上，不需要手动先装 `editor`。
 
+## 普通 Vue 3 项目
+
+不要求 Tailwind，也不要求完整跑 shadcn-vue 初始化。CLI 只需要一个 `components.json` 来决定文件位置——没有 preferences 的项目手写这个文件即可：
+
+```json
+{
+  "$schema": "https://shadcn-vue.com/schema.json",
+  "style": "default",
+  "typescript": true,
+  "tailwind": { "css": "src/style.css", "baseColor": "neutral", "cssVariables": true },
+  "aliases": {
+    "components": "@/components",
+    "composables": "@/composables",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib"
+  },
+  "iconLibrary": "lucide"
+}
+```
+
+再确保 `tsconfig.json` 里有 `"paths": { "@/*": ["src/*"] }`（或把 `aliases.components` 改成你实际用的相对路径），就可以直接 `add`。组件不依赖 Tailwind 或 Preflight。
+
 ## 安装命令
 
 ```bash
