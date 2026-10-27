@@ -56,7 +56,7 @@ const handleUnlink = () => {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="rte-anchored">
     <button
       type="button"
       :class="[

@@ -121,7 +121,7 @@ const selectHighlight = (color: string, label: string) => {
 </script>
 
 <template>
-  <div v-if="hasColor || hasHighlight" class="relative">
+  <div v-if="hasColor || hasHighlight" class="rte-anchored">
     <button
       type="button"
       :class="[

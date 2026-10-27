@@ -47,7 +47,7 @@ const activeItem = computed(() => items.value.find((item) => item.isActive));
 </script>
 
 <template>
-  <div class="relative">
+  <div class="rte-anchored">
     <button
       type="button"
       class="block-editor-bubble-btn"

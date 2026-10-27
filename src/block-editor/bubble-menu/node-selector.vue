@@ -126,7 +126,7 @@ const activeItem = computed(() =>
 </script>
 
 <template>
-  <div class="relative">
+  <div class="rte-anchored">
     <button
       type="button"
       class="block-editor-bubble-btn"
