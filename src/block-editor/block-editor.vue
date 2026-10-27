@@ -57,6 +57,12 @@ const handleAdd = () => {
   if (node.type.spec.code || node.isLeaf) {
     return;
   }
+  // The hovered position can be stale if the doc changed under it; only use it
+  // when the node there is still the hovered one.
+  const current = editor.state.doc.nodeAt(pos);
+  if (!current || current.type !== node.type) {
+    return;
+  }
   editor.chain().focus(pos + 1).insertContent("/").run();
 };
 </script>

@@ -29,20 +29,17 @@ declare module "@tiptap/core" {
 const clampIndex = (index: number, length: number): number =>
   Math.max(0, Math.min(index, length - 1));
 
-const findTablePosition = (doc: {
-  descendants: (
-    cb: (node: { type: { name: string } }, pos: number) => boolean | undefined
-  ) => void;
+const findTablePosition = (selection: {
+  $from: { depth: number; node: (depth: number) => { type: { name: string } }; before: (depth: number) => number };
 }): number => {
-  let position = -1;
-  doc.descendants((node, pos) => {
-    if (position !== -1 || node.type.name !== "table") {
-      return position === -1;
+  // Resolve the table that contains the cursor, not the first table in the doc.
+  const { $from } = selection;
+  for (let depth = $from.depth; depth > 0; depth -= 1) {
+    if ($from.node(depth).type.name === "table") {
+      return $from.before(depth);
     }
-    position = pos;
-    return false;
-  });
-  return position;
+  }
+  return -1;
 };
 
 export const Table = TiptapTable.extend<TableConfigOptions>({
@@ -60,7 +57,7 @@ export const Table = TiptapTable.extend<TableConfigOptions>({
       moveColumn:
         (from: number, to: number) =>
         ({ dispatch, state }: CommandProps) => {
-          const tablePos = findTablePosition(state.doc);
+          const tablePos = findTablePosition(state.selection);
           if (tablePos === -1 || from === to) {
             return false;
           }
@@ -109,7 +106,7 @@ export const Table = TiptapTable.extend<TableConfigOptions>({
       moveRow:
         (from: number, to: number) =>
         ({ dispatch, state }: CommandProps) => {
-          const tablePos = findTablePosition(state.doc);
+          const tablePos = findTablePosition(state.selection);
           if (tablePos === -1 || from === to) {
             return false;
           }

@@ -88,4 +88,59 @@ describe("table commands", () => {
     expect(editor.commands.moveColumn(0, 99)).toBe(true);
     expect(tableRows(editor)[0]).toEqual(["B", "C", "A"]);
   });
+
+  it("moves the table under the cursor when there are two", () => {
+    const editor = createEditor(`
+<p>first</p>
+<table><tbody><tr><th>A</th><th>B</th></tr><tr><td>1</td><td>2</td></tr></tbody></table>
+<p>second</p>
+<table><tbody><tr><th>X</th><th>Y</th></tr><tr><td>7</td><td>8</td></tr></tbody></table>
+`);
+
+    // Put the cursor inside the second table's first cell.
+    let secondTablePos = -1;
+    let index = 0;
+    editor.state.doc.descendants((node, pos) => {
+      if (node.type.name === "table") {
+        index += 1;
+        if (index === 2) {
+          secondTablePos = pos;
+        }
+      }
+      return true;
+    });
+    editor.commands.setTextSelection(secondTablePos + 3);
+
+    expect(editor.commands.moveColumn(0, 1)).toBe(true);
+
+    const tables: string[][][] = [];
+    editor.state.doc.descendants((node) => {
+      if (node.type.name === "table") {
+        const rows: string[][] = [];
+        node.forEach((row) => {
+          const cells: string[] = [];
+          row.forEach((cell) => cells.push(cell.textContent));
+          rows.push(cells);
+        });
+        tables.push(rows);
+      }
+      return true;
+    });
+
+    expect(tables[0]).toEqual([
+      ["A", "B"],
+      ["1", "2"],
+    ]);
+    expect(tables[1]).toEqual([
+      ["Y", "X"],
+      ["8", "7"],
+    ]);
+  });
+
+  it("does nothing when the cursor is not inside a table", () => {
+    const editor = createEditor(`<p>paragraph</p>${CONTENT}`);
+    editor.commands.setTextSelection(2);
+
+    expect(editor.commands.moveColumn(0, 1)).toBe(false);
+  });
 });

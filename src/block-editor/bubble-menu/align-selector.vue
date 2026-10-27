@@ -51,6 +51,8 @@ const activeItem = computed(() => items.value.find((item) => item.isActive));
     <button
       type="button"
       class="block-editor-bubble-btn"
+      aria-label="Alignment"
+      title="Alignment"
       @mousedown.prevent
       @click="open = !open"
     >

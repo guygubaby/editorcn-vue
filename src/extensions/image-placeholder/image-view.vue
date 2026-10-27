@@ -75,7 +75,8 @@ const resize = (event: MouseEvent) => {
   const newWidth = Math.max(resizeInitialWidth.value + dx, 150);
   const parentWidth = nodeElement()?.parentElement?.offsetWidth || 0;
   if (newWidth < parentWidth) {
-    props.updateAttributes({ width: newWidth });
+    // Store px so the value is unambiguous across string/number transitions.
+    props.updateAttributes({ width: `${newWidth}px` });
   }
 };
 
@@ -100,7 +101,7 @@ const handleTouchMove = (event: TouchEvent) => {
   const newWidth = Math.max(resizeInitialWidth.value + dx, 150);
   const parentWidth = nodeElement()?.parentElement?.offsetWidth || 0;
   if (newWidth < parentWidth) {
-    props.updateAttributes({ width: newWidth });
+    props.updateAttributes({ width: `${newWidth}px` });
   }
 };
 
@@ -113,21 +114,19 @@ const startResize = (position: "left" | "right", clientX: number) => {
   }
 };
 
-const handleMouseDown =
-  (position: "left" | "right") => (event: MouseEvent) => {
-    event.preventDefault();
-    startResize(position, event.clientX);
-  };
+const handleMouseDown = (position: "left" | "right", event: MouseEvent) => {
+  event.preventDefault();
+  startResize(position, event.clientX);
+};
 
-const handleTouchStart =
-  (position: "left" | "right") => (event: TouchEvent) => {
-    event.preventDefault();
-    const touch = event.touches.item(0);
-    if (!touch) {
-      return;
-    }
-    startResize(position, touch.clientX);
-  };
+const handleTouchStart = (position: "left" | "right", event: TouchEvent) => {
+  event.preventDefault();
+  const touch = event.touches.item(0);
+  if (!touch) {
+    return;
+  }
+  startResize(position, touch.clientX);
+};
 
 const duplicate = () => {
   const pos = props.getPos();
@@ -205,15 +204,15 @@ onBeforeUnmount(() => {
     <template v-if="props.editor?.isEditable">
       <div
         class="ext-image-resize ext-image-resize--left"
-        @mousedown="handleMouseDown('left')"
-        @touchstart="handleTouchStart('left')"
+        @mousedown="handleMouseDown('left', $event)"
+        @touchstart="handleTouchStart('left', $event)"
       >
         <div class="ext-image-resize-bar" />
       </div>
       <div
         class="ext-image-resize ext-image-resize--right"
-        @mousedown="handleMouseDown('right')"
-        @touchstart="handleTouchStart('right')"
+        @mousedown="handleMouseDown('right', $event)"
+        @touchstart="handleTouchStart('right', $event)"
       >
         <div class="ext-image-resize-bar" />
       </div>

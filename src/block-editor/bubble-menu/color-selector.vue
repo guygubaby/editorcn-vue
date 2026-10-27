@@ -128,6 +128,7 @@ const selectColor = (type: SwatchType, color: string, label: string) => {
         (state.textColor || state.highlightColor) &&
           'block-editor-bubble-btn--active',
       ]"
+      aria-label="Text color"
       title="Text color"
       @mousedown.prevent
       @click="open = !open"

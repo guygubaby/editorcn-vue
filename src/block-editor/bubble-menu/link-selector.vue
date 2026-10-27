@@ -63,6 +63,7 @@ const handleUnlink = () => {
         'block-editor-bubble-btn',
         isLink && 'block-editor-bubble-btn--active',
       ]"
+      aria-label="Link"
       title="Link"
       @mousedown.prevent
       @click="toggle"

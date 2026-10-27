@@ -128,7 +128,9 @@ const selectHighlight = (color: string, label: string) => {
         'rte-bubble-btn',
         (state.textColor || state.highlightColor) && 'rte-bubble-btn--active',
       ]"
+      aria-label="Text color"
       title="Text color"
+      :aria-pressed="Boolean(state.textColor || state.highlightColor)"
       @mousedown.prevent
       @click="open = !open"
     >

@@ -89,8 +89,8 @@ export const MediaUpload = Extension.create<MediaUploadOptions>({
           const chain = editor.chain().focus();
           if (typeof position === "number") {
             chain.insertContentAt(position, node).run();
-            // keep subsequent files after the inserted node
-            position += 1;
+            // Advance past the node just inserted so the next file follows it.
+            position += editor.state.doc.nodeAt(position)?.nodeSize ?? 1;
           } else {
             chain.insertContent(node).run();
           }

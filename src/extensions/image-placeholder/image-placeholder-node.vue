@@ -40,6 +40,14 @@ const insertImages = (results: UploadResult[]) => {
   if (typeof pos !== "number" || results.length === 0) {
     return;
   }
+  // The placeholder may have moved while the upload was in flight, so the
+  // current position is read at insert time and the node is matched by identity.
+  if (
+    props.editor.isDestroyed ||
+    props.editor.state.doc.nodeAt(pos)?.type.name !== props.node.type.name
+  ) {
+    return;
+  }
   props.editor
     .chain()
     .focus()

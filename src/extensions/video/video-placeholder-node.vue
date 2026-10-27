@@ -27,7 +27,11 @@ const options = () => props.extension.options as VideoPlaceholderOptions;
 
 const insertVideo = (result: UploadResult) => {
   const pos = props.getPos();
-  if (typeof pos !== "number") {
+  if (
+    typeof pos !== "number" ||
+    props.editor.isDestroyed ||
+    props.editor.state.doc.nodeAt(pos)?.type.name !== props.node.type.name
+  ) {
     return;
   }
   props.editor

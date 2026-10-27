@@ -46,7 +46,11 @@ const handleSave = () => {
   url.value = "";
 };
 
-const handleEditLink = () => {
+const handleEditLink = (event: Event) => {
+  // Ignore Mod-k from other editors on the same page.
+  if ((event as CustomEvent).detail !== editor.value) {
+    return;
+  }
   open.value = true;
 };
 

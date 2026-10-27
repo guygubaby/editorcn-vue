@@ -456,30 +456,32 @@ const handleLeave = (event: PointerEvent) => {
 
 const handleOverlayOver = () => cancelHide();
 
-const dom = () => editor.value?.view.dom as HTMLElement | undefined;
+// Remember what was actually bound: re-reading the refs in detach() would
+// target the new elements and leak listeners on the old ones.
+let boundDom: HTMLElement | null = null;
+let boundAnchor: HTMLElement | null = null;
 
 const attach = () => {
-  const element = dom();
-  element?.addEventListener("pointerover", handleOver);
-  element?.addEventListener("pointerleave", handleLeave);
-  anchorRef.value?.addEventListener("pointerover", handleOverlayOver);
+  detach();
+  boundDom = (editor.value?.view.dom as HTMLElement | undefined) ?? null;
+  boundAnchor = anchorRef.value;
+  boundDom?.addEventListener("pointerover", handleOver);
+  boundDom?.addEventListener("pointerleave", handleLeave);
+  boundAnchor?.addEventListener("pointerover", handleOverlayOver);
 };
 
 const detach = () => {
-  const element = dom();
-  element?.removeEventListener("pointerover", handleOver);
-  element?.removeEventListener("pointerleave", handleLeave);
-  anchorRef.value?.removeEventListener("pointerover", handleOverlayOver);
+  boundDom?.removeEventListener("pointerover", handleOver);
+  boundDom?.removeEventListener("pointerleave", handleLeave);
+  boundAnchor?.removeEventListener("pointerover", handleOverlayOver);
+  boundDom = null;
+  boundAnchor = null;
 };
 
-watch(
-  () => editor.value,
-  () => {
-    detach();
-    attach();
-  }
-);
+watch(() => editor.value, attach);
 
+// The overlay measures every frame, which is only worth doing while the
+// pointer is over a row or column; stop the loop otherwise.
 watch(isActive, (active) => {
   cancelAnimationFrame(frame);
   if (!active) {

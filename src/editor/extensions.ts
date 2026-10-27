@@ -6,9 +6,11 @@ const lowlight = createLowlight(common);
 
 export const Link = TipTapLink.extend({
   addKeyboardShortcuts() {
+    const editor = this.editor;
     return {
       "Mod-k": () => {
-        window.dispatchEvent(new Event("edit-link"));
+        // The detail carries the editor so only its own popover opens.
+        window.dispatchEvent(new CustomEvent("edit-link", { detail: editor }));
         return true;
       },
     };
