@@ -157,7 +157,9 @@ for (const pkg of packages) {
     .filter((entry) => entry.pkg === pkg.name)
     .map((entry) => ({
       // `path` is relative to the components alias, matching shadcn-vue's own items.
-      path: entry.flat.split("/").slice(1).join("/"),
+      // Keep the package folder: the CLI keeps the deepest shared directory for
+      // nested-looking paths, so every file needs the same two-segment shape.
+      path: entry.flat,
       type: "registry:component",
       content: rewriteImports(readFileSync(entry.abs, "utf8"), entry),
     }));
