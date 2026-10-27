@@ -27,6 +27,7 @@ import {
   TableHoverOverlay,
   TableToolbar,
 } from "./extensions";
+import { StaticRenderer } from "./static-renderer";
 import type { RichTextEditorVariant } from "./editor";
 
 const toolbarContent = `
@@ -68,7 +69,54 @@ const extensionContent = `
 <p></p>
 `;
 
-const mode = ref<"toolbar" | "block" | "extensions">("toolbar");
+const staticJson = {
+  type: "doc",
+  content: [
+    {
+      type: "heading",
+      attrs: { level: 2 },
+      content: [{ type: "text", text: "Static rendering" }],
+    },
+    {
+      type: "paragraph",
+      content: [
+        { type: "text", text: "The same document rendered from " },
+        { type: "text", marks: [{ type: "bold" }], text: "ProseMirror JSON" },
+        { type: "text", text: " — no editor instance, no DOM hydration." },
+      ],
+    },
+    {
+      type: "bulletList",
+      content: [
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Read-only comments, emails, PDFs" }],
+            },
+          ],
+        },
+        {
+          type: "listItem",
+          content: [
+            {
+              type: "paragraph",
+              content: [{ type: "text", text: "Server-rendered previews" }],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: "codeBlock",
+      attrs: { language: "typescript" },
+      content: [{ type: "text", text: "renderToHTMLString({ content, extensions })" }],
+    },
+  ],
+};
+
+const mode = ref<"toolbar" | "block" | "extensions" | "static">("toolbar");
 const isDark = ref(true);
 const editable = ref(true);
 const variant = ref<RichTextEditorVariant>("default");
@@ -146,7 +194,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
       <div class="flex items-center gap-2 text-xs">
         <div class="flex rounded-md border border-border p-0.5">
           <button
-            v-for="option in (['toolbar', 'block', 'extensions'] as const)"
+            v-for="option in (['toolbar', 'block', 'extensions', 'static'] as const)"
             :key="option"
             type="button"
             class="rounded px-2 py-1 capitalize transition-colors"
@@ -248,7 +296,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
 
     <BlockEditor v-else-if="mode === 'block'" :editor="blockEditor" />
 
-    <RichTextEditor v-else :editor="extensionEditor">
+    <RichTextEditor v-else-if="mode === 'extensions'" :editor="extensionEditor">
       <RichTextEditor.Toolbar sticky>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />
@@ -289,5 +337,21 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
 
       <RichTextEditor.Footer show-word-count />
     </RichTextEditor>
+
+    <div v-else class="flex flex-col gap-4">
+      <section class="rounded-lg border border-border p-4">
+        <p class="mb-3 text-xs tracking-wide text-muted-foreground uppercase">
+          From an HTML string
+        </p>
+        <StaticRenderer :content="editor?.getHTML() ?? ''" />
+      </section>
+
+      <section class="rounded-lg border border-border p-4">
+        <p class="mb-3 text-xs tracking-wide text-muted-foreground uppercase">
+          From ProseMirror JSON
+        </p>
+        <StaticRenderer :content="staticJson" :extensions="baseExtensions" />
+      </section>
+    </div>
   </main>
 </template>

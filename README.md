@@ -2,11 +2,12 @@
 
 Vue 3 port of [editorcn](https://github.com/shadcn-labs/editorcn) — rich text editor components built on Tiptap, themed with shadcn/ui tokens.
 
-This repo currently contains three packages:
+This repo currently contains four packages:
 
 - **toolbar editor** — `RichTextEditor` with 25+ controls, the bubble menu, the link popover, word count, and three visual variants.
 - **block editor** — `BlockEditor` with slash commands, a drag handle, a node selector, the bubble menu, and the mobile bottom bar.
 - **extensions** — `Table` with hover grips and add handles, plus `ImagePlaceholder` / `ResizableImage` with upload, embed, resize, align, duplicate and delete.
+- **static renderer** — `StaticRenderer` for read-only HTML or ProseMirror JSON.
 
 ## Getting started
 
@@ -195,6 +196,27 @@ const editor = useEditor({
 - `ResizableImage` adds `align` / `width` attributes and a drag-to-resize node view with a floating action bar.
 - Wrap any of them in `<ToolbarProvider :editor :labels="...">` to translate labels or inject the editor once.
 
+## Static renderer
+
+```vue
+<script setup lang="ts">
+import { StaticRenderer } from "./static-renderer";
+import "./static-renderer/style.css";
+</script>
+
+<template>
+  <!-- HTML from editor.getHTML() -->
+  <StaticRenderer :content="html" />
+
+  <!-- ProseMirror JSON needs the extensions that define its nodes and marks -->
+  <StaticRenderer :content="json" :extensions="extensions" />
+</template>
+```
+
+`@tiptap/static-renderer` has no Vue entry, so JSON content is rendered with its `pm/html-string` renderer and set through `v-html`. `options.nodeMapping` / `markMapping` therefore return HTML strings rather than components.
+
+> Content passed as a string is trusted input; sanitize it if it comes from users.
+
 ## Differences from the React original
 
 - Compound components are Vue components attached to the `RichTextEditor` object; `<RichTextEditor.Bold />` works in templates.
@@ -203,7 +225,6 @@ const editor = useEditor({
 
 ## Not ported yet
 
-- `static-renderer` (`@tiptap/static-renderer` has no Vue entry; use its `html-string` output)
 - Twitter / YouTube embed controls
 - shadcn registry distribution and the docs site
 
