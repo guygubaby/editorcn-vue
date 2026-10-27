@@ -36,6 +36,11 @@ type NodeItem = {
   command: () => void;
 };
 
+const hasTaskList = () =>
+  props.editor.extensionManager.extensions.some(
+    (extension) => extension.name === "taskList"
+  );
+
 const items = computed<NodeItem[]>(() => [
   {
     name: "Text",
@@ -85,12 +90,16 @@ const items = computed<NodeItem[]>(() => [
     isActive: () => state.value.isOrderedList,
     command: () => props.editor.chain().focus().toggleOrderedList().run(),
   },
-  {
-    name: "To-do List",
-    icon: icons.value.slashTaskListIcon,
-    isActive: () => state.value.isTaskList,
-    command: () => props.editor.chain().focus().toggleTaskList().run(),
-  },
+  ...(hasTaskList()
+    ? [
+        {
+          name: "To-do List",
+          icon: icons.value.slashTaskListIcon,
+          isActive: () => state.value.isTaskList,
+          command: () => props.editor.chain().focus().toggleTaskList().run(),
+        },
+      ]
+    : []),
   {
     name: "Quote",
     icon: icons.value.slashBlockquoteIcon,

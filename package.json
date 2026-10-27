@@ -9,7 +9,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit",
-    "build:registry": "node scripts/build-registry.mjs"
+    "build:registry": "node scripts/build-registry.mjs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.8.0",
@@ -50,6 +53,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^5.9.0",
     "vite": "^8.3.5",
+    "vitepress": "^1.6.4",
     "vitest": "^5.0.5",
     "vue-tsc": "^3.3.13"
   }

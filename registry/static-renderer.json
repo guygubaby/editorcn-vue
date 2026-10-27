@@ -15,7 +15,7 @@
     {
       "path": "static-renderer/index.ts",
       "type": "registry:component",
-      "content": "export { default as StaticRenderer } from \"./static-renderer.vue\";\n"
+      "content": "export { default as StaticRenderer } from \"./static-renderer.vue\";\nexport { renderStaticHTML, resolveUniqueExtensions } from \"./render\";\nexport type { RenderStaticOptions } from \"./render\";\n"
     },
     {
       "path": "static-renderer/render.ts",

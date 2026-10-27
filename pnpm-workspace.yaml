@@ -1,2 +1,4 @@
 minimumReleaseAgeExclude:
   - '@lucide/vue@1.62.0'
+allowBuilds:
+  esbuild: true

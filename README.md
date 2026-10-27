@@ -9,14 +9,40 @@ This repo currently contains four packages:
 - **extensions** — `Table` with hover grips and add handles, `ImagePlaceholder` / `ResizableImage` with upload, embed, resize, align, duplicate and delete, and a `Video` block with a pluggable uploader.
 - **static renderer** — `StaticRenderer` for read-only HTML or ProseMirror JSON.
 
-## Getting started
+## Install
+
+No npm package. Each package is a shadcn-vue registry item served from GitHub, so the CLI writes the source straight into your project:
+
+```bash
+pnpm dlx shadcn-vue@latest add https://raw.githubusercontent.com/guygubaby/editorcn-vue/main/registry/editor.json
+pnpm dlx shadcn-vue@latest add https://raw.githubusercontent.com/guygubaby/editorcn-vue/main/registry/block-editor.json
+pnpm dlx shadcn-vue@latest add https://raw.githubusercontent.com/guygubaby/editorcn-vue/main/registry/extensions.json
+pnpm dlx shadcn-vue@latest add https://raw.githubusercontent.com/guygubaby/editorcn-vue/main/registry/static-renderer.json
+```
+
+Files land in `src/components/{editor,block-editor,extensions,static-renderer}` and their dependencies are installed automatically. `block-editor` and `extensions` pull `editor` through `registryDependencies`.
+
+Behind a proxy:
+
+```bash
+NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7890 \
+  pnpm dlx shadcn-vue@latest add https://raw.githubusercontent.com/guygubaby/editorcn-vue/main/registry/editor.json
+```
+
+## Local development
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev          # demo app
+pnpm test
+pnpm docs:dev     # documentation site
 ```
 
-`pnpm build` type-checks with `vue-tsc` and builds the demo.
+`pnpm build` type-checks with `vue-tsc` and builds the demo; `pnpm build:registry` regenerates `registry/*.json` from `src/`.
+
+## Documentation
+
+The docs site lives in `docs/` (VitePress): getting started, registry install, uploads, theming, and a page per package.
 
 ## Usage
 
@@ -265,7 +291,6 @@ import "./static-renderer/style.css";
 ## Not ported yet
 
 - Twitter / YouTube embed controls (skipped — the video block covers self-hosted media, and platform embeds need a per-platform iframe node)
-- shadcn registry distribution and the docs site
 
 ## License
 
