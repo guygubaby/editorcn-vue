@@ -4,7 +4,7 @@ Vue 3 port of [editorcn](https://github.com/shadcn-labs/editorcn) — rich text 
 
 Works in any Vue 3 project: the components ship plain CSS and read shadcn CSS variables. Tailwind is optional, not required.
 
-Docs: https://editorcn-vue.pages.dev
+Docs: https://editorcn-vue.guygubaby.top (llms.txt: https://editorcn-vue.guygubaby.top/llms.txt)
 
 This repo currently contains four packages:
 

@@ -6,6 +6,28 @@ export default defineConfig({
     "Vue 3 port of editorcn — Tiptap editor components styled with shadcn tokens.",
   lang: "zh-CN",
   cleanUrls: true,
+  sitemap: { hostname: "https://editorcn-vue.guygubaby.top" },
+  head: [
+    // Advertise the LLM-friendly text files (https://llmstxt.org).
+    [
+      "link",
+      {
+        rel: "alternate",
+        type: "text/plain",
+        title: "llms.txt",
+        href: "/llms.txt",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "alternate",
+        type: "text/plain",
+        title: "llms-full.txt",
+        href: "/llms-full.txt",
+      },
+    ],
+  ],
   themeConfig: {
     nav: [
       { text: "指南", link: "/guide/getting-started" },

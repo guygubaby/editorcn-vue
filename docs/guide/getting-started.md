@@ -100,6 +100,13 @@ const editor = useEditor({
 
 `style.css` 依赖 shadcn 的 CSS 变量（`--border`、`--background`、`--muted`、`--radius` 等），请在全局样式之后导入。没有 Tailwind 的项目，把 [主题与样式](/guide/theming) 里的变量块贴进全局 CSS 即可。
 
+## 给 LLM 用的文档
+
+站点同时提供纯文本版本，方便把整份文档喂给 AI：
+
+- `https://editorcn-vue.guygubaby.top/llms.txt` — 页面索引与摘要
+- `https://editorcn-vue.guygubaby.top/llms-full.txt` — 全部页面合并
+
 ## 注意事项
 
 - 图标默认来自 `@lucide/vue`，安装时会自动加入依赖。

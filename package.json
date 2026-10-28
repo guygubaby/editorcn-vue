@@ -10,9 +10,10 @@
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit",
     "build:registry": "node scripts/build-registry.mjs",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:dev": "node scripts/build-llms.mjs && vitepress dev docs",
+    "docs:build": "node scripts/build-llms.mjs && vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "docs:llms": "node scripts/build-llms.mjs"
   },
   "dependencies": {
     "@floating-ui/dom": "^1.8.0",
