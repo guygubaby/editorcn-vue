@@ -10,7 +10,7 @@
    the editor's own wrapper keeps the editor's bubble menu and drag handle
    intact. */
 
-.rte-scope .ext-table-overlay {
+.rte .ext-table-overlay {
   position: absolute;
   left: 0;
   top: 0;
@@ -19,7 +19,7 @@
   overflow: visible;
 }
 
-.rte-scope .ext-table-clip {
+.rte .ext-table-clip {
   position: absolute;
   overflow: hidden;
   pointer-events: none;
@@ -28,8 +28,8 @@
 /* The handles stay interactive even though the clip box ignores pointer
    events, so hovering a handle still reaches the editor's pointer handlers. */
 
-.rte-scope .ext-table-control,
-.rte-scope .ext-table-add {
+.rte .ext-table-control,
+.rte .ext-table-add {
   pointer-events: auto;
 }
 
@@ -39,7 +39,7 @@
    inside it) and as the horizontal scroll container so wide tables with
    many columns scroll instead of overflowing the content area. */
 
-.rte-scope .tableWrapper {
+.rte .tableWrapper {
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
@@ -54,7 +54,7 @@
    width and an inserted column extends the row width — the `.tableWrapper`
    scroll container above then shows the horizontal scrollbar instead. */
 
-.rte-scope .tableWrapper > table {
+.rte .tableWrapper > table {
   border-collapse: collapse;
   table-layout: fixed;
   width: max-content;
@@ -64,21 +64,21 @@
    an inline width, which overrides this). Prevents fixed-layout auto columns
    from collapsing to 0 / splitting the table width on insert. */
 
-.rte-scope .tableWrapper > table > colgroup > col {
+.rte .tableWrapper > table > colgroup > col {
   width: 8rem;
 }
 
 /* ── Cell borders & header row ── */
 
-.rte-scope .ProseMirror table {
+.rte .ProseMirror table {
   border-collapse: collapse;
   margin: 0;
   overflow: hidden;
   position: relative;
 }
 
-.rte-scope .ProseMirror td,
-.rte-scope .ProseMirror th {
+.rte .ProseMirror td,
+.rte .ProseMirror th {
   border: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
   vertical-align: top;
@@ -87,30 +87,30 @@
   position: relative;
 }
 
-.rte-scope .ProseMirror th {
+.rte .ProseMirror th {
   background: var(--muted);
   font-weight: 600;
 }
 
-.rte-scope .ProseMirror .selectedCell {
+.rte .ProseMirror .selectedCell {
   background: var(--accent);
 }
 
-.rte-scope .ext-table-control {
+.rte .ext-table-control {
   position: absolute;
   z-index: 2;
   animation: ext-table-pop-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.rte-scope .ext-table-control--column {
+.rte .ext-table-control--column {
   transform-origin: top center;
 }
 
-.rte-scope .ext-table-control--row {
+.rte .ext-table-control--row {
   transform-origin: center left;
 }
 
-.rte-scope .ext-table-grip {
+.rte .ext-table-grip {
   position: relative;
   display: flex;
   align-items: center;
@@ -132,14 +132,14 @@
     color 150ms ease-out;
 }
 
-.rte-scope .ext-table-grip::before {
+.rte .ext-table-grip::before {
   content: "";
   position: absolute;
   inset: -0.35rem;
   border-radius: calc(var(--radius) - 2px);
 }
 
-.rte-scope .ext-table-grip > svg {
+.rte .ext-table-grip > svg {
   position: absolute;
   inset: 0;
   margin: auto;
@@ -153,7 +153,7 @@
     scale 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.rte-scope .ext-table-grip-stroke {
+.rte .ext-table-grip-stroke {
   position: absolute;
   inset: 0;
   margin: auto;
@@ -164,57 +164,57 @@
   transition: opacity 150ms ease-out;
 }
 
-.rte-scope .ext-table-grip-stroke--column {
+.rte .ext-table-grip-stroke--column {
   width: 14px;
   height: 3px;
 }
 
-.rte-scope .ext-table-grip-stroke--row {
+.rte .ext-table-grip-stroke--row {
   width: 3px;
   height: 14px;
 }
 
-.rte-scope .ext-table-grip--row > svg {
+.rte .ext-table-grip--row > svg {
   rotate: 90deg;
 }
 
-.rte-scope .ext-table-grip:hover,
-.rte-scope .ext-table-grip[data-state="open"] {
+.rte .ext-table-grip:hover,
+.rte .ext-table-grip[data-state="open"] {
   background: var(--popover);
   border-color: var(--border);
   color: var(--foreground);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-.rte-scope .ext-table-grip:hover > svg,
-.rte-scope .ext-table-grip[data-state="open"] > svg,
-.rte-scope .ext-table-grip:focus-visible > svg {
+.rte .ext-table-grip:hover > svg,
+.rte .ext-table-grip[data-state="open"] > svg,
+.rte .ext-table-grip:focus-visible > svg {
   opacity: 1;
   scale: 1;
 }
 
-.rte-scope .ext-table-grip--row:hover > svg,
-.rte-scope .ext-table-grip--row[data-state="open"] > svg,
-.rte-scope .ext-table-grip--row:focus-visible > svg {
+.rte .ext-table-grip--row:hover > svg,
+.rte .ext-table-grip--row[data-state="open"] > svg,
+.rte .ext-table-grip--row:focus-visible > svg {
   rotate: 90deg;
   scale: 1;
 }
 
-.rte-scope .ext-table-grip:hover .ext-table-grip-stroke,
-.rte-scope .ext-table-grip[data-state="open"] .ext-table-grip-stroke {
+.rte .ext-table-grip:hover .ext-table-grip-stroke,
+.rte .ext-table-grip[data-state="open"] .ext-table-grip-stroke {
   opacity: 0;
 }
 
-.rte-scope .ext-table-grip:active {
+.rte .ext-table-grip:active {
   transform: scale(0.92);
 }
 
-.rte-scope .ext-table-grip:focus-visible {
+.rte .ext-table-grip:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
-.rte-scope .ext-table-add {
+.rte .ext-table-add {
   position: absolute;
   display: flex;
   align-items: center;
@@ -231,18 +231,18 @@
     transform 100ms ease-out;
 }
 
-.rte-scope .ext-table-add > svg {
+.rte .ext-table-add > svg {
   width: 0.875rem;
   height: 0.875rem;
   flex-shrink: 0;
 }
 
-.rte-scope .ext-table-add:hover {
+.rte .ext-table-add:hover {
   background: var(--accent);
   color: var(--accent-foreground);
 }
 
-.rte-scope .ext-table-add:active {
+.rte .ext-table-add:active {
   transform: scale(0.95);
 }
 
@@ -259,43 +259,43 @@
 
 /* ── Toolbar ── */
 
-.rte-scope.ext-table-toolbar-popover {
+.rte.ext-table-toolbar-popover {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
   padding: 0.5rem;
 }
 
-.rte-scope .ext-table-toolbar-item-spacer {
+.rte .ext-table-toolbar-item-spacer {
   flex: 1;
 }
 
-.rte-scope .ext-table-toolbar-label {
+.rte .ext-table-toolbar-label {
   padding: 0.25rem 0.5rem 0.375rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--muted-foreground);
 }
 
-.rte-scope .ext-table-grid {
+.rte .ext-table-grid {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   min-width: 11rem;
 }
 
-.rte-scope .ext-table-grid-popover {
+.rte .ext-table-grid-popover {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
 }
 
-.rte-scope .ext-table-grid-row {
+.rte .ext-table-grid-row {
   display: flex;
   gap: 0.25rem;
 }
 
-.rte-scope .ext-table-grid-cell {
+.rte .ext-table-grid-cell {
   width: 1rem;
   height: 1rem;
   border: 1px solid var(--border);
@@ -306,12 +306,12 @@
     border-color 100ms ease-out;
 }
 
-.rte-scope .ext-table-grid-cell--selected {
+.rte .ext-table-grid-cell--selected {
   border-color: var(--primary);
   background: var(--primary);
 }
 
-.rte-scope .ext-table-grid-result {
+.rte .ext-table-grid-result {
   border-radius: calc(var(--radius) - 4px);
   background: var(--muted);
   padding: 0.25rem 0.5rem;
@@ -323,7 +323,7 @@
 
 /* ── Column resize (prosemirror-tables) ── */
 
-.rte-scope .ProseMirror .column-resize-handle {
+.rte .ProseMirror .column-resize-handle {
   position: absolute;
   right: -2px;
   top: 0;
@@ -333,10 +333,10 @@
   pointer-events: none;
 }
 
-.rte-scope .ProseMirror .column-resize-dragging .column-resize-handle {
+.rte .ProseMirror .column-resize-dragging .column-resize-handle {
   background-color: var(--primary);
 }
 
-.rte-scope .ProseMirror.resize-cursor {
+.rte .ProseMirror.resize-cursor {
   cursor: col-resize;
 }

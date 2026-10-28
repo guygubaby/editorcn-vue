@@ -83,7 +83,7 @@ defineExpose({ onKeyDown });
 </script>
 
 <template>
-  <div class="rte-scope block-editor-slash-menu">
+  <div class="rte block-editor-slash-menu">
     <div class="block-editor-slash-menu-search">
       <span class="block-editor-slash-menu-search-icon">
         <component :is="DEFAULT_ICONS.searchIcon" class="block-editor-slash-menu-search-svg" />

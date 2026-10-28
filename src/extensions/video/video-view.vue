@@ -147,7 +147,7 @@ onBeforeUnmount(() => cancelAnimationFrame(frame));
     to="body"
   >
     <div
-      class="rte-scope ext-image-actions ext-image-actions--floating"
+      class="rte ext-image-actions ext-image-actions--floating"
       :style="actionBarStyle"
     >
       <button

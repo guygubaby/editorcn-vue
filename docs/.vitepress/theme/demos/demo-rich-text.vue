@@ -35,7 +35,7 @@ const editor = useEditor({
 <template>
   <div class="docs-demo">
     <div class="docs-demo-bar">
-      <span>variant</span>
+      <span>Variant</span>
       <button
         v-for="option in variants"
         :key="option"

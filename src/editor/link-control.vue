@@ -77,7 +77,7 @@ onUnmounted(() => window.removeEventListener("edit-link", handleEditLink));
       <PopoverContent
         side="bottom"
         :side-offset="4"
-        class="rte-scope rte-link-popover"
+        class="rte rte-link-popover"
       >
         <div class="rte-link-editor">
           <input

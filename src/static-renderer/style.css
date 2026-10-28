@@ -2,101 +2,101 @@
  * Targets the HTML produced by editor.getHTML() from both
  * @editorcn/editor and @editorcn/block-editor.
  */
-.rte-scope.rte-static-renderer {
+.rte.rte-static-renderer {
   color: var(--foreground);
 }
 
-.rte-scope.rte-static-renderer > *:last-child {
+.rte.rte-static-renderer > *:last-child {
   margin-bottom: 0;
 }
 
 /* ── Typography ── */
 
-.rte-scope.rte-static-renderer h1 {
+.rte.rte-static-renderer h1 {
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 1.2;
   margin: 0.5em 0 0.25em;
 }
 
-.rte-scope.rte-static-renderer h2 {
+.rte.rte-static-renderer h2 {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.25;
   margin: 0.5em 0 0.25em;
 }
 
-.rte-scope.rte-static-renderer h3 {
+.rte.rte-static-renderer h3 {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.3;
   margin: 0.5em 0 0.25em;
 }
 
-.rte-scope.rte-static-renderer h4 {
+.rte.rte-static-renderer h4 {
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.35;
   margin: 0.5em 0 0.25em;
 }
 
-.rte-scope.rte-static-renderer h5 {
+.rte.rte-static-renderer h5 {
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
   margin: 0.5em 0 0.25em;
 }
 
-.rte-scope.rte-static-renderer h6 {
+.rte.rte-static-renderer h6 {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 1.45;
   margin: 0.5em 0 0.25em;
 }
 
-.rte-scope.rte-static-renderer h1:first-child,
-.rte-scope.rte-static-renderer h2:first-child,
-.rte-scope.rte-static-renderer h3:first-child,
-.rte-scope.rte-static-renderer h4:first-child,
-.rte-scope.rte-static-renderer h5:first-child,
-.rte-scope.rte-static-renderer h6:first-child {
+.rte.rte-static-renderer h1:first-child,
+.rte.rte-static-renderer h2:first-child,
+.rte.rte-static-renderer h3:first-child,
+.rte.rte-static-renderer h4:first-child,
+.rte.rte-static-renderer h5:first-child,
+.rte.rte-static-renderer h6:first-child {
   margin-top: 0;
 }
 
-.rte-scope.rte-static-renderer p {
+.rte.rte-static-renderer p {
   margin: 0.25em 0;
   line-height: 1.6;
 }
 
-.rte-scope.rte-static-renderer ul {
+.rte.rte-static-renderer ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin: 0.25em 0;
 }
 
-.rte-scope.rte-static-renderer ul ul {
+.rte.rte-static-renderer ul ul {
   list-style-type: circle;
 }
 
-.rte-scope.rte-static-renderer ul ul ul {
+.rte.rte-static-renderer ul ul ul {
   list-style-type: square;
 }
 
-.rte-scope.rte-static-renderer ol {
+.rte.rte-static-renderer ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin: 0.25em 0;
 }
 
-.rte-scope.rte-static-renderer li {
+.rte.rte-static-renderer li {
   margin: 0.125em 0;
 }
 
-.rte-scope.rte-static-renderer li > p {
+.rte.rte-static-renderer li > p {
   margin: 0;
 }
 
-.rte-scope.rte-static-renderer blockquote {
+.rte.rte-static-renderer blockquote {
   border-left: 3px solid var(--border);
   padding-left: 1rem;
   color: var(--muted-foreground);
@@ -105,7 +105,7 @@
 
 /* ── Links ── */
 
-.rte-scope.rte-static-renderer a {
+.rte.rte-static-renderer a {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -114,7 +114,7 @@
 
 /* ── Horizontal rule ── */
 
-.rte-scope.rte-static-renderer hr {
+.rte.rte-static-renderer hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 1em 0;
@@ -122,7 +122,7 @@
 
 /* ── Inline code ── */
 
-.rte-scope.rte-static-renderer code {
+.rte.rte-static-renderer code {
   font-size: 0.875em;
   font-weight: 500;
   font-family: var(--font-mono, monospace);
@@ -133,7 +133,7 @@
 
 /* ── Code blocks ── */
 
-.rte-scope.rte-static-renderer pre {
+.rte.rte-static-renderer pre {
   background: #1e1e2e;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -145,7 +145,7 @@
   color: #cdd6f4;
 }
 
-.rte-scope.rte-static-renderer pre code {
+.rte.rte-static-renderer pre code {
   color: inherit;
   background: none;
   padding: 0;
@@ -155,108 +155,108 @@
 
 /* ── Syntax Highlighting (lowlight / highlight.js) ── */
 
-.rte-scope.rte-static-renderer pre .hljs-comment,
-.rte-scope.rte-static-renderer pre .hljs-quote {
+.rte.rte-static-renderer pre .hljs-comment,
+.rte.rte-static-renderer pre .hljs-quote {
   color: #6c7086;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-variable,
-.rte-scope.rte-static-renderer pre .hljs-template-variable,
-.rte-scope.rte-static-renderer pre .hljs-attribute,
-.rte-scope.rte-static-renderer pre .hljs-tag,
-.rte-scope.rte-static-renderer pre .hljs-regexp,
-.rte-scope.rte-static-renderer pre .hljs-link,
-.rte-scope.rte-static-renderer pre .hljs-name,
-.rte-scope.rte-static-renderer pre .hljs-selector-id,
-.rte-scope.rte-static-renderer pre .hljs-selector-class {
+.rte.rte-static-renderer pre .hljs-variable,
+.rte.rte-static-renderer pre .hljs-template-variable,
+.rte.rte-static-renderer pre .hljs-attribute,
+.rte.rte-static-renderer pre .hljs-tag,
+.rte.rte-static-renderer pre .hljs-regexp,
+.rte.rte-static-renderer pre .hljs-link,
+.rte.rte-static-renderer pre .hljs-name,
+.rte.rte-static-renderer pre .hljs-selector-id,
+.rte.rte-static-renderer pre .hljs-selector-class {
   color: #89b4fa;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-number,
-.rte-scope.rte-static-renderer pre .hljs-meta,
-.rte-scope.rte-static-renderer pre .hljs-built_in,
-.rte-scope.rte-static-renderer pre .hljs-builtin-name,
-.rte-scope.rte-static-renderer pre .hljs-literal,
-.rte-scope.rte-static-renderer pre .hljs-type,
-.rte-scope.rte-static-renderer pre .hljs-params {
+.rte.rte-static-renderer pre .hljs-number,
+.rte.rte-static-renderer pre .hljs-meta,
+.rte.rte-static-renderer pre .hljs-built_in,
+.rte.rte-static-renderer pre .hljs-builtin-name,
+.rte.rte-static-renderer pre .hljs-literal,
+.rte.rte-static-renderer pre .hljs-type,
+.rte.rte-static-renderer pre .hljs-params {
   color: #fab387;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-string,
-.rte-scope.rte-static-renderer pre .hljs-symbol,
-.rte-scope.rte-static-renderer pre .hljs-bullet {
+.rte.rte-static-renderer pre .hljs-string,
+.rte.rte-static-renderer pre .hljs-symbol,
+.rte.rte-static-renderer pre .hljs-bullet {
   color: #a6e3a1;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-title,
-.rte-scope.rte-static-renderer pre .hljs-section {
+.rte.rte-static-renderer pre .hljs-title,
+.rte.rte-static-renderer pre .hljs-section {
   color: #f9e2af;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-keyword,
-.rte-scope.rte-static-renderer pre .hljs-selector-tag {
+.rte.rte-static-renderer pre .hljs-keyword,
+.rte.rte-static-renderer pre .hljs-selector-tag {
   color: #cba6f7;
 }
 
 /* Object/JSON keys & HTML/XML attribute names */
 
-.rte-scope.rte-static-renderer pre .hljs-attr {
+.rte.rte-static-renderer pre .hljs-attr {
   color: #89b4fa;
 }
 
 /* JSDoc-style tags, e.g. @param, @returns */
 
-.rte-scope.rte-static-renderer pre .hljs-doctag {
+.rte.rte-static-renderer pre .hljs-doctag {
   color: #f38ba8;
   font-weight: 600;
 }
 
 /* Operators & punctuation (finer-grained grammars) */
 
-.rte-scope.rte-static-renderer pre .hljs-operator,
-.rte-scope.rte-static-renderer pre .hljs-punctuation {
+.rte.rte-static-renderer pre .hljs-operator,
+.rte.rte-static-renderer pre .hljs-punctuation {
   color: #9399b2;
 }
 
 /* CSS selector attributes/pseudo-classes, e.g. [type="text"], :hover */
 
-.rte-scope.rte-static-renderer pre .hljs-selector-attr,
-.rte-scope.rte-static-renderer pre .hljs-selector-pseudo {
+.rte.rte-static-renderer pre .hljs-selector-attr,
+.rte.rte-static-renderer pre .hljs-selector-pseudo {
   color: #94e2d5;
 }
 
 /* Language-level variables, e.g. this, super */
 
-.rte-scope.rte-static-renderer pre .hljs-variable.language_ {
+.rte.rte-static-renderer pre .hljs-variable.language_ {
   color: #cba6f7;
   font-style: italic;
 }
 
-.rte-scope /* Template literal substitutions, .rte-scope e.g. $ {...} .rte-scope */ .rte-static-renderer pre .hljs-subst {
+.rte /* Template literal substitutions, .rte e.g. $ {...} .rte */ .rte-static-renderer pre .hljs-subst {
   color: #cdd6f4;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-emphasis {
+.rte.rte-static-renderer pre .hljs-emphasis {
   font-style: italic;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-strong {
+.rte.rte-static-renderer pre .hljs-strong {
   font-weight: 700;
 }
 
-.rte-scope.rte-static-renderer pre .hljs-addition {
+.rte.rte-static-renderer pre .hljs-addition {
   color: #a6e3a1;
   background-color: color-mix(in srgb, #a6e3a1 10%, transparent);
 }
 
-.rte-scope.rte-static-renderer pre .hljs-deletion {
+.rte.rte-static-renderer pre .hljs-deletion {
   color: #f38ba8;
   background-color: color-mix(in srgb, #f38ba8 10%, transparent);
 }
 
 /* ── Images ── */
 
-.rte-scope.rte-static-renderer img {
+.rte.rte-static-renderer img {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius);
@@ -264,14 +264,14 @@
 
 /* ── Tables ── */
 
-.rte-scope.rte-static-renderer table {
+.rte.rte-static-renderer table {
   border-collapse: collapse;
   width: 100%;
   margin: 0.5em 0;
 }
 
-.rte-scope.rte-static-renderer th,
-.rte-scope.rte-static-renderer td {
+.rte.rte-static-renderer th,
+.rte.rte-static-renderer td {
   border: 1px solid var(--border);
   padding: 0.5rem;
   min-width: 100px;
@@ -279,45 +279,45 @@
   vertical-align: top;
 }
 
-.rte-scope.rte-static-renderer th {
+.rte.rte-static-renderer th {
   background: var(--muted);
   font-weight: 600;
 }
 
 /* Table wrapper for horizontal scroll */
 
-.rte-scope.rte-static-renderer .tableWrapper {
+.rte.rte-static-renderer .tableWrapper {
   overflow-x: auto;
 }
 
 /* ── Task lists ── */
 
-.rte-scope.rte-static-renderer ul[data-type="taskList"] {
+.rte.rte-static-renderer ul[data-type="taskList"] {
   list-style: none;
   padding-left: 0;
 }
 
-.rte-scope.rte-static-renderer ul[data-type="taskList"] li {
+.rte.rte-static-renderer ul[data-type="taskList"] li {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
 }
 
-.rte-scope.rte-static-renderer ul[data-type="taskList"] li > label {
+.rte.rte-static-renderer ul[data-type="taskList"] li > label {
   flex-shrink: 0;
   margin-top: 0.25rem;
 }
 
-.rte-scope.rte-static-renderer ul[data-type="taskList"] li > div > p {
+.rte.rte-static-renderer ul[data-type="taskList"] li > div > p {
   margin: 0;
 }
 
-.rte-scope.rte-static-renderer ul[data-type="taskList"] li[data-checked="true"] > div > p {
+.rte.rte-static-renderer ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration: line-through;
   color: var(--muted-foreground);
 }
 
-.rte-scope.rte-static-renderer ul[data-type="taskList"] input[type="checkbox"] {
+.rte.rte-static-renderer ul[data-type="taskList"] input[type="checkbox"] {
   accent-color: var(--primary);
 }
 
@@ -326,8 +326,8 @@
  * cards; swap the inner markup for an iframe/widget if you need the live
  * media to render. */
 
-.rte-scope.rte-static-renderer div[data-type="youtube"],
-.rte-scope.rte-static-renderer div[data-type="twitter"] {
+.rte.rte-static-renderer div[data-type="youtube"],
+.rte.rte-static-renderer div[data-type="twitter"] {
   width: 100%;
   max-width: 100%;
   margin: 0.5em 0;
@@ -342,6 +342,6 @@
 
 /* ── Selection ── */
 
-.rte-scope.rte-static-renderer ::selection {
+.rte.rte-static-renderer ::selection {
   background: color-mix(in srgb, var(--primary) 20%, transparent);
 }

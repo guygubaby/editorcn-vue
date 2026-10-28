@@ -40,7 +40,7 @@ provide(richTextEditorKey, {
 <template>
   <div
     :class="[
-      'rte-scope',
+      'rte',
       'rte-root',
       variant !== 'default' && `rte-root--${variant}`,
     ]"

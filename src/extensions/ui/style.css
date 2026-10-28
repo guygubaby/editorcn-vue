@@ -15,7 +15,7 @@
 
 /* ── Button ── */
 
-.rte-scope .ext-btn {
+.rte .ext-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -40,58 +40,58 @@
     transform 100ms ease-out;
 }
 
-.rte-scope .ext-btn > svg {
+.rte .ext-btn > svg {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
 }
 
-.rte-scope .ext-btn--icon {
+.rte .ext-btn--icon {
   width: 2rem;
   padding: 0;
 }
 
-.rte-scope .ext-btn--icon-sm {
+.rte .ext-btn--icon-sm {
   width: 1.75rem;
   padding: 0;
 }
 
-.rte-scope .ext-btn:hover {
+.rte .ext-btn:hover {
   background: var(--accent);
   color: var(--accent-foreground);
 }
 
-.rte-scope .ext-btn:focus-visible {
+.rte .ext-btn:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: -2px;
 }
 
-.rte-scope .ext-btn:active {
+.rte .ext-btn:active {
   transform: scale(0.96);
 }
 
-.rte-scope .ext-btn:disabled {
+.rte .ext-btn:disabled {
   pointer-events: none;
   opacity: 0.5;
 }
 
-.rte-scope .ext-btn--active {
+.rte .ext-btn--active {
   background: var(--accent);
   color: var(--accent-foreground);
 }
 
-.rte-scope .ext-btn--danger {
+.rte .ext-btn--danger {
   color: var(--destructive, #ef4444);
 }
 
-.rte-scope .ext-btn--danger:hover {
+.rte .ext-btn--danger:hover {
   background: color-mix(in srgb, var(--destructive, #ef4444) 10%, transparent);
   color: var(--destructive, #ef4444);
 }
 
 /* ── Dropdown ── */
 
-.rte-scope.ext-dropdown-content {
+.rte.ext-dropdown-content {
   position: relative;
   min-width: 10rem;
   padding: 0.25rem;
@@ -103,7 +103,7 @@
   animation: ext-pop-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.rte-scope .ext-dropdown-item {
+.rte .ext-dropdown-item {
   position: relative;
   z-index: 1;
   display: flex;
@@ -125,13 +125,13 @@
     transform 100ms ease-out;
 }
 
-.rte-scope .ext-dropdown-item > svg {
+.rte .ext-dropdown-item > svg {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
 }
 
-.rte-scope .ext-dropdown-pill {
+.rte .ext-dropdown-pill {
   position: absolute;
   top: 0;
   left: 0;
@@ -148,36 +148,36 @@
     opacity 150ms ease-out;
 }
 
-.rte-scope .ext-dropdown-pill--visible {
+.rte .ext-dropdown-pill--visible {
   opacity: 1;
 }
 
-.rte-scope .ext-dropdown-item:hover,
-.rte-scope .ext-dropdown-item:focus-visible {
+.rte .ext-dropdown-item:hover,
+.rte .ext-dropdown-item:focus-visible {
   color: var(--foreground);
   outline: none;
 }
 
-.rte-scope .ext-dropdown-item:active {
+.rte .ext-dropdown-item:active {
   transform: scale(0.98);
 }
 
-.rte-scope .ext-dropdown-item:disabled {
+.rte .ext-dropdown-item:disabled {
   pointer-events: none;
   opacity: 0.5;
 }
 
-.rte-scope .ext-dropdown-item--danger {
+.rte .ext-dropdown-item--danger {
   color: var(--destructive, #ef4444);
 }
 
-.rte-scope .ext-dropdown-item--danger:hover,
-.rte-scope .ext-dropdown-item--danger:focus-visible {
+.rte .ext-dropdown-item--danger:hover,
+.rte .ext-dropdown-item--danger:focus-visible {
   background: color-mix(in srgb, var(--destructive, #ef4444) 10%, transparent);
   color: var(--destructive, #ef4444);
 }
 
-.rte-scope .ext-dropdown-separator {
+.rte .ext-dropdown-separator {
   height: 1px;
   background: var(--border);
   margin: 0.25rem 0;
@@ -185,7 +185,7 @@
 
 /* ── Popover ── */
 
-.rte-scope.ext-popover-content {
+.rte.ext-popover-content {
   position: relative;
   background: var(--popover);
   border: 1px solid var(--border);
@@ -197,17 +197,17 @@
 
 /* ── Separator ── */
 
-.rte-scope .ext-separator {
+.rte .ext-separator {
   flex-shrink: 0;
   background: var(--border);
 }
 
-.rte-scope .ext-separator--horizontal {
+.rte .ext-separator--horizontal {
   height: 1px;
   margin: 0.25rem 0;
 }
 
-.rte-scope .ext-separator--vertical {
+.rte .ext-separator--vertical {
   width: 1px;
   height: 1rem;
   align-self: center;
@@ -216,7 +216,7 @@
 
 /* ── Input ── */
 
-.rte-scope .ext-input {
+.rte .ext-input {
   width: 100%;
   height: 2rem;
   padding: 0 0.625rem;
@@ -232,23 +232,23 @@
     box-shadow 150ms ease-out;
 }
 
-.rte-scope .ext-input::placeholder {
+.rte .ext-input::placeholder {
   color: var(--muted-foreground);
 }
 
-.rte-scope .ext-input:focus-visible {
+.rte .ext-input:focus-visible {
   border-color: var(--ring);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 30%, transparent);
 }
 
 /* ── Tabs ── */
 
-.rte-scope .ext-tabs {
+.rte .ext-tabs {
   display: flex;
   flex-direction: column;
 }
 
-.rte-scope .ext-tabs-list {
+.rte .ext-tabs-list {
   display: flex;
   gap: 0.125rem;
   width: fit-content;
@@ -257,7 +257,7 @@
   background: var(--muted);
 }
 
-.rte-scope .ext-tabs-trigger {
+.rte .ext-tabs-trigger {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
@@ -275,31 +275,31 @@
     color 150ms ease-out;
 }
 
-.rte-scope .ext-tabs-trigger > svg {
+.rte .ext-tabs-trigger > svg {
   width: 1rem;
   height: 1rem;
   flex-shrink: 0;
 }
 
-.rte-scope .ext-tabs-trigger:hover,
-.rte-scope .ext-tabs-trigger:focus-visible {
+.rte .ext-tabs-trigger:hover,
+.rte .ext-tabs-trigger:focus-visible {
   color: var(--foreground);
   outline: none;
 }
 
-.rte-scope .ext-tabs-trigger--active {
+.rte .ext-tabs-trigger--active {
   background: var(--background);
   color: var(--foreground);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
-.rte-scope .ext-tabs-content {
+.rte .ext-tabs-content {
   padding-top: 0.5rem;
 }
 
 /* Replaces Tailwind `flex-1 text-left` on menu labels. */
 
-.rte-scope .ext-dropdown-label {
+.rte .ext-dropdown-label {
   flex: 1;
   text-align: left;
 }

@@ -35,7 +35,7 @@ const rows: {
   <div class="docs-demo">
     <div v-for="row in rows" :key="row.name" style="margin-bottom: 1rem">
       <p style="font-size: 0.75rem; margin-bottom: 0.375rem">
-        variant="{{ row.name }}"
+        Variant="{{ row.name }}"
       </p>
       <RichTextEditor :editor="row.editor.value ?? null" :variant="row.name">
         <RichTextEditor.Toolbar>

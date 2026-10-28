@@ -68,7 +68,7 @@ const handleAdd = () => {
 </script>
 
 <template>
-  <div :class="cn('rte-scope', 'block-editor', $attrs.class)">
+  <div :class="cn('rte', 'block-editor', $attrs.class)">
     <slot>
       <DragHandle
         v-if="editor && isEditable"

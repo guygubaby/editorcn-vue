@@ -51,7 +51,7 @@ const enter = (target: EventTarget | null) => {
         :side="props.side"
         :align="props.align"
         :side-offset="props.sideOffset"
-        :class="['rte-scope', 'ext-popover-content', props.contentClass]"
+        :class="['rte', 'ext-popover-content', props.contentClass]"
         :role="props.role"
         data-ext-floating
         @mouseover="enter($event.target)"
