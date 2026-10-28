@@ -102,6 +102,8 @@ const editor = useEditor({
 
 Import `./editor/style.css` after your global stylesheet — the editor reads shadcn CSS variables (`--border`, `--background`, `--muted`, `--radius`, …). A plain Vue 3 app only needs those variables defined on `:root`; no Tailwind setup is involved.
 
+Every rule is scoped under `.rte-scope`, which the components add to their root element (and to anything they portal to `<body>`), so the stylesheets never leak into your app.
+
 ## Components
 
 | Component | Notes |

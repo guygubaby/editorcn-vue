@@ -1,5 +1,4 @@
 /* Table extension styles using shadcn CSS variables */
-
 /* ── Hover overlay ──
    The overlay is a zero-size origin box: the controls are absolutely positioned
    and measured against it every frame. Keeping it zero-size means the handles
@@ -10,7 +9,8 @@
    leave handles floating over the surrounding UI. Clipping here rather than on
    the editor's own wrapper keeps the editor's bubble menu and drag handle
    intact. */
-.ext-table-overlay {
+
+.rte-scope .ext-table-overlay {
   position: absolute;
   left: 0;
   top: 0;
@@ -19,7 +19,7 @@
   overflow: visible;
 }
 
-.ext-table-clip {
+.rte-scope .ext-table-clip {
   position: absolute;
   overflow: hidden;
   pointer-events: none;
@@ -27,8 +27,9 @@
 
 /* The handles stay interactive even though the clip box ignores pointer
    events, so hovering a handle still reaches the editor's pointer handlers. */
-.ext-table-control,
-.ext-table-add {
+
+.rte-scope .ext-table-control,
+.rte-scope .ext-table-add {
   pointer-events: auto;
 }
 
@@ -37,7 +38,8 @@
    <table>. We use it as the hover container (grips stay visible anywhere
    inside it) and as the horizontal scroll container so wide tables with
    many columns scroll instead of overflowing the content area. */
-.tableWrapper {
+
+.rte-scope .tableWrapper {
   position: relative;
   overflow-x: auto;
   overflow-y: hidden;
@@ -51,7 +53,8 @@
    table to its columns (`width: max-content`) so each column keeps its declared
    width and an inserted column extends the row width — the `.tableWrapper`
    scroll container above then shows the horizontal scrollbar instead. */
-.tableWrapper > table {
+
+.rte-scope .tableWrapper > table {
   border-collapse: collapse;
   table-layout: fixed;
   width: max-content;
@@ -60,20 +63,22 @@
 /* Stable default width for columns until the user resizes them (resize writes
    an inline width, which overrides this). Prevents fixed-layout auto columns
    from collapsing to 0 / splitting the table width on insert. */
-.tableWrapper > table > colgroup > col {
+
+.rte-scope .tableWrapper > table > colgroup > col {
   width: 8rem;
 }
 
 /* ── Cell borders & header row ── */
-.ProseMirror table {
+
+.rte-scope .ProseMirror table {
   border-collapse: collapse;
   margin: 0;
   overflow: hidden;
   position: relative;
 }
 
-.ProseMirror td,
-.ProseMirror th {
+.rte-scope .ProseMirror td,
+.rte-scope .ProseMirror th {
   border: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
   vertical-align: top;
@@ -82,30 +87,30 @@
   position: relative;
 }
 
-.ProseMirror th {
+.rte-scope .ProseMirror th {
   background: var(--muted);
   font-weight: 600;
 }
 
-.ProseMirror .selectedCell {
+.rte-scope .ProseMirror .selectedCell {
   background: var(--accent);
 }
 
-.ext-table-control {
+.rte-scope .ext-table-control {
   position: absolute;
   z-index: 2;
   animation: ext-table-pop-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.ext-table-control--column {
+.rte-scope .ext-table-control--column {
   transform-origin: top center;
 }
 
-.ext-table-control--row {
+.rte-scope .ext-table-control--row {
   transform-origin: center left;
 }
 
-.ext-table-grip {
+.rte-scope .ext-table-grip {
   position: relative;
   display: flex;
   align-items: center;
@@ -127,14 +132,14 @@
     color 150ms ease-out;
 }
 
-.ext-table-grip::before {
+.rte-scope .ext-table-grip::before {
   content: "";
   position: absolute;
   inset: -0.35rem;
   border-radius: calc(var(--radius) - 2px);
 }
 
-.ext-table-grip > svg {
+.rte-scope .ext-table-grip > svg {
   position: absolute;
   inset: 0;
   margin: auto;
@@ -148,7 +153,7 @@
     scale 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.ext-table-grip-stroke {
+.rte-scope .ext-table-grip-stroke {
   position: absolute;
   inset: 0;
   margin: auto;
@@ -159,57 +164,57 @@
   transition: opacity 150ms ease-out;
 }
 
-.ext-table-grip-stroke--column {
+.rte-scope .ext-table-grip-stroke--column {
   width: 14px;
   height: 3px;
 }
 
-.ext-table-grip-stroke--row {
+.rte-scope .ext-table-grip-stroke--row {
   width: 3px;
   height: 14px;
 }
 
-.ext-table-grip--row > svg {
+.rte-scope .ext-table-grip--row > svg {
   rotate: 90deg;
 }
 
-.ext-table-grip:hover,
-.ext-table-grip[data-state="open"] {
+.rte-scope .ext-table-grip:hover,
+.rte-scope .ext-table-grip[data-state="open"] {
   background: var(--popover);
   border-color: var(--border);
   color: var(--foreground);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
-.ext-table-grip:hover > svg,
-.ext-table-grip[data-state="open"] > svg,
-.ext-table-grip:focus-visible > svg {
+.rte-scope .ext-table-grip:hover > svg,
+.rte-scope .ext-table-grip[data-state="open"] > svg,
+.rte-scope .ext-table-grip:focus-visible > svg {
   opacity: 1;
   scale: 1;
 }
 
-.ext-table-grip--row:hover > svg,
-.ext-table-grip--row[data-state="open"] > svg,
-.ext-table-grip--row:focus-visible > svg {
+.rte-scope .ext-table-grip--row:hover > svg,
+.rte-scope .ext-table-grip--row[data-state="open"] > svg,
+.rte-scope .ext-table-grip--row:focus-visible > svg {
   rotate: 90deg;
   scale: 1;
 }
 
-.ext-table-grip:hover .ext-table-grip-stroke,
-.ext-table-grip[data-state="open"] .ext-table-grip-stroke {
+.rte-scope .ext-table-grip:hover .ext-table-grip-stroke,
+.rte-scope .ext-table-grip[data-state="open"] .ext-table-grip-stroke {
   opacity: 0;
 }
 
-.ext-table-grip:active {
+.rte-scope .ext-table-grip:active {
   transform: scale(0.92);
 }
 
-.ext-table-grip:focus-visible {
+.rte-scope .ext-table-grip:focus-visible {
   outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
-.ext-table-add {
+.rte-scope .ext-table-add {
   position: absolute;
   display: flex;
   align-items: center;
@@ -226,18 +231,18 @@
     transform 100ms ease-out;
 }
 
-.ext-table-add > svg {
+.rte-scope .ext-table-add > svg {
   width: 0.875rem;
   height: 0.875rem;
   flex-shrink: 0;
 }
 
-.ext-table-add:hover {
+.rte-scope .ext-table-add:hover {
   background: var(--accent);
   color: var(--accent-foreground);
 }
 
-.ext-table-add:active {
+.rte-scope .ext-table-add:active {
   transform: scale(0.95);
 }
 
@@ -253,43 +258,44 @@
 }
 
 /* ── Toolbar ── */
-.ext-table-toolbar-popover {
+
+.rte-scope.ext-table-toolbar-popover {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
   padding: 0.5rem;
 }
 
-.ext-table-toolbar-item-spacer {
+.rte-scope .ext-table-toolbar-item-spacer {
   flex: 1;
 }
 
-.ext-table-toolbar-label {
+.rte-scope .ext-table-toolbar-label {
   padding: 0.25rem 0.5rem 0.375rem;
   font-size: 0.75rem;
   font-weight: 500;
   color: var(--muted-foreground);
 }
 
-.ext-table-grid {
+.rte-scope .ext-table-grid {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   min-width: 11rem;
 }
 
-.ext-table-grid-popover {
+.rte-scope .ext-table-grid-popover {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
 }
 
-.ext-table-grid-row {
+.rte-scope .ext-table-grid-row {
   display: flex;
   gap: 0.25rem;
 }
 
-.ext-table-grid-cell {
+.rte-scope .ext-table-grid-cell {
   width: 1rem;
   height: 1rem;
   border: 1px solid var(--border);
@@ -300,12 +306,12 @@
     border-color 100ms ease-out;
 }
 
-.ext-table-grid-cell--selected {
+.rte-scope .ext-table-grid-cell--selected {
   border-color: var(--primary);
   background: var(--primary);
 }
 
-.ext-table-grid-result {
+.rte-scope .ext-table-grid-result {
   border-radius: calc(var(--radius) - 4px);
   background: var(--muted);
   padding: 0.25rem 0.5rem;
@@ -316,7 +322,8 @@
 }
 
 /* ── Column resize (prosemirror-tables) ── */
-.ProseMirror .column-resize-handle {
+
+.rte-scope .ProseMirror .column-resize-handle {
   position: absolute;
   right: -2px;
   top: 0;
@@ -326,10 +333,10 @@
   pointer-events: none;
 }
 
-.ProseMirror .column-resize-dragging .column-resize-handle {
+.rte-scope .ProseMirror .column-resize-dragging .column-resize-handle {
   background-color: var(--primary);
 }
 
-.ProseMirror.resize-cursor {
+.rte-scope .ProseMirror.resize-cursor {
   cursor: col-resize;
 }

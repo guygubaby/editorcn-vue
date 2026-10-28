@@ -35,5 +35,5 @@ const html = computed(() =>
 </script>
 
 <template>
-  <component :is="props.as" class="rte-static-renderer" v-html="html" />
+  <component :is="props.as" class="rte-scope rte-static-renderer" v-html="html" />
 </template>

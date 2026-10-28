@@ -50,7 +50,7 @@ const enter = (target: EventTarget | null) => {
         :side-offset="4"
         role="menu"
         data-ext-floating
-        :class="['ext-dropdown-content', props.contentClass]"
+        :class="['rte-scope', 'ext-dropdown-content', props.contentClass]"
         @mouseover="enter($event.target)"
         @focus="enter($event.target)"
         @mouseleave="pill = null"

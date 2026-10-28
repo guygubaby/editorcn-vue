@@ -12,6 +12,21 @@
 
 <DemoTheming />
 
+## 样式作用域
+
+所有样式都限定在 `.rte-scope` 下，不会污染你的应用：
+
+```css
+.rte-scope.rte-root { … }        /* 根元素本身 */
+.rte-scope .rte-control-button { … }
+.rte-scope .ProseMirror h1 { … }
+```
+
+- `.rte-scope` 由组件自动加到根元素上（`RichTextEditor` 的 `.rte-root`、`BlockEditor` 的 `.block-editor`、`StaticRenderer` 的根节点）。
+- 会 portal 到 `<body>` 的浮层（链接弹层、颜色/对齐下拉、斜杠菜单、图片操作条、表格工具栏）自带 `.rte-scope`，所以脱离根节点后样式依然生效。
+- 组件不会输出任何全局选择器（`*`、`body`、`h1` 等），也不会与 Tailwind preflight 冲突。
+- 如果你把编辑器嵌在 Shadow DOM 或 iframe 内，样式跟随组件走，无需额外配置。
+
 ## 依赖的变量
 
 ```css

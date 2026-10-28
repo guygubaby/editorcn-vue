@@ -220,7 +220,7 @@ onBeforeUnmount(() => {
   </NodeViewWrapper>
 
   <Teleport v-if="props.editor?.isEditable && props.selected && actionBarRect && !resizing" to="body">
-    <div class="ext-image-actions ext-image-actions--floating" :style="actionBarStyle">
+    <div class="rte-scope ext-image-actions ext-image-actions--floating" :style="actionBarStyle">
       <button
         type="button"
         class="ext-btn ext-image-action-btn"
