@@ -126,4 +126,4 @@ SlashCommand.configure({
 
 ## 样式
 
-`block-editor/style.css` 依赖 shadcn 变量，请放在全局样式之后。详情见 [主题与样式](/guide/theming)。
+`block-editor/style.css` 使用 `--rte-*` 主题变量，请在全局样式中定义这些变量，并把样式文件放在全局样式之后导入。详情见 [主题与样式](/guide/theming)。

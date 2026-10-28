@@ -1,9 +1,10 @@
-/* Static renderer styles using shadcn CSS variables.
+/* Static renderer styles using the namespaced --rte-* theme variables.
  * Targets the HTML produced by editor.getHTML() from both
  * @editorcn/editor and @editorcn/block-editor.
  */
+
 .rte.rte-static-renderer {
-  color: var(--foreground);
+  color: var(--rte-foreground);
 }
 
 .rte.rte-static-renderer > *:last-child {
@@ -97,26 +98,26 @@
 }
 
 .rte.rte-static-renderer blockquote {
-  border-left: 3px solid var(--border);
+  border-left: 3px solid var(--rte-border);
   padding-left: 1rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   margin: 0.5em 0;
 }
 
 /* ── Links ── */
 
 .rte.rte-static-renderer a {
-  color: var(--primary);
+  color: var(--rte-primary);
   text-decoration: underline;
   text-underline-offset: 4px;
-  text-decoration-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--rte-primary) 40%, transparent);
 }
 
 /* ── Horizontal rule ── */
 
 .rte.rte-static-renderer hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--rte-border);
   margin: 1em 0;
 }
 
@@ -125,18 +126,18 @@
 .rte.rte-static-renderer code {
   font-size: 0.875em;
   font-weight: 500;
-  font-family: var(--font-mono, monospace);
-  background: color-mix(in srgb, var(--muted) 70%, transparent);
+  font-family: var(--rte-font-mono, monospace);
+  background: color-mix(in srgb, var(--rte-muted) 70%, transparent);
   padding: 0.125rem 0.375rem;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--rte-radius) - 4px);
 }
 
 /* ── Code blocks ── */
 
 .rte.rte-static-renderer pre {
   background: #1e1e2e;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border-radius: var(--rte-radius);
+  border: 1px solid var(--rte-border);
   padding: 1rem;
   overflow-x: auto;
   font-size: 0.875rem;
@@ -150,7 +151,7 @@
   background: none;
   padding: 0;
   font-weight: 400;
-  font-family: var(--font-mono, monospace);
+  font-family: var(--rte-font-mono, monospace);
 }
 
 /* ── Syntax Highlighting (lowlight / highlight.js) ── */
@@ -259,7 +260,7 @@
 .rte.rte-static-renderer img {
   max-width: 100%;
   height: auto;
-  border-radius: var(--radius);
+  border-radius: var(--rte-radius);
 }
 
 /* ── Tables ── */
@@ -272,7 +273,7 @@
 
 .rte.rte-static-renderer th,
 .rte.rte-static-renderer td {
-  border: 1px solid var(--border);
+  border: 1px solid var(--rte-border);
   padding: 0.5rem;
   min-width: 100px;
   text-align: left;
@@ -280,7 +281,7 @@
 }
 
 .rte.rte-static-renderer th {
-  background: var(--muted);
+  background: var(--rte-muted);
   font-weight: 600;
 }
 
@@ -314,11 +315,11 @@
 
 .rte.rte-static-renderer ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration: line-through;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 .rte.rte-static-renderer ul[data-type="taskList"] input[type="checkbox"] {
-  accent-color: var(--primary);
+  accent-color: var(--rte-primary);
 }
 
 /* ── Embeds (toolbar editor only) ──
@@ -331,9 +332,9 @@
   width: 100%;
   max-width: 100%;
   margin: 0.5em 0;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: var(--muted);
+  border-radius: var(--rte-radius);
+  border: 1px solid var(--rte-border);
+  background: var(--rte-muted);
   aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
@@ -343,5 +344,5 @@
 /* ── Selection ── */
 
 .rte.rte-static-renderer ::selection {
-  background: color-mix(in srgb, var(--primary) 20%, transparent);
+  background: color-mix(in srgb, var(--rte-primary) 20%, transparent);
 }

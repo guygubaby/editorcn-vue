@@ -6,12 +6,21 @@ import { RichTextEditor } from "../../../../packages/editorcn-vue/src/editor";
 import { baseExtensions, placeholder } from "./base";
 
 // A single accent token drives the editor chrome, which is the point of the
-// shadcn variable layer: swap the variables, not the components.
+// --rte-* variable layer: swap the variables, not the components.
 const palettes = {
   neutral: {},
-  indigo: { "--muted": "oklch(0.95 0.03 275)", "--ring": "oklch(0.55 0.2 275)" },
-  emerald: { "--muted": "oklch(0.95 0.04 160)", "--ring": "oklch(0.6 0.14 160)" },
-  rose: { "--muted": "oklch(0.96 0.03 15)", "--ring": "oklch(0.6 0.19 15)" },
+  indigo: {
+    "--rte-muted": "oklch(0.95 0.03 275)",
+    "--rte-ring": "oklch(0.55 0.2 275)",
+  },
+  emerald: {
+    "--rte-muted": "oklch(0.95 0.04 160)",
+    "--rte-ring": "oklch(0.6 0.14 160)",
+  },
+  rose: {
+    "--rte-muted": "oklch(0.96 0.03 15)",
+    "--rte-ring": "oklch(0.6 0.19 15)",
+  },
 } as const;
 
 const palette = ref<keyof typeof palettes>("neutral");
@@ -20,7 +29,7 @@ const style = computed(() => palettes[palette.value]);
 
 const editor = useEditor({
   content:
-    "<p>This editor only reads shadcn CSS variables. Change <code>--muted</code> and <code>--ring</code> and the chrome follows.</p><p>Select some text to see the bubble menu pick up the accent.</p>",
+    "<p>This editor uses its own <code>--rte-*</code> variables. Change <code>--rte-muted</code> and <code>--rte-ring</code> and the chrome follows.</p><p>Select some text to see the bubble menu pick up the accent.</p>",
   extensions: [...baseExtensions, placeholder("Type…")],
 });
 </script>

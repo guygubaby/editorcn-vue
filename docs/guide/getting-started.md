@@ -55,8 +55,8 @@ import Placeholder from "@tiptap/extension-placeholder";
 import { useEditor } from "@tiptap/vue-3";
 
 import { Link, CodeBlock, RichTextEditor } from "@/components/editor";
+import "@/app.css"; // 你的全局样式
 import "@/components/editor/style.css";
-import "@/app.css"; // 你的全局样式，包含 shadcn 变量
 
 const editor = useEditor({
   content: "<h2>你好</h2><p>开始输入…</p>",
@@ -98,7 +98,7 @@ const editor = useEditor({
 
 ## 4. 样式顺序
 
-`style.css` 依赖 shadcn 的 CSS 变量（`--border`、`--background`、`--muted`、`--radius` 等），请在全局样式之后导入。没有 Tailwind 的项目，把 [主题与样式](/guide/theming) 里的变量块贴进全局 CSS 即可。
+`style.css` 使用 `--rte-*` 变量，请在全局样式之后导入，并按 [主题与样式](/guide/theming) 定义这些变量（或映射已有的 shadcn 变量）。
 
 ## 给 LLM 用的文档
 

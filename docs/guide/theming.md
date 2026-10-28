@@ -1,20 +1,20 @@
 # 主题与样式
 
-组件读取 shadcn/ui 的 CSS 变量，不依赖 Tailwind。
+组件使用自己的 `--rte-*` 变量，不读取宿主的 `--background` 等变量，也不依赖 Tailwind。
 
 - 不需要 Tailwind CSS，也不扫描类名。
 - 组件内部只用普通的 `style.css`，样式文件随 registry 一起装。
-- 你把下面的变量定义在 `:root`（普通 Vue 项目也一样），编辑器就能正常显示 shadcn 的观感。
+- 变量由宿主定义（或映射到已有的 shadcn 变量）；变量名带 `rte` 前缀，不会和宿主的同名变量冲突。
 
 ## 在线演示
 
-点击色板切换 `--muted` 与 `--ring`，编辑器外观随之变化：
+点击色板覆盖 `--rte-muted` 与 `--rte-ring`，编辑器外观随之变化：
 
 <DemoTheming />
 
 ## 样式作用域
 
-所有样式都限定在 `.rte` 下，不会污染你的应用：
+组件的样式都限定在 `.rte` 下，不会污染你的应用：
 
 ```css
 .rte.rte-root { … }        /* 根元素本身 */
@@ -25,7 +25,7 @@
 - `.rte` 由组件自动加到根元素上（`RichTextEditor` 的 `.rte-root`、`BlockEditor` 的 `.block-editor`、`StaticRenderer` 的根节点）。
 - 会 portal 到 `<body>` 的浮层（链接弹层、颜色/对齐下拉、斜杠菜单、图片操作条、表格工具栏）自带 `.rte`，所以脱离根节点后样式依然生效。
 - 组件不会输出任何全局选择器（`*`、`body`、`h1` 等），也不会与 Tailwind preflight 冲突。
-- 如果你把编辑器嵌在 Shadow DOM 或 iframe 内，样式跟随组件走，无需额外配置。
+- 嵌入 iframe 时重新导入样式即可。Shadow DOM 内需要把 `--rte-*` 变量定义在 shadow root 内或 shadow host 上。
 
 ## 工具栏布局
 
@@ -37,22 +37,79 @@
 
 ## 依赖的变量
 
+组件读取下列 `--rte-*` 变量。在 `:root` 定义亮色值，在 `.dark` 覆盖同名变量即可，编辑器会自动跟随。建议写在 `:root` / `.dark` 上：链接弹层、下拉菜单、图片/视频操作条会 portal 到 `<body>`，只有放在 `:root`（或 `body`）的覆盖才能作用到它们。
+
 ```css
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --border: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --radius: 0.625rem;
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --rte-background: oklch(1 0 0);
+  --rte-foreground: oklch(0.145 0 0);
+  --rte-popover: oklch(1 0 0);
+  --rte-popover-foreground: oklch(0.145 0 0);
+  --rte-primary: oklch(0.205 0 0);
+  --rte-primary-foreground: oklch(0.985 0 0);
+  --rte-secondary: oklch(0.97 0 0);
+  --rte-secondary-foreground: oklch(0.205 0 0);
+  --rte-muted: oklch(0.97 0 0);
+  --rte-muted-foreground: oklch(0.556 0 0);
+  --rte-accent: oklch(0.97 0 0);
+  --rte-accent-foreground: oklch(0.205 0 0);
+  --rte-destructive: oklch(0.577 0.245 27.325);
+  --rte-border: oklch(0.922 0 0);
+  --rte-input: oklch(0.922 0 0);
+  --rte-ring: oklch(0.708 0 0);
+  --rte-radius: 0.625rem;
 }
 ```
 
-暗色主题通过 `.dark` 覆盖同名变量即可，编辑器会自动跟随。
+`.dark` 覆盖同名变量：
+
+```css
+.dark {
+  --rte-background: oklch(0.145 0 0);
+  --rte-foreground: oklch(0.985 0 0);
+  --rte-popover: oklch(0.269 0 0);
+  --rte-popover-foreground: oklch(0.985 0 0);
+  --rte-primary: oklch(0.922 0 0);
+  --rte-primary-foreground: oklch(0.205 0 0);
+  --rte-secondary: oklch(0.269 0 0);
+  --rte-secondary-foreground: oklch(0.985 0 0);
+  --rte-muted: oklch(0.269 0 0);
+  --rte-muted-foreground: oklch(0.708 0 0);
+  --rte-accent: oklch(0.371 0 0);
+  --rte-accent-foreground: oklch(0.985 0 0);
+  --rte-destructive: oklch(0.704 0.191 22.216);
+  --rte-border: oklch(1 0 0 / 10%);
+  --rte-input: oklch(1 0 0 / 15%);
+  --rte-ring: oklch(0.556 0 0);
+}
+```
+
+`--rte-spacing`（默认 `0.75rem`）和 `--rte-font-mono`（默认 `monospace`）可选，不定义也能正常显示。
+
+想让编辑器跟随宿主已有的 shadcn 变量，做一层映射即可：
+
+```css
+:root,
+.dark {
+  --rte-background: var(--background);
+  --rte-foreground: var(--foreground);
+  --rte-popover: var(--popover);
+  --rte-popover-foreground: var(--popover-foreground);
+  --rte-primary: var(--primary);
+  --rte-primary-foreground: var(--primary-foreground);
+  --rte-secondary: var(--secondary);
+  --rte-secondary-foreground: var(--secondary-foreground);
+  --rte-muted: var(--muted);
+  --rte-muted-foreground: var(--muted-foreground);
+  --rte-accent: var(--accent);
+  --rte-accent-foreground: var(--accent-foreground);
+  --rte-destructive: var(--destructive);
+  --rte-border: var(--border);
+  --rte-input: var(--input);
+  --rte-ring: var(--ring);
+  --rte-radius: var(--radius);
+}
+```
 
 ## 样式文件
 

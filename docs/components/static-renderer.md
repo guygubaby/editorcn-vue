@@ -27,6 +27,10 @@ import "@/components/static-renderer/style.css";
 </template>
 ```
 
+## 样式
+
+`static-renderer/style.css` 使用 `--rte-*` 主题变量，请在全局样式中定义，详情见 [主题与样式](/guide/theming)。
+
 ## Props
 
 | 属性 | 类型 | 说明 |

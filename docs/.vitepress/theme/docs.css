@@ -1,5 +1,6 @@
-/* Mirrors the tokens in src/index.css so the demos look like the real thing.
-   They live on :root because popovers portal to <body>. */
+/* Mirrors the playground tokens so the docs chrome matches, then maps them
+   onto the editor's --rte-* namespace. They live on :root because popovers
+   portal to <body>. */
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -41,6 +42,27 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+}
+
+:root,
+.dark {
+  --rte-background: var(--background);
+  --rte-foreground: var(--foreground);
+  --rte-popover: var(--popover);
+  --rte-popover-foreground: var(--popover-foreground);
+  --rte-primary: var(--primary);
+  --rte-primary-foreground: var(--primary-foreground);
+  --rte-secondary: var(--secondary);
+  --rte-secondary-foreground: var(--secondary-foreground);
+  --rte-muted: var(--muted);
+  --rte-muted-foreground: var(--muted-foreground);
+  --rte-accent: var(--accent);
+  --rte-accent-foreground: var(--accent-foreground);
+  --rte-destructive: var(--destructive);
+  --rte-border: var(--border);
+  --rte-input: var(--input);
+  --rte-ring: var(--ring);
+  --rte-radius: var(--radius);
 }
 
 .docs-demo {

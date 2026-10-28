@@ -1,9 +1,9 @@
 /* ── Main Editor Wrapper ── */
 .rte.rte-root {
   position: relative;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background-color: var(--background);
+  border-radius: var(--rte-radius);
+  border: 1px solid var(--rte-border);
+  background-color: var(--rte-background);
   transition:
     border-color 150ms ease-out,
     box-shadow 150ms ease-out;
@@ -36,7 +36,7 @@
 
 .rte .rte-content .ProseMirror {
   outline: 0;
-  padding: var(--spacing, 0.75rem);
+  padding: var(--rte-spacing, 0.75rem);
   min-height: 140px;
 }
 
@@ -50,7 +50,7 @@
   user-select: none;
   float: left;
   height: 0;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   transition: opacity 150ms ease-out;
 }
 
@@ -158,11 +158,11 @@
 }
 
 .rte .rte-content .ProseMirror blockquote {
-  border-left: 3px solid var(--border);
+  border-left: 3px solid var(--rte-border);
   padding-left: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   font-style: italic;
 }
 
@@ -176,13 +176,13 @@
 .rte .rte-content .ProseMirror pre {
   background: #1e1e2e;
   color: #cdd6f4;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border-radius: var(--rte-radius);
+  border: 1px solid var(--rte-border);
   padding: 1rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
   overflow-x: auto;
-  font-family: var(--font-mono);
+  font-family: var(--rte-font-mono, monospace);
   font-size: 0.875rem;
 }
 
@@ -196,25 +196,25 @@
 
 .rte .rte-content .ProseMirror hr {
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--rte-border);
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .rte .rte-content .ProseMirror a {
-  color: var(--primary);
+  color: var(--rte-primary);
   text-decoration: underline;
   text-underline-offset: 4px;
   cursor: pointer;
   transition:
     color 150ms ease-out,
     text-decoration-color 150ms ease-out;
-  text-decoration-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--rte-primary) 40%, transparent);
 }
 
 .rte .rte-content .ProseMirror a:hover {
-  color: color-mix(in srgb, var(--primary) 80%, transparent);
-  text-decoration-color: color-mix(in srgb, var(--primary) 80%, transparent);
+  color: color-mix(in srgb, var(--rte-primary) 80%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--rte-primary) 80%, transparent);
 }
 
 /* Syntax Highlighting */
@@ -320,9 +320,9 @@
 .rte .rte-content .ProseMirror code {
   font-size: 0.875em;
   font-weight: 500;
-  background: color-mix(in srgb, var(--muted) 70%, transparent);
+  background: color-mix(in srgb, var(--rte-muted) 70%, transparent);
   padding: 0.125rem 0.375rem;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--rte-radius) - 4px);
   transition: background-color 150ms ease-out;
 }
 
@@ -336,11 +336,11 @@
   column-gap: 0.125rem;
   row-gap: 0.25rem;
   top: var(--rte-sticky-offset, 0px);
-  background-color: color-mix(in srgb, var(--muted) 35%, var(--background));
+  background-color: color-mix(in srgb, var(--rte-muted) 35%, var(--rte-background));
   z-index: 1;
-  border-start-end-radius: var(--radius);
-  border-start-start-radius: var(--radius);
-  border-bottom: 1px solid var(--border);
+  border-start-end-radius: var(--rte-radius);
+  border-start-start-radius: var(--rte-radius);
+  border-bottom: 1px solid var(--rte-border);
   padding: 0.5rem 0.75rem;
   transition: background-color 150ms ease-out;
 }
@@ -348,7 +348,7 @@
 .rte .rte-toolbar[data-sticky] {
   position: sticky;
   z-index: 10;
-  background-color: color-mix(in srgb, var(--background) 85%, transparent);
+  background-color: color-mix(in srgb, var(--rte-background) 85%, transparent);
   backdrop-filter: blur(8px);
 }
 
@@ -358,33 +358,31 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5rem;
-  background-color: var(--background);
+  background-color: var(--rte-background);
   z-index: 1;
-  border-end-end-radius: var(--radius);
-  border-end-start-radius: var(--radius);
-  border-top: 1px solid var(--border);
+  border-end-end-radius: var(--rte-radius);
+  border-end-start-radius: var(--rte-radius);
+  border-top: 1px solid var(--rte-border);
   padding: 0.5rem 0.75rem;
   font-size: 0.75rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 .rte .rte-footer[data-sticky] {
   position: sticky;
   z-index: 10;
   bottom: 0;
-  background-color: color-mix(in srgb, var(--background) 85%, transparent);
+  background-color: color-mix(in srgb, var(--rte-background) 85%, transparent);
   backdrop-filter: blur(8px);
   box-shadow:
     0px 0px 0px 1px oklch(0 0 0 / 0.04),
     0px -4px 12px 0px oklch(0 0 0 / 0.05);
 }
 
-@media (prefers-color-scheme: dark) {
-  .rte .rte-footer[data-sticky] {
-    box-shadow:
+:where(.dark) .rte .rte-footer[data-sticky] {
+  box-shadow:
     0px 0px 0px 1px oklch(1 0 0 / 0.06),
     0px -4px 12px 0px oklch(0 0 0 / 0.3);
-  }
 }
 
 .rte .rte-footer-word-count {
@@ -405,11 +403,11 @@
 .rte .rte-footer-word-count-number {
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  color: var(--foreground);
+  color: var(--rte-foreground);
 }
 
 .rte .rte-footer-word-count-unit {
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 .rte .rte-footer-word-count-separator {
@@ -419,16 +417,16 @@
   border-radius: 9999px;
   background-color: color-mix(
     in srgb,
-    var(--muted-foreground) 45%,
+    var(--rte-muted-foreground) 45%,
     transparent
   );
 }
 
 .rte .rte-toolbar--subtle + .rte-content + .rte-footer {
-  background-color: var(--muted);
+  background-color: var(--rte-muted);
 }
 .rte .rte-toolbar--compact + .rte-content + .rte-footer {
-  background-color: var(--muted);
+  background-color: var(--rte-muted);
 }
 
 @media (max-width: 640px) {
@@ -494,7 +492,7 @@
 .rte.rte-root[data-variant="default"] .rte-toolbar {
   gap: 0.25rem;
   padding: 0.375rem 0.5rem;
-  background-color: var(--background);
+  background-color: var(--rte-background);
 }
 .rte.rte-root[data-variant="default"] .rte-content .ProseMirror {
   padding: 1.25rem 1.5rem;
@@ -506,30 +504,30 @@
 }
 .rte.rte-root[data-variant="default"] .rte-controls-group > button {
   border: none;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: calc(var(--rte-radius) - 2px);
   min-width: 2rem;
   height: 2rem;
   background-color: transparent;
-  color: var(--foreground);
+  color: var(--rte-foreground);
   transition:
     background-color 150ms ease-out,
     color 150ms ease-out;
 }
 .rte.rte-root[data-variant="default"] .rte-controls-group > button:hover:not(:disabled) {
-  background-color: var(--muted);
+  background-color: var(--rte-muted);
 }
 .rte.rte-root[data-variant="default"] .rte-controls-group > button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 .rte.rte-root[data-variant="default"] .rte-controls-group > button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--primary) 40%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--rte-primary) 40%, transparent);
   outline-offset: 1px;
 }
 .rte.rte-root[data-variant="default"] .rte-controls-group > button[data-state="on"],
 .rte.rte-root[data-variant="default"] .rte-controls-group > button[aria-pressed="true"] {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 
 /* ── Subtle variant: elevated card with soft toolbar ── */
@@ -541,10 +539,10 @@
     0 1px 2px rgba(0, 0, 0, 0.04);
 }
 .rte .rte-toolbar--subtle {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--rte-border);
   padding: 0.375rem 0.5rem;
   gap: 0.375rem;
-  background-color: var(--muted);
+  background-color: var(--rte-muted);
 }
 .rte.rte-root[data-variant="subtle"] .rte-content .ProseMirror {
   padding: 0.875rem;
@@ -556,43 +554,43 @@
 }
 .rte.rte-root[data-variant="subtle"] .rte-controls-group > button {
   border: none;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: calc(var(--rte-radius) - 2px);
   min-width: 2rem;
   height: 2rem;
   background-color: transparent;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   transition:
     background-color 150ms ease-out,
     color 150ms ease-out;
 }
 .rte.rte-root[data-variant="subtle"] .rte-controls-group > button:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 .rte.rte-root[data-variant="subtle"] .rte-controls-group > button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--primary) 40%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--rte-primary) 40%, transparent);
   outline-offset: 1px;
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 .rte.rte-root[data-variant="subtle"] .rte-controls-group > button[data-state="on"],
 .rte.rte-root[data-variant="subtle"] .rte-controls-group > button[aria-pressed="true"] {
-  background-color: color-mix(in srgb, var(--primary) 12%, transparent);
-  color: var(--primary);
+  background-color: color-mix(in srgb, var(--rte-primary) 12%, transparent);
+  color: var(--rte-primary);
   box-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--primary) 25%, transparent);
+    color-mix(in srgb, var(--rte-primary) 25%, transparent);
 }
 
 /* ── Compact variant: inline fused toolbar-content ── */
 
 .rte.rte-root[data-variant="compact"] {
-  border-radius: var(--radius);
+  border-radius: var(--rte-radius);
 }
 .rte .rte-toolbar--compact {
   padding: 0.25rem 0.375rem;
   gap: 0.25rem;
   border-bottom: none;
-  background-color: var(--muted);
+  background-color: var(--rte-muted);
 }
 .rte.rte-root[data-variant="compact"] .rte-content .ProseMirror {
   padding: 0.5rem 0.625rem;
@@ -605,31 +603,31 @@
 }
 .rte.rte-root[data-variant="compact"] .rte-controls-group > button {
   border: none;
-  border-radius: calc(var(--radius) - 3px);
+  border-radius: calc(var(--rte-radius) - 3px);
   min-width: 1.5rem;
   height: 1.5rem;
   background-color: transparent;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   transition:
     background-color 150ms ease-out,
     color 150ms ease-out;
 }
 .rte.rte-root[data-variant="compact"] .rte-controls-group > button:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 .rte.rte-root[data-variant="compact"] .rte-controls-group > button:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--primary) 40%, transparent);
+  outline: 2px solid color-mix(in srgb, var(--rte-primary) 40%, transparent);
   outline-offset: 1px;
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 .rte.rte-root[data-variant="compact"] .rte-controls-group > button[data-state="on"],
 .rte.rte-root[data-variant="compact"] .rte-controls-group > button[aria-pressed="true"] {
-  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
-  color: var(--primary);
+  background-color: color-mix(in srgb, var(--rte-primary) 10%, transparent);
+  color: var(--rte-primary);
   box-shadow: inset 0 0 0 1px
-    color-mix(in srgb, var(--primary) 25%, transparent);
+    color-mix(in srgb, var(--rte-primary) 25%, transparent);
 }
 .rte.rte-root[data-variant="compact"] .rte-editor-icon {
   height: 0.875rem;
@@ -648,7 +646,7 @@
 .rte .rte-controls-separator {
   display: block;
   flex-shrink: 0;
-  background-color: var(--border);
+  background-color: var(--rte-border);
 }
 
 /* The first group has nothing before it to separate from. */
@@ -719,9 +717,9 @@
   appearance: none;
   width: 18px;
   height: 18px;
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) - 2px);
-  background-color: var(--background);
+  border: 1px solid var(--rte-border);
+  border-radius: calc(var(--rte-radius) - 2px);
+  background-color: var(--rte-background);
   vertical-align: middle;
   position: relative;
   flex-shrink: 0;
@@ -736,8 +734,8 @@
 }
 
 .rte .rte-task-list input[type="checkbox"]:checked {
-  background-color: var(--primary);
-  border-color: var(--primary);
+  background-color: var(--rte-primary);
+  border-color: var(--rte-primary);
 }
 
 @keyframes checkmark-in {
@@ -788,17 +786,17 @@
 }
 
 .rte .rte-embed-wrapper[data-selected] .rte-embed {
-  outline: 2px solid var(--primary);
+  outline: 2px solid var(--rte-primary);
   outline-offset: 2px;
-  border-radius: var(--radius);
+  border-radius: var(--rte-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .rte .rte-embed {
   position: relative;
   overflow: visible;
-  border-radius: var(--radius);
-  background: var(--muted);
+  border-radius: var(--rte-radius);
+  background: var(--rte-muted);
   display: inline-block;
   transition:
     outline-color 150ms ease-out,
@@ -811,13 +809,13 @@
   aspect-ratio: 16 / 9;
   border: 0;
   display: block;
-  border-radius: var(--radius);
+  border-radius: var(--rte-radius);
 }
 
 .rte .rte-embed-loading {
   padding: 2rem;
   text-align: center;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
@@ -842,9 +840,9 @@
   display: flex;
   align-items: center;
   height: 2.25rem;
-  background: var(--popover);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--rte-popover);
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
   padding: 0 0.375rem;
   gap: 0.25rem;
@@ -862,7 +860,7 @@
 .rte .rte-embed-selector-divider {
   width: 1px;
   height: 1.25rem;
-  background: var(--border);
+  background: var(--rte-border);
   margin: 0 0.125rem;
   flex-shrink: 0;
 }
@@ -875,9 +873,9 @@
   min-width: 1.75rem;
   padding: 0 0.375rem;
   border: none;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--rte-radius) - 4px);
   background: transparent;
-  color: var(--popover-foreground);
+  color: var(--rte-popover-foreground);
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 500;
@@ -888,8 +886,8 @@
 }
 
 .rte .rte-embed-selector-btn:hover {
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 
 .rte .rte-embed-selector-btn:active {
@@ -897,8 +895,8 @@
 }
 
 .rte .rte-embed-selector-btn--active {
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--rte-primary);
+  background: color-mix(in srgb, var(--rte-primary) 12%, transparent);
 }
 
 .rte .rte-embed-selector-btn--preset {
@@ -908,18 +906,18 @@
 }
 
 .rte .rte-embed-selector-btn--danger:hover {
-  background: color-mix(in srgb, var(--destructive) 15%, transparent);
-  color: var(--destructive);
+  background: color-mix(in srgb, var(--rte-destructive) 15%, transparent);
+  color: var(--rte-destructive);
 }
 
 .rte .rte-embed-selector-btn--save {
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--rte-primary);
+  color: var(--rte-primary-foreground);
   padding: 0 0.5rem;
 }
 .rte .rte-embed-selector-btn--save:hover {
-  background: color-mix(in srgb, var(--primary) 90%, black);
-  color: var(--primary-foreground);
+  background: color-mix(in srgb, var(--rte-primary) 90%, black);
+  color: var(--rte-primary-foreground);
 }
 
 .rte .rte-embed-selector-edit-form {
@@ -933,15 +931,15 @@
   width: 220px;
   padding: 0 0.5rem;
   font-size: 0.75rem;
-  border-radius: calc(var(--radius) - 4px);
-  border: 1px solid var(--border);
-  background: var(--background);
-  color: var(--foreground);
+  border-radius: calc(var(--rte-radius) - 4px);
+  border: 1px solid var(--rte-border);
+  background: var(--rte-background);
+  color: var(--rte-foreground);
   outline: none;
 }
 
 .rte .rte-embed-selector-input:focus {
-  border-color: var(--primary);
+  border-color: var(--rte-primary);
 }
 
 .rte .rte-embed-resize-badge {
@@ -957,7 +955,7 @@
   border-radius: 4px;
   pointer-events: none;
   backdrop-filter: blur(4px);
-  font-family: var(--font-mono, monospace);
+  font-family: var(--rte-font-mono, monospace);
 }
 
 /* ── Resize handles for embeds ── */
@@ -989,7 +987,7 @@
   position: absolute;
   inset: 4px 1px;
   width: 2px;
-  background: var(--primary);
+  background: var(--rte-primary);
   border-radius: 1px;
   transition:
     width 150ms ease-out,
@@ -1015,7 +1013,7 @@
   position: absolute;
   inset: 4px 1px;
   width: 2px;
-  background: var(--primary);
+  background: var(--rte-primary);
   border-radius: 1px;
   transition:
     width 150ms ease-out,
@@ -1042,7 +1040,7 @@
   left: 4px;
   right: 4px;
   height: 2px;
-  background: var(--primary);
+  background: var(--rte-primary);
   border-radius: 1px;
   bottom: 1px;
   transition:
@@ -1058,8 +1056,8 @@
 .rte .rte-resize-handle--corner {
   width: 12px;
   height: 12px;
-  background: var(--primary);
-  border: 2px solid var(--background);
+  background: var(--rte-primary);
+  border: 2px solid var(--rte-background);
   border-radius: 2px;
   transition: transform 150ms ease-out;
 }
@@ -1104,9 +1102,9 @@
   display: flex;
   align-items: center;
   height: 2.25rem;
-  background: var(--popover);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--rte-popover);
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   padding: 0 0.25rem;
   animation: rte-bubble-pop-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -1121,7 +1119,7 @@
 .rte .rte-bubble-separator {
   width: 1px;
   height: 1.25rem;
-  background: var(--border);
+  background: var(--rte-border);
   margin: 0 0.125rem;
   flex-shrink: 0;
 }
@@ -1133,9 +1131,9 @@
   height: 1.75rem;
   padding: 0 0.375rem;
   border: none;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--rte-radius) - 4px);
   background: transparent;
-  color: var(--popover-foreground);
+  color: var(--rte-popover-foreground);
   cursor: pointer;
   font-size: 0.8125rem;
   white-space: nowrap;
@@ -1146,8 +1144,8 @@
 }
 
 .rte .rte-bubble-btn:hover {
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 
 .rte .rte-bubble-btn:active {
@@ -1155,8 +1153,8 @@
 }
 
 .rte .rte-bubble-btn--active {
-  color: var(--primary);
-  background: var(--accent);
+  color: var(--rte-primary);
+  background: var(--rte-accent);
 }
 
 .rte .rte-bubble-btn-icon {
@@ -1191,9 +1189,9 @@
   left: 0;
   z-index: 1000;
   min-width: 150px;
-  background: var(--popover);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--rte-popover);
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   padding: 0.25rem;
   margin-top: 4px;
@@ -1232,10 +1230,10 @@
   width: 100%;
   padding: 0.375rem 0.5rem;
   font-size: 0.8125rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   background: transparent;
   border: none;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--rte-radius) - 4px);
   cursor: pointer;
   text-align: left;
   transition:
@@ -1245,7 +1243,7 @@
 
 .rte .rte-bubble-dropdown-item:hover,
 .rte .rte-bubble-dropdown-item:focus-visible {
-  color: var(--foreground);
+  color: var(--rte-foreground);
 }
 
 .rte .rte-bubble-dropdown-pill {
@@ -1254,8 +1252,8 @@
   left: 0;
   z-index: 0;
   pointer-events: none;
-  border-radius: calc(var(--radius) - 4px);
-  background: color-mix(in srgb, var(--primary) 6%, transparent);
+  border-radius: calc(var(--rte-radius) - 4px);
+  background: color-mix(in srgb, var(--rte-primary) 6%, transparent);
   opacity: 0;
   transition:
     top 220ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -1270,8 +1268,8 @@
 }
 
 .rte .rte-bubble-dropdown-item--active {
-  color: var(--primary);
-  background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--rte-primary);
+  background-color: color-mix(in srgb, var(--rte-primary) 10%, transparent);
 }
 
 .rte .rte-bubble-dropdown-icon {
@@ -1279,7 +1277,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   width: 1rem;
   height: 1rem;
 }
@@ -1290,12 +1288,12 @@
 }
 
 .rte .rte-bubble-dropdown-item--active .rte-bubble-dropdown-icon {
-  color: var(--primary);
+  color: var(--rte-primary);
 }
 
 .rte .rte-bubble-dropdown-divider {
   height: 1px;
-  background: var(--border);
+  background: var(--rte-border);
   margin: 0.25rem 0;
 }
 
@@ -1316,7 +1314,7 @@
 
 .rte .rte-bubble-color-label {
   padding: 0 0.125rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
@@ -1363,7 +1361,7 @@
 }
 
 .rte .rte-bubble-color-swatch:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--rte-ring);
   outline-offset: 1px;
 }
 
@@ -1387,7 +1385,7 @@
 
 .rte .rte-bubble-color-swatch--highlight.rte-bubble-color-swatch--active {
   box-shadow: 0 0 0 2px
-    color-mix(in srgb, var(--swatch-color) 55%, var(--popover-foreground));
+    color-mix(in srgb, var(--swatch-color) 55%, var(--rte-popover-foreground));
 }
 
 .rte .rte-bubble-color-glyph {
@@ -1435,9 +1433,9 @@
   width: 18rem;
   padding: 0.75rem;
   border-radius: 0;
-  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
-  background-color: var(--popover);
-  color: var(--popover-foreground);
+  border: 1px solid color-mix(in srgb, var(--rte-foreground) 10%, transparent);
+  background-color: var(--rte-popover);
+  color: var(--rte-popover-foreground);
   font-size: 0.75rem;
   box-shadow: 0 4px 6px -1px oklch(0 0 0 / 0.1);
   outline: none;
@@ -1452,8 +1450,8 @@
 
 .rte .rte-link-editor-input {
   padding: 0.25rem 0.75rem;
-  border: 1px solid var(--input);
-  border-radius: calc(var(--radius) - 2px);
+  border: 1px solid var(--rte-input);
+  border-radius: calc(var(--rte-radius) - 2px);
   background: transparent;
   color: inherit;
   outline: none;
@@ -1464,12 +1462,12 @@
 }
 
 .rte .rte-link-editor-input::placeholder {
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 .rte .rte-link-editor-input:focus-visible {
-  border-color: var(--ring);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent);
+  border-color: var(--rte-ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--rte-ring) 50%, transparent);
 }
 
 .rte .rte-link-editor-save {
@@ -1479,9 +1477,9 @@
   gap: 0.5rem;
   padding: 0 0.75rem;
   border: none;
-  border-radius: calc(var(--radius) - 2px);
-  background: var(--primary);
-  color: var(--primary-foreground);
+  border-radius: calc(var(--rte-radius) - 2px);
+  background: var(--rte-primary);
+  color: var(--rte-primary-foreground);
   font-weight: 500;
   white-space: nowrap;
   cursor: pointer;
@@ -1489,7 +1487,7 @@
 }
 
 .rte .rte-link-editor-save:hover {
-  background: color-mix(in srgb, var(--primary) 90%, transparent);
+  background: color-mix(in srgb, var(--rte-primary) 90%, transparent);
 }
 
 /* Replaces Tailwind `relative`: anchors the absolutely positioned dropdown. */

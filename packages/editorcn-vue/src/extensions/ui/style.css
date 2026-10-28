@@ -1,4 +1,4 @@
-/* Extensions UI primitives using shadcn CSS variables */
+/* Extensions UI primitives using --rte-* theme variables */
 
 @keyframes ext-pop-in {
   from {
@@ -24,7 +24,7 @@
   height: 2rem;
   padding: 0 0.625rem;
   border: 1px solid transparent;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: calc(var(--rte-radius) - 2px);
   background: transparent;
   color: inherit;
   font-size: 0.8125rem;
@@ -57,12 +57,12 @@
 }
 
 .rte .ext-btn:hover {
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 
 .rte .ext-btn:focus-visible {
-  outline: 2px solid var(--ring);
+  outline: 2px solid var(--rte-ring);
   outline-offset: -2px;
 }
 
@@ -76,17 +76,17 @@
 }
 
 .rte .ext-btn--active {
-  background: var(--accent);
-  color: var(--accent-foreground);
+  background: var(--rte-accent);
+  color: var(--rte-accent-foreground);
 }
 
 .rte .ext-btn--danger {
-  color: var(--destructive, #ef4444);
+  color: var(--rte-destructive, #ef4444);
 }
 
 .rte .ext-btn--danger:hover {
-  background: color-mix(in srgb, var(--destructive, #ef4444) 10%, transparent);
-  color: var(--destructive, #ef4444);
+  background: color-mix(in srgb, var(--rte-destructive, #ef4444) 10%, transparent);
+  color: var(--rte-destructive, #ef4444);
 }
 
 /* ── Dropdown ── */
@@ -95,11 +95,11 @@
   position: relative;
   min-width: 10rem;
   padding: 0.25rem;
-  background: var(--popover);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--rte-popover);
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: var(--popover-foreground);
+  color: var(--rte-popover-foreground);
   animation: ext-pop-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -112,9 +112,9 @@
   width: 100%;
   padding: 0.375rem 0.5rem;
   border: none;
-  border-radius: calc(var(--radius) - 4px);
+  border-radius: calc(var(--rte-radius) - 4px);
   background: transparent;
-  color: var(--popover-foreground);
+  color: var(--rte-popover-foreground);
   font-size: 0.8125rem;
   font-family: inherit;
   text-align: left;
@@ -137,8 +137,8 @@
   left: 0;
   z-index: 0;
   pointer-events: none;
-  border-radius: calc(var(--radius) - 4px);
-  background: color-mix(in srgb, var(--primary) 6%, transparent);
+  border-radius: calc(var(--rte-radius) - 4px);
+  background: color-mix(in srgb, var(--rte-primary) 6%, transparent);
   opacity: 0;
   transition:
     top 220ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -154,7 +154,7 @@
 
 .rte .ext-dropdown-item:hover,
 .rte .ext-dropdown-item:focus-visible {
-  color: var(--foreground);
+  color: var(--rte-foreground);
   outline: none;
 }
 
@@ -168,18 +168,18 @@
 }
 
 .rte .ext-dropdown-item--danger {
-  color: var(--destructive, #ef4444);
+  color: var(--rte-destructive, #ef4444);
 }
 
 .rte .ext-dropdown-item--danger:hover,
 .rte .ext-dropdown-item--danger:focus-visible {
-  background: color-mix(in srgb, var(--destructive, #ef4444) 10%, transparent);
-  color: var(--destructive, #ef4444);
+  background: color-mix(in srgb, var(--rte-destructive, #ef4444) 10%, transparent);
+  color: var(--rte-destructive, #ef4444);
 }
 
 .rte .ext-dropdown-separator {
   height: 1px;
-  background: var(--border);
+  background: var(--rte-border);
   margin: 0.25rem 0;
 }
 
@@ -187,11 +187,11 @@
 
 .rte.ext-popover-content {
   position: relative;
-  background: var(--popover);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  background: var(--rte-popover);
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: var(--popover-foreground);
+  color: var(--rte-popover-foreground);
   animation: ext-pop-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -199,7 +199,7 @@
 
 .rte .ext-separator {
   flex-shrink: 0;
-  background: var(--border);
+  background: var(--rte-border);
 }
 
 .rte .ext-separator--horizontal {
@@ -220,10 +220,10 @@
   width: 100%;
   height: 2rem;
   padding: 0 0.625rem;
-  border: 1px solid var(--border);
-  border-radius: calc(var(--radius) - 2px);
-  background: var(--background);
-  color: var(--foreground);
+  border: 1px solid var(--rte-border);
+  border-radius: calc(var(--rte-radius) - 2px);
+  background: var(--rte-background);
+  color: var(--rte-foreground);
   font-size: 0.8125rem;
   font-family: inherit;
   outline: none;
@@ -233,12 +233,12 @@
 }
 
 .rte .ext-input::placeholder {
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 .rte .ext-input:focus-visible {
-  border-color: var(--ring);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 30%, transparent);
+  border-color: var(--rte-ring);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--rte-ring) 30%, transparent);
 }
 
 /* ── Tabs ── */
@@ -253,8 +253,8 @@
   gap: 0.125rem;
   width: fit-content;
   padding: 0.25rem;
-  border-radius: calc(var(--radius) - 4px);
-  background: var(--muted);
+  border-radius: calc(var(--rte-radius) - 4px);
+  background: var(--rte-muted);
 }
 
 .rte .ext-tabs-trigger {
@@ -263,9 +263,9 @@
   gap: 0.375rem;
   padding: 0.25rem 0.625rem;
   border: none;
-  border-radius: calc(var(--radius) - 6px);
+  border-radius: calc(var(--rte-radius) - 6px);
   background: transparent;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
   font-size: 0.8125rem;
   font-family: inherit;
   white-space: nowrap;
@@ -283,13 +283,13 @@
 
 .rte .ext-tabs-trigger:hover,
 .rte .ext-tabs-trigger:focus-visible {
-  color: var(--foreground);
+  color: var(--rte-foreground);
   outline: none;
 }
 
 .rte .ext-tabs-trigger--active {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--rte-background);
+  color: var(--rte-foreground);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 

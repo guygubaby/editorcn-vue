@@ -71,6 +71,28 @@
   --ring: oklch(0.556 0 0);
 }
 
+/* Map the host tokens onto the editor's --rte-* namespace. */
+:root,
+.dark {
+  --rte-background: var(--background);
+  --rte-foreground: var(--foreground);
+  --rte-popover: var(--popover);
+  --rte-popover-foreground: var(--popover-foreground);
+  --rte-primary: var(--primary);
+  --rte-primary-foreground: var(--primary-foreground);
+  --rte-secondary: var(--secondary);
+  --rte-secondary-foreground: var(--secondary-foreground);
+  --rte-muted: var(--muted);
+  --rte-muted-foreground: var(--muted-foreground);
+  --rte-accent: var(--accent);
+  --rte-accent-foreground: var(--accent-foreground);
+  --rte-destructive: var(--destructive);
+  --rte-border: var(--border);
+  --rte-input: var(--input);
+  --rte-ring: var(--ring);
+  --rte-radius: var(--radius);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

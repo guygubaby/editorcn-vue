@@ -4,14 +4,14 @@
   display: block;
   max-width: 100%;
   margin: 0.75rem 0;
-  border-radius: var(--radius);
+  border-radius: var(--rte-radius);
   outline: 2px solid transparent;
   outline-offset: 2px;
   transition: outline-color 120ms ease-out;
 }
 
 .rte .ext-video-view--selected {
-  outline-color: var(--ring);
+  outline-color: var(--rte-ring);
 }
 
 .rte .ext-video-view--left {
@@ -31,6 +31,6 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: var(--radius);
-  background: var(--muted);
+  border-radius: var(--rte-radius);
+  background: var(--rte-muted);
 }

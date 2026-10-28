@@ -1,4 +1,4 @@
-/* Image placeholder + resizable image extension styles using shadcn CSS variables */
+/* Image placeholder + resizable image extension styles using --rte-* theme variables */
 /* ── Placeholder node ── */
 
 .rte .ext-image-placeholder {
@@ -17,9 +17,9 @@
   gap: 0.75rem;
   padding: 0.75rem;
   border: none;
-  border-radius: calc(var(--radius) - 2px);
-  background: var(--accent);
-  color: var(--accent-foreground);
+  border-radius: calc(var(--rte-radius) - 2px);
+  background: var(--rte-accent);
+  color: var(--rte-accent-foreground);
   font-size: 0.875rem;
   font-family: inherit;
   text-align: left;
@@ -37,14 +37,14 @@
 }
 
 .rte .ext-image-placeholder-trigger:hover {
-  background: var(--secondary);
-  color: var(--secondary-foreground);
+  background: var(--rte-secondary);
+  color: var(--rte-secondary-foreground);
 }
 
 .rte .ext-image-placeholder-trigger--selected,
 .rte .ext-image-placeholder-trigger:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--ring);
+  box-shadow: 0 0 0 2px var(--rte-ring);
 }
 
 .rte.ext-image-placeholder-popover {
@@ -55,8 +55,8 @@
 
 .rte .ext-image-upload-zone {
   margin: 0.5rem 0;
-  border: 1px dashed var(--border);
-  border-radius: calc(var(--radius) - 2px);
+  border: 1px dashed var(--rte-border);
+  border-radius: calc(var(--rte-radius) - 2px);
   font-size: 0.875rem;
   transition:
     border-color 150ms ease-out,
@@ -64,17 +64,17 @@
 }
 
 .rte .ext-image-upload-zone:hover {
-  background: var(--secondary);
+  background: var(--rte-secondary);
 }
 
 .rte .ext-image-upload-zone--dragging {
-  border-color: var(--primary);
-  background: var(--secondary);
+  border-color: var(--rte-primary);
+  background: var(--rte-secondary);
 }
 
 .rte .ext-image-upload-zone--reject {
-  border-color: var(--destructive);
-  background: color-mix(in srgb, var(--destructive) 10%, transparent);
+  border-color: var(--rte-destructive);
+  background: color-mix(in srgb, var(--rte-destructive) 10%, transparent);
 }
 
 .rte .ext-image-upload-label {
@@ -104,26 +104,26 @@
 .rte .ext-image-embed-submit.ext-image-embed-submit {
   width: 100%;
   border-color: transparent;
-  background: var(--primary);
-  color: var(--primary-foreground);
+  background: var(--rte-primary);
+  color: var(--rte-primary-foreground);
 }
 
 .rte .ext-image-embed-submit.ext-image-embed-submit:hover {
-  background: color-mix(in srgb, var(--primary) 85%, black);
-  color: var(--primary-foreground);
+  background: color-mix(in srgb, var(--rte-primary) 85%, black);
+  color: var(--rte-primary-foreground);
 }
 
 .rte .ext-image-error {
   margin: 0;
   font-size: 0.75rem;
-  color: var(--destructive, #ef4444);
+  color: var(--rte-destructive, #ef4444);
 }
 
 .rte .ext-image-hint {
   margin: 0;
   text-align: center;
   font-size: 0.75rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 .rte .ext-sr-only {
@@ -146,7 +146,7 @@
   flex-direction: column;
   width: fit-content;
   margin-block: 1rem;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: calc(var(--rte-radius) - 2px);
 }
 
 .rte .ext-image-view--left {
@@ -162,21 +162,21 @@
 }
 
 .rte .ext-image-view--selected {
-  box-shadow: 0 0 0 2px var(--ring);
+  box-shadow: 0 0 0 2px var(--rte-ring);
 }
 
 .rte .ext-image-view-img {
   display: block;
   width: 100%;
   height: auto;
-  border-radius: calc(var(--radius) - 2px);
+  border-radius: calc(var(--rte-radius) - 2px);
 }
 
 .rte .ext-image-view-caption {
   padding-top: 0.375rem;
   text-align: center;
   font-size: 0.875rem;
-  color: var(--muted-foreground);
+  color: var(--rte-muted-foreground);
 }
 
 /* resize handles */
@@ -207,7 +207,7 @@
   width: 0.25rem;
   height: 4rem;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--foreground) 30%, transparent);
+  background: color-mix(in srgb, var(--rte-foreground) 30%, transparent);
   opacity: 0;
   transition: opacity 150ms ease-out;
 }
@@ -225,10 +225,10 @@
   align-items: center;
   gap: 0.25rem;
   padding: 0.25rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--popover);
-  color: var(--popover-foreground);
+  border: 1px solid var(--rte-border);
+  border-radius: var(--rte-radius);
+  background: var(--rte-popover);
+  color: var(--rte-popover-foreground);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 

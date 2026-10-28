@@ -1,8 +1,8 @@
 # editorcn-vue
 
-Vue 3 port of [editorcn](https://github.com/shadcn-labs/editorcn) — rich text editor components built on Tiptap, themed with shadcn/ui tokens.
+Vue 3 port of [editorcn](https://github.com/shadcn-labs/editorcn) — rich text editor components built on Tiptap, with a shadcn-style token layer.
 
-Works in any Vue 3 project: the components ship plain CSS and read shadcn CSS variables. Tailwind is optional, not required.
+Works in any Vue 3 project: the components ship plain CSS and read namespaced `--rte-*` theme variables, so they never collide with your app's tokens. Tailwind is optional, not required.
 
 Docs: https://editorcn-vue.guygubaby.top (llms.txt: https://editorcn-vue.guygubaby.top/llms.txt)
 
@@ -117,7 +117,7 @@ const editor = useEditor({
 </template>
 ```
 
-Import `./editor/style.css` after your global stylesheet — the editor reads shadcn CSS variables (`--border`, `--background`, `--muted`, `--radius`, …). A plain Vue 3 app only needs those variables defined on `:root`; no Tailwind setup is involved.
+Import `./editor/style.css` after your global stylesheet. The stylesheet reads namespaced `--rte-*` variables (`--rte-border`, `--rte-background`, `--rte-muted`, `--rte-radius`, …); define them on `:root`/`.dark` or map them to your shadcn tokens. No Tailwind setup is involved.
 
 Every rule is scoped under `.rte`, which the components add to their root element (and to anything they portal to `<body>`), so the stylesheets never leak into your app.
 
