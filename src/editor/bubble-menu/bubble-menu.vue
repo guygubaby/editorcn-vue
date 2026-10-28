@@ -39,8 +39,11 @@ const shouldShow = ({
 </script>
 
 <template>
+  <!-- The wrapper Tiptap creates is a positioned element with no z-index, so
+       it needs one to sit above the sticky toolbar. -->
   <TiptapBubbleMenu
     v-if="editor"
+    class="rte-bubble-root"
     :editor="editor"
     :options="{ offset: 8, placement: 'top' }"
     :should-show="shouldShow"

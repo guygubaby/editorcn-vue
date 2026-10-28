@@ -72,6 +72,7 @@ const copySelection = async () => {
 <template>
   <TiptapBubbleMenu
     v-if="editor"
+    class="rte-bubble-root"
     :editor="editor"
     :options="{ offset: 8, placement: 'top' }"
     :should-show="shouldShow"

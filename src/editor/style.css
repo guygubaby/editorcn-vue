@@ -1094,6 +1094,12 @@
   }
 }
 
+/* Tiptap mounts the bubble menu as a positioned element next to the editor;
+   without a z-index the sticky toolbar (z-index: 10) paints over it. */
+.rte .rte-bubble-root {
+  z-index: 30;
+}
+
 .rte .rte-bubble-menu {
   display: flex;
   align-items: center;
@@ -1197,8 +1203,9 @@
 
 .rte .rte-bubble-dropdown--language {
   min-width: 160px;
-  max-height: 320px;
+  max-height: 13rem;
   overflow-y: auto;
+  overscroll-behavior: contain;
   scrollbar-width: thin;
 }
 
