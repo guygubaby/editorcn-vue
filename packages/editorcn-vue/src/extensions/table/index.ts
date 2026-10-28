@@ -6,6 +6,12 @@ import {
   TableHeader,
   TableRow,
 } from "@tiptap/extension-table";
+import {
+  findTable,
+  moveTableColumn,
+  moveTableRow,
+  TableMap,
+} from "@tiptap/pm/tables";
 
 export interface TableConfigOptions {
   HTMLAttributes?: Record<string, unknown>;
@@ -29,19 +35,6 @@ declare module "@tiptap/core" {
 const clampIndex = (index: number, length: number): number =>
   Math.max(0, Math.min(index, length - 1));
 
-const findTablePosition = (selection: {
-  $from: { depth: number; node: (depth: number) => { type: { name: string } }; before: (depth: number) => number };
-}): number => {
-  // Resolve the table that contains the cursor, not the first table in the doc.
-  const { $from } = selection;
-  for (let depth = $from.depth; depth > 0; depth -= 1) {
-    if ($from.node(depth).type.name === "table") {
-      return $from.before(depth);
-    }
-  }
-  return -1;
-};
-
 export const Table = TiptapTable.extend<TableConfigOptions>({
   addCommands() {
     return {
@@ -57,88 +50,32 @@ export const Table = TiptapTable.extend<TableConfigOptions>({
       moveColumn:
         (from: number, to: number) =>
         ({ dispatch, state }: CommandProps) => {
-          const tablePos = findTablePosition(state.selection);
-          if (tablePos === -1 || from === to) {
-            return false;
-          }
-          const table = state.doc.nodeAt(tablePos);
-          if (!table) {
+          const table = findTable(state.selection.$from);
+          if (!table || !Number.isInteger(from) || !Number.isInteger(to)) {
             return false;
           }
 
-          const columnCount = table.child(0)?.childCount ?? 0;
+          const columnCount = TableMap.get(table.node).width;
           const source = clampIndex(from, columnCount);
           const target = clampIndex(to, columnCount);
-          if (source === target) {
-            return false;
-          }
-
-          const rows = [];
-          for (let r = 0; r < table.childCount; r += 1) {
-            const row = table.child(r);
-            const cells = [];
-            for (let c = 0; c < row.childCount; c += 1) {
-              cells.push(row.child(c));
-            }
-            if (cells.length === 0 || source >= cells.length) {
-              rows.push(row);
-              continue;
-            }
-            const [moved] = cells.splice(source, 1);
-            if (moved === undefined) {
-              rows.push(row);
-              continue;
-            }
-            const clampedTarget = Math.min(target, cells.length);
-            cells.splice(clampedTarget, 0, moved);
-            rows.push(row.type.create(row.attrs, cells));
-          }
-
-          const { tr } = state;
-          tr.replaceWith(
-            tablePos,
-            tablePos + table.nodeSize,
-            table.type.create(table.attrs, rows)
+          return moveTableColumn({ from: source, to: target, select: false })(
+            state,
+            dispatch
           );
-          dispatch?.(tr);
-          return true;
         },
       moveRow:
         (from: number, to: number) =>
         ({ dispatch, state }: CommandProps) => {
-          const tablePos = findTablePosition(state.selection);
-          if (tablePos === -1 || from === to) {
-            return false;
-          }
-          const table = state.doc.nodeAt(tablePos);
-          if (!table) {
+          const table = findTable(state.selection.$from);
+          if (!table || !Number.isInteger(from) || !Number.isInteger(to)) {
             return false;
           }
 
-          const source = clampIndex(from, table.childCount);
-          const target = clampIndex(to, table.childCount);
-          if (source === target) {
-            return false;
-          }
-
-          const rows = [];
-          for (let r = 0; r < table.childCount; r += 1) {
-            rows.push(table.child(r));
-          }
-          const [moved] = rows.splice(source, 1);
-          if (moved === undefined) {
-            return false;
-          }
-          rows.splice(target, 0, moved);
-
-          const { tr } = state;
-          tr.replaceWith(
-            tablePos,
-            tablePos + table.nodeSize,
-            table.type.create(table.attrs, rows)
-          );
-          dispatch?.(tr);
-          return true;
+          return moveTableRow({
+            from: clampIndex(from, table.node.childCount),
+            to: clampIndex(to, table.node.childCount),
+            select: false,
+          })(state, dispatch);
         },
     };
   },

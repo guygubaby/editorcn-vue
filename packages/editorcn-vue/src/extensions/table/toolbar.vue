@@ -74,15 +74,19 @@ let activePointerId: number | null = null;
 
 const state = useEditorState(
   editor,
-  (edit) => ({
-    canDeleteColumn: edit?.can().deleteColumn() ?? false,
-    canDeleteRow: edit?.can().deleteRow() ?? false,
-    canMerge: edit?.can().mergeCells() ?? false,
-    canSplit: edit?.can().splitCell() ?? false,
-    disabled: !extensionPresent(edit, "table"),
-    headerOn: edit?.isActive("tableHeader") ?? false,
-    inTable: edit?.isActive("table") ?? false,
-  })
+  (edit) => {
+    const current =
+      edit?.isEditable && extensionPresent(edit, "table") ? edit : null;
+    return {
+      canDeleteColumn: current?.can().deleteColumn() ?? false,
+      canDeleteRow: current?.can().deleteRow() ?? false,
+      canMerge: current?.can().mergeCells() ?? false,
+      canSplit: current?.can().splitCell() ?? false,
+      disabled: !current,
+      headerOn: current?.isActive("tableHeader") ?? false,
+      inTable: current?.isActive("table") ?? false,
+    };
+  }
 );
 
 const resetGrid = () => {

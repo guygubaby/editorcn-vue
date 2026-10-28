@@ -25,3 +25,45 @@ export type UploadHandler = (
   file: File,
   kind: UploadKind
 ) => Promise<UploadResult> | UploadResult;
+
+export const filterUploadFiles = (
+  files: File[],
+  {
+    allowedMimeTypes,
+    maxFiles,
+    maxSize,
+  }: {
+    allowedMimeTypes?: Record<string, string[]>;
+    maxFiles?: number;
+    maxSize?: number;
+  }
+): { accepted: File[]; rejected: File[] } => {
+  const accepted: File[] = [];
+  const rejected: File[] = [];
+  const types = Object.entries(allowedMimeTypes ?? {});
+
+  for (const file of files) {
+    const matches = types.length === 0 || types.some(([type, extensions]) => {
+      const mime = type.toLowerCase();
+      return (
+        (mime.endsWith("/*")
+          ? file.type.toLowerCase().startsWith(mime.slice(0, -1))
+          : file.type.toLowerCase() === mime) ||
+        extensions.some((extension) =>
+          extension.startsWith(".") &&
+          file.name.toLowerCase().endsWith(extension.toLowerCase())
+        )
+      );
+    });
+    if (
+      matches &&
+      (maxSize === undefined || file.size <= maxSize) &&
+      (maxFiles === undefined || accepted.length < maxFiles)
+    ) {
+      accepted.push(file);
+    } else {
+      rejected.push(file);
+    }
+  }
+  return { accepted, rejected };
+};

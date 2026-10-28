@@ -46,10 +46,10 @@ export const chainFocus = (editor: Editor): BlockEditorChainedCommands =>
   editor.chain().focus() as unknown as BlockEditorChainedCommands;
 
 export const copyBlock = async (editor: Editor): Promise<void> => {
-  const { from } = editor.state.selection;
+  const { from, to } = editor.state.selection;
   const $from = editor.state.doc.resolve(from);
-  const start = $from.before($from.depth);
-  const end = $from.after($from.depth);
+  const start = $from.depth > 0 ? $from.before() : from;
+  const end = $from.depth > 0 ? $from.after() : to;
   if (start < 0 || end <= start) {
     return;
   }
@@ -62,11 +62,10 @@ export const copyBlock = async (editor: Editor): Promise<void> => {
 };
 
 export const deleteBlock = (editor: Editor): void => {
-  const { from } = editor.state.selection;
+  const { from, to } = editor.state.selection;
   const $from = editor.state.doc.resolve(from);
-  const { depth } = $from;
-  const start = $from.before(depth);
-  const end = $from.after(depth);
+  const start = $from.depth > 0 ? $from.before() : from;
+  const end = $from.depth > 0 ? $from.after() : to;
   if (start < 0 || end <= start) {
     return;
   }

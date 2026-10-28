@@ -20,6 +20,7 @@ import {
 } from "vue";
 
 import { useToolbar, useToolbarEditor } from "./core-context";
+import { useEditorState } from "../editor/composables";
 import { extensionPresent } from "./core-utils";
 import DropdownMenu from "./ui-dropdown-menu.vue";
 
@@ -215,7 +216,10 @@ let activeTable: HTMLElement | null = null;
 let hideTimer: ReturnType<typeof setTimeout> | null = null;
 let frame = 0;
 
-const isEditable = computed(() => editor.value?.isEditable ?? false);
+const isEditable = useEditorState(
+  editor,
+  (current) => current?.isEditable ?? false
+);
 const hasTable = computed(() =>
   editor.value ? extensionPresent(editor.value, "table") : false
 );
@@ -463,6 +467,14 @@ let boundAnchor: HTMLElement | null = null;
 
 const attach = () => {
   detach();
+  cancelHide();
+  activeTable = null;
+  hoveredCol.value = null;
+  hoveredRow.value = null;
+  layout.value = null;
+  if (!isEditable.value) {
+    return;
+  }
   boundDom = (editor.value?.view.dom as HTMLElement | undefined) ?? null;
   boundAnchor = anchorRef.value;
   boundDom?.addEventListener("pointerover", handleOver);
@@ -478,7 +490,7 @@ const detach = () => {
   boundAnchor = null;
 };
 
-watch(() => editor.value, attach);
+watch([editor, isEditable], attach, { flush: "post" });
 
 // The overlay measures every frame, which is only worth doing while the
 // pointer is over a row or column; stop the loop otherwise.

@@ -53,6 +53,8 @@ editor.chain().focus().moveRow(0, 2).run();
 editor.chain().focus().moveColumn(1, 0).run();
 ```
 
+行列索引按表格的逻辑网格计算。存在跨行或跨列单元格时，关联的行列会一起移动，保留合并关系。
+
 ### 工具栏与悬停抓手
 
 ```vue

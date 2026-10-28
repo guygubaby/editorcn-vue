@@ -3,9 +3,10 @@ import type { Node } from "@tiptap/pm/model";
 import { EditorContent } from "@tiptap/vue-3";
 import { DragHandle } from "@tiptap/extension-drag-handle-vue-3";
 import { Plus } from "@lucide/vue";
-import { computed, provide, ref } from "vue";
+import { computed, provide, shallowRef } from "vue";
 
 import { cn } from "../editor/utils";
+import { useEditorState } from "../editor/composables";
 import BottomBar from "./bottom-bar.vue";
 import BubbleMenu from "./bubble-menu/bubble-menu.vue";
 import { blockEditorKey } from "./context";
@@ -26,8 +27,9 @@ const icons = computed(() => ({ ...DEFAULT_ICONS, ...props.icons }));
 
 provide(blockEditorKey, { editor: editorRef, icons, labels });
 
-const isEditable = computed(
-  () => Boolean(editorRef.value && editorRef.value.isEditable)
+const isEditable = useEditorState(
+  editorRef,
+  (editor) => editor?.isEditable ?? false
 );
 
 const computePositionConfig = {
@@ -35,7 +37,7 @@ const computePositionConfig = {
   strategy: "absolute",
 } as const;
 
-const hoveredNode = ref<{ node: Node; pos: number } | null>(null);
+const hoveredNodeRef = shallowRef<{ node: Node; pos: number } | null>(null);
 
 const handleNodeChange = ({
   node,
@@ -44,12 +46,12 @@ const handleNodeChange = ({
   node: Node | null;
   pos: number;
 }) => {
-  hoveredNode.value = node ? { node, pos } : null;
+  hoveredNodeRef.value = node ? { node, pos } : null;
 };
 
 const handleAdd = () => {
   const editor = editorRef.value;
-  const dragNode = hoveredNode.value;
+  const dragNode = hoveredNodeRef.value;
   if (!dragNode || !editor || editor.isDestroyed) {
     return;
   }

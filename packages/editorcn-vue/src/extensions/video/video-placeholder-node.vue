@@ -6,6 +6,7 @@ import { computed, ref, useId } from "vue";
 import { useToolbar } from "../core/context";
 import { isValidUrl } from "../core/utils";
 import type { UploadResult } from "../upload";
+import { filterUploadFiles } from "../upload";
 import Popover from "../ui/popover.vue";
 import type { VideoPlaceholderOptions } from "./index";
 
@@ -25,11 +26,12 @@ const uploadError = ref<string | null>(null);
 
 const options = () => props.extension.options as VideoPlaceholderOptions;
 
-const insertVideo = (result: UploadResult) => {
+const insertVideos = (results: UploadResult[]) => {
   const pos = props.getPos();
   if (
     typeof pos !== "number" ||
     props.editor.isDestroyed ||
+    !props.editor.isEditable ||
     props.editor.state.doc.nodeAt(pos)?.type.name !== props.node.type.name
   ) {
     return;
@@ -39,7 +41,7 @@ const insertVideo = (result: UploadResult) => {
     .focus()
     .insertContentAt(
       { from: pos, to: pos + props.node.nodeSize },
-      {
+      results.map((result) => ({
         attrs: {
           height: result.height ?? null,
           poster: result.poster ?? null,
@@ -47,14 +49,21 @@ const insertVideo = (result: UploadResult) => {
           width: result.width ?? "100%",
         },
         type: "video",
-      }
+      }))
     )
     .run();
 };
 
 const handleAcceptedFiles = async (files: File[]) => {
-  const file = files[0];
-  if (!file) {
+  if (uploading.value || props.editor.isDestroyed || !props.editor.isEditable) {
+    return;
+  }
+  const { accepted, rejected } = filterUploadFiles(files, options());
+  isDragReject.value = rejected.length > 0;
+  if (rejected.length > 0) {
+    options().onDropRejected?.(rejected, props.editor);
+  }
+  if (accepted.length === 0) {
     return;
   }
   uploading.value = true;
@@ -64,12 +73,12 @@ const handleAcceptedFiles = async (files: File[]) => {
     if (!upload) {
       throw new Error("No upload handler configured");
     }
-    insertVideo(await upload(file, "video"));
-    options().onDrop?.(files, props.editor);
+    insertVideos(await Promise.all(accepted.map((file) => upload(file, "video"))));
+    options().onDrop?.(accepted, props.editor);
   } catch (error) {
     uploadError.value =
       error instanceof Error ? error.message : "Upload failed";
-    options().onDropRejected?.(files, props.editor);
+    options().onDropRejected?.(accepted, props.editor);
   } finally {
     uploading.value = false;
   }
@@ -77,7 +86,8 @@ const handleAcceptedFiles = async (files: File[]) => {
 
 const handleFileInputChange = (event: Event) => {
   const input = event.target as HTMLInputElement;
-  handleAcceptedFiles([...(input.files ?? [])]);
+  void handleAcceptedFiles([...(input.files ?? [])]);
+  input.value = "";
 };
 
 const handleDragOver = (event: DragEvent) => {
@@ -109,24 +119,7 @@ const handleDrop = (event: DragEvent) => {
     return;
   }
 
-  const current = options();
-  const accepted = files.filter((file) => {
-    const mimeTypes = current.allowedMimeTypes;
-    const tooLarge = Boolean(current.maxSize) && file.size > current.maxSize!;
-    const matches = mimeTypes
-      ? Object.keys(mimeTypes).some((type) => file.type.match(type))
-      : true;
-    return matches && !tooLarge;
-  });
-  const rejected = files.filter((file) => !accepted.includes(file));
-
-  if (rejected.length > 0) {
-    isDragReject.value = true;
-    current.onDropRejected?.(rejected, props.editor);
-  }
-  if (accepted.length > 0) {
-    handleAcceptedFiles(accepted);
-  }
+  void handleAcceptedFiles(files);
 };
 
 const handleInsertEmbed = () => {
@@ -134,14 +127,14 @@ const handleInsertEmbed = () => {
     urlError.value = true;
     return;
   }
-  insertVideo({ src: url.value });
+  insertVideos([{ src: url.value }]);
   options().onEmbed?.(url.value, props.editor);
 };
 
 const mimeTypeList = computed(() =>
-  Object.keys(options().allowedMimeTypes ?? { "video/*": ["video/*"] }).join(
-    ","
-  )
+  Object.entries(options().allowedMimeTypes ?? { "video/*": [] })
+    .flatMap(([type, extensions]) => [type, ...extensions])
+    .join(",")
 );
 </script>
 
@@ -211,6 +204,7 @@ const mimeTypeList = computed(() =>
               :id="fileInputId"
               type="file"
               :accept="mimeTypeList"
+              :multiple="options().maxFiles !== 1"
               :disabled="uploading"
               class="ext-sr-only"
               @change="handleFileInputChange"

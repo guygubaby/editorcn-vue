@@ -74,6 +74,10 @@ const editor = useEditor({
 | 传入 URL 而不是文件 | 直接使用，不经过 `upload` |
 | 超过 `maxSize` | 拒绝并触发 `onError` / `onDropRejected` |
 
+占位块的文件选择器和拖放入口都会检查 `allowedMimeTypes`、`maxSize` 和 `maxFiles`。超出限制的文件会传给 `onDropRejected`，不会上传；上传中不会重复发起同一占位块的上传。
+
+`MediaUpload` 会保留最初的粘贴或拖放位置，并随文档编辑更新位置，不会覆盖后来选中的其他文字。上传期间替换文档、删除目标位置或销毁编辑器后，不再插入上传结果。
+
 ## 视频选项
 
 `Video` 节点属性（可在 `insertVideo` 时传入，也可以在 node view 里改）：

@@ -8,7 +8,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import { Color, TextStyle } from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 import { useEditor } from "@tiptap/vue-3";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 import {
   BlockEditor,
@@ -191,6 +191,12 @@ const blockEditor = useEditor({
   ],
 });
 
+watch(
+  [blockEditor, editable],
+  ([current, canEdit]) => current?.setEditable(canEdit),
+  { immediate: true }
+);
+
 const toggleTheme = () => {
   isDark.value = !isDark.value;
   document.documentElement.classList.toggle("dark", isDark.value);
@@ -315,7 +321,11 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
 
     <BlockEditor v-else-if="mode === 'block'" :editor="blockEditor" />
 
-    <RichTextEditor v-else-if="mode === 'extensions'" :editor="extensionEditor">
+    <RichTextEditor
+      v-else-if="mode === 'extensions'"
+      :editor="extensionEditor"
+      :editable="editable"
+    >
       <RichTextEditor.Toolbar sticky>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold />

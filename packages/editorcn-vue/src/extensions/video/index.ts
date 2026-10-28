@@ -50,11 +50,27 @@ export const Video = Node.create<VideoOptions>({
       /** CSS object-fit: contain | cover | fill | none | scale-down */
       objectFit: { default: "cover" },
       align: { default: "center" },
-      autoplay: { default: false },
-      loop: { default: false },
-      muted: { default: false },
-      controls: { default: true },
-      playsInline: { default: true },
+      autoplay: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute("autoplay"),
+      },
+      loop: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute("loop"),
+      },
+      muted: {
+        default: false,
+        parseHTML: (element) => element.hasAttribute("muted"),
+      },
+      controls: {
+        default: true,
+        parseHTML: (element) => element.hasAttribute("controls"),
+      },
+      playsInline: {
+        default: true,
+        rendered: false,
+        parseHTML: (element) => element.hasAttribute("playsinline"),
+      },
       preload: { default: "metadata" },
     };
   },

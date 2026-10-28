@@ -56,14 +56,19 @@ export const createControl = ({
       const active = useEditorState(editor, (current) =>
         resolveIsActive(current, isActive)
       );
-      const disabled = useEditorState(editor, (current) =>
-        current ? (isDisabled?.(current) ?? false) : true
+      const disabled = useEditorState(
+        editor,
+        (current) =>
+          !current ||
+          !current.isEditable ||
+          !(operation.name in current.commands) ||
+          (isDisabled?.(current) ?? false)
       );
       const ariaLabel = computed(() => labels.value[label]);
 
       const run = () => {
         const current = editor.value;
-        if (!current || current.isDestroyed) {
+        if (!current || current.isDestroyed || disabled.value) {
           return;
         }
         const commands = current.chain().focus() as unknown as Record<

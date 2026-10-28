@@ -123,7 +123,7 @@ describe("MediaUpload", () => {
     const { handled } = paste(editor, [fileOf("video/mp4")]);
     await flush();
 
-    expect(handled).toBe(true);
+    expect(handled).toBeFalsy();
     expect(upload).not.toHaveBeenCalled();
     expect(nodeTypes(editor)).not.toContain("video");
   });
@@ -133,7 +133,7 @@ describe("MediaUpload", () => {
     // No Image extension registered.
     const editor = createEditor(upload, {}, [] as AnyExtension[]);
 
-    paste(editor, [fileOf("image/png")]);
+    expect(paste(editor, [fileOf("image/png")]).handled).toBeFalsy();
     await flush();
 
     expect(upload).not.toHaveBeenCalled();
@@ -172,5 +172,98 @@ describe("MediaUpload", () => {
     const { handled } = drop(editor, [fileOf("image/png")], { moved: true });
     expect(handled).toBeFalsy();
     expect(upload).not.toHaveBeenCalled();
+  });
+
+  it("does not replace a later selection when a pasted upload finishes", async () => {
+    let finish!: (result: { src: string }) => void;
+    const upload = vi.fn(() => new Promise<{ src: string }>((resolve) => {
+      finish = resolve;
+    }));
+    const editor = createEditor(upload);
+    editor.commands.setContent("<p>first</p><p>second</p>");
+    editor.commands.setTextSelection(1);
+
+    paste(editor, [fileOf("image/png")]);
+    editor.commands.setTextSelection({ from: 8, to: 14 });
+    finish({ src: "https://cdn/x.png" });
+    await flush();
+
+    expect(editor.state.doc.textContent).toBe("firstsecond");
+    expect(editor.state.doc.firstChild?.type.name).toBe("image");
+  });
+
+  it("maps a drop position through edits made during the upload", async () => {
+    let finish!: (result: { src: string }) => void;
+    const editor = createEditor(() => new Promise((resolve) => {
+      finish = resolve;
+    }));
+    editor.commands.setContent("<p>first</p><p>second</p>");
+    vi.spyOn(editor.view, "posAtCoords").mockReturnValue({ pos: 8, inside: 7 });
+
+    drop(editor, [fileOf("image/png")]);
+    editor.commands.insertContentAt(1, "prefix");
+    finish({ src: "https://cdn/x.png" });
+    await flush();
+
+    expect(editor.state.doc.child(0).textContent).toBe("prefixfirst");
+    expect(editor.state.doc.child(1).type.name).toBe("image");
+    expect(editor.state.doc.child(2).textContent).toBe("second");
+  });
+
+  it("does not consume media pastes in a read-only editor", () => {
+    const upload = vi.fn(async () => ({ src: "https://cdn/x.png" }));
+    const editor = createEditor(upload);
+    editor.setEditable(false);
+
+    expect(paste(editor, [fileOf("image/png")]).handled).toBeFalsy();
+    expect(upload).not.toHaveBeenCalled();
+  });
+
+  it("stops a pending batch when the editor is destroyed", async () => {
+    let finish!: (result: { src: string }) => void;
+    const upload = vi.fn(() => new Promise<{ src: string }>((resolve) => {
+      finish = resolve;
+    }));
+    const onError = vi.fn();
+    const editor = createEditor(upload, { onError });
+
+    paste(editor, [fileOf("image/png"), fileOf("image/png", "b")]);
+    editor.destroy();
+    finish({ src: "https://cdn/x.png" });
+    await flush();
+
+    expect(upload).toHaveBeenCalledTimes(1);
+    expect(onError).not.toHaveBeenCalled();
+  });
+
+  it("does not erase edits made inside the original paste selection", async () => {
+    let finish!: (result: { src: string }) => void;
+    const editor = createEditor(() => new Promise((resolve) => {
+      finish = resolve;
+    }));
+    editor.commands.setTextSelection({ from: 1, to: 6 });
+    paste(editor, [fileOf("image/png")]);
+
+    editor.commands.insertContentAt(3, "new");
+    finish({ src: "https://cdn/x.png" });
+    await flush();
+
+    expect(editor.state.doc.textContent).toBe("henewllo");
+    expect(nodeTypes(editor)).toContain("image");
+  });
+
+  it("does not insert into a document that replaced the upload target", async () => {
+    let finish!: (result: { src: string }) => void;
+    const editor = createEditor(() => new Promise((resolve) => {
+      finish = resolve;
+    }));
+    editor.commands.setTextSelection(3);
+    paste(editor, [fileOf("image/png")]);
+
+    editor.commands.setContent("<p>Another document</p>");
+    finish({ src: "https://cdn/x.png" });
+    await flush();
+
+    expect(editor.getHTML()).toBe("<p>Another document</p>");
   });
 });

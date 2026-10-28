@@ -1,5 +1,6 @@
 import { Editor } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
+import { TableMap } from "@tiptap/pm/tables";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { Table } from "./index";
@@ -142,5 +143,30 @@ describe("table commands", () => {
     editor.commands.setTextSelection(2);
 
     expect(editor.commands.moveColumn(0, 1)).toBe(false);
+  });
+
+  it("moves logical columns when the first row has merged cells", () => {
+    const editor = createEditor(`
+<table><tbody>
+  <tr><th colspan="2">AB</th><th>C</th></tr>
+  <tr><td>1</td><td>2</td><td>3</td></tr>
+</tbody></table>`);
+
+    expect(editor.commands.moveColumn(2, 0)).toBe(true);
+    expect(tableRows(editor)).toEqual([["C", "AB"], ["3", "1", "2"]]);
+    expect(TableMap.get(editor.state.doc.firstChild!).problems).toBeNull();
+  });
+
+  it("moves rows together when a cell spans them", () => {
+    const editor = createEditor(`
+<table><tbody>
+  <tr><td rowspan="2">A</td><td>B</td></tr>
+  <tr><td>C</td></tr>
+  <tr><td>D</td><td>E</td></tr>
+</tbody></table>`);
+
+    expect(editor.commands.moveRow(1, 2)).toBe(true);
+    expect(tableRows(editor)).toEqual([["D", "E"], ["A", "B"], ["C"]]);
+    expect(TableMap.get(editor.state.doc.firstChild!).problems).toBeNull();
   });
 });

@@ -14,6 +14,7 @@ const disabled = useEditorState(editor, (edit) =>
   edit
     ? Boolean(
         edit.isDestroyed ||
+          !edit.isEditable ||
           !edit.extensionManager.extensions.some(
             (extension) => extension.name === "videoPlaceholder"
           )

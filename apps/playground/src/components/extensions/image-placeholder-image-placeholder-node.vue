@@ -7,6 +7,7 @@ import { useToolbar } from "./core-context";
 import { isValidUrl } from "./core-utils";
 import type { ImagePlaceholderOptions } from "./image-placeholder-index";
 import type { UploadResult } from "./upload";
+import { filterUploadFiles } from "./upload";
 import Popover from "./ui-popover.vue";
 
 const props = defineProps(nodeViewProps);
@@ -41,9 +42,10 @@ const insertImages = (results: UploadResult[]) => {
     return;
   }
   // The placeholder may have moved while the upload was in flight, so the
-  // current position is read at insert time and the node is matched by identity.
+  // current position is read at insert time and the node type is checked.
   if (
     props.editor.isDestroyed ||
+    !props.editor.isEditable ||
     props.editor.state.doc.nodeAt(pos)?.type.name !== props.node.type.name
   ) {
     return;
@@ -67,14 +69,16 @@ const insertImages = (results: UploadResult[]) => {
 };
 
 const handleAcceptedFiles = async (files: File[]) => {
-  if (files.length === 0) {
+  if (uploading.value || props.editor.isDestroyed || !props.editor.isEditable) {
     return;
   }
-  const limit = options().maxFiles;
-  const tooMany = Boolean(limit) && files.length > limit!;
-  const accepted = tooMany ? files.slice(0, limit) : files;
-  if (tooMany) {
-    options().onDropRejected?.(files.slice(limit), props.editor);
+  const { accepted, rejected } = filterUploadFiles(files, options());
+  isDragReject.value = rejected.length > 0;
+  if (rejected.length > 0) {
+    options().onDropRejected?.(rejected, props.editor);
+  }
+  if (accepted.length === 0) {
+    return;
   }
   files = accepted;
   uploading.value = true;
@@ -126,39 +130,13 @@ const handleDrop = (event: DragEvent) => {
     return;
   }
 
-  const current = options();
-  const accepted: File[] = [];
-  const rejected: File[] = [];
-
-  for (const file of files) {
-    const mimeTypes = current.allowedMimeTypes;
-    const tooLarge = Boolean(current.maxSize) && file.size > current.maxSize!;
-
-    if (
-      mimeTypes &&
-      !Object.keys(mimeTypes).some((type) => file.type.match(type))
-    ) {
-      rejected.push(file);
-    } else if (tooLarge) {
-      rejected.push(file);
-    } else {
-      accepted.push(file);
-    }
-  }
-
-  if (rejected.length > 0) {
-    isDragReject.value = true;
-    current.onDropRejected?.(rejected, props.editor);
-  }
-
-  if (accepted.length > 0) {
-    handleAcceptedFiles(accepted);
-  }
+  void handleAcceptedFiles([...files]);
 };
 
 const handleFileInputChange = (event: Event) => {
   const input = event.target as HTMLInputElement;
-  handleAcceptedFiles([...(input.files ?? [])]);
+  void handleAcceptedFiles([...(input.files ?? [])]);
+  input.value = "";
 };
 
 const handleInsertEmbed = () => {
@@ -171,9 +149,9 @@ const handleInsertEmbed = () => {
 };
 
 const mimeTypeList = computed(() =>
-  Object.keys(options().allowedMimeTypes ?? { "image/*": ["image/*"] }).join(
-    ","
-  )
+  Object.entries(options().allowedMimeTypes ?? { "image/*": [] })
+    .flatMap(([type, extensions]) => [type, ...extensions])
+    .join(",")
 );
 
 const multiple = computed(() => options().maxFiles !== 1);

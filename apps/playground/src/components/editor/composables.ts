@@ -22,10 +22,14 @@ export const useEditorVersion = (
       }
       current.on("transaction", bump);
       current.on("selectionUpdate", bump);
+      current.on("update", bump);
+      current.on("destroy", bump);
       bump();
       onCleanup(() => {
         current.off("transaction", bump);
         current.off("selectionUpdate", bump);
+        current.off("update", bump);
+        current.off("destroy", bump);
       });
     },
     { immediate: true }
