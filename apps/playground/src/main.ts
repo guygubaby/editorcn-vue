@@ -1,10 +1,10 @@
-import "editorcn-vue/editor/style.css";
-import "editorcn-vue/block-editor/style.css";
-import "editorcn-vue/extensions/ui/style.css";
-import "editorcn-vue/extensions/table/style.css";
-import "editorcn-vue/extensions/image-placeholder/style.css";
-import "editorcn-vue/extensions/video/style.css";
-import "editorcn-vue/static-renderer/style.css";
+import "@/components/editor/style.css";
+import "@/components/block-editor/style.css";
+import "@/components/extensions/ui-style.css";
+import "@/components/extensions/table-style.css";
+import "@/components/extensions/image-placeholder-style.css";
+import "@/components/extensions/video-style.css";
+import "@/components/static-renderer/style.css";
 
 import "./index.css";
 

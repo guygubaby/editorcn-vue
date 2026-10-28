@@ -12,7 +12,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "types": ["vite/client"]
+    "types": ["vite/client", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["apps/playground/src/*"]
+    }
   },
   "include": [
     "packages/**/*.ts",

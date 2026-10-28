@@ -32,6 +32,11 @@ export default defineConfig({
     nav: [
       { text: "指南", link: "/guide/getting-started" },
       { text: "组件", link: "/components/editor" },
+      {
+        text: "Playground",
+        link: "/playground/index.html",
+        target: "_self",
+      },
       { text: "GitHub", link: "https://github.com/guygubaby/editorcn-vue" },
     ],
     sidebar: [

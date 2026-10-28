@@ -16,8 +16,8 @@ import {
   Link,
   SlashCommand,
   getSlashCommandSuggestion,
-} from "editorcn-vue/block-editor";
-import { RichTextEditor } from "editorcn-vue/editor";
+} from "@/components/block-editor";
+import { RichTextEditor } from "@/components/editor";
 import {
   ImagePlaceholder,
   ImagePlaceholderToolbar,
@@ -29,10 +29,10 @@ import {
   Video,
   VideoPlaceholder,
   VideoToolbar,
-} from "editorcn-vue/extensions";
-import type { UploadHandler } from "editorcn-vue/extensions";
-import { StaticRenderer } from "editorcn-vue/static-renderer";
-import type { RichTextEditorVariant } from "editorcn-vue/editor";
+} from "@/components/extensions";
+import type { UploadHandler } from "@/components/extensions";
+import { StaticRenderer } from "@/components/static-renderer";
+import type { RichTextEditorVariant } from "@/components/editor";
 
 const toolbarContent = `
 <h2>Welcome to editorcn-vue</h2>

@@ -38,17 +38,25 @@ NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7890 \
 The repo is a pnpm monorepo:
 
 ```
-apps/playground        demo app consuming the components
+apps/playground        demo app; components installed by the shadcn-vue CLI
 packages/editorcn-vue  component source
 registry/              generated shadcn-vue registry items
-docs/                  VitePress site
+docs/                  VitePress site (serves the playground at /playground/)
+```
+
+The playground does not import the workspace package. Its
+`src/components/{editor,block-editor,extensions,static-renderer}` are the
+CLI-installed output, the same source consumers get:
+
+```bash
+pnpm playground:sync   # rebuild registry/, reinstall into apps/playground
 ```
 
 ```bash
 pnpm install
 pnpm dev          # playground (apps/playground)
 pnpm test
-pnpm docs:dev     # documentation site
+pnpm docs:dev     # documentation site, including the playground page
 ```
 
 `pnpm build` type-checks with `vue-tsc` and builds the playground; `pnpm build:registry` regenerates `registry/*.json` from `packages/editorcn-vue/src`.

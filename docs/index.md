@@ -10,6 +10,10 @@ hero:
       text: 快速开始
       link: /guide/getting-started
     - theme: alt
+      text: Playground
+      link: /playground/index.html
+      target: _self
+    - theme: alt
       text: GitHub
       link: https://github.com/guygubaby/editorcn-vue
 

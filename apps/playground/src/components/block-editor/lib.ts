@@ -1,0 +1,80 @@
+import type { ChainedCommands, Editor } from "@tiptap/core";
+
+export interface BlockEditorChainedCommands {
+  deleteRange: (range: {
+    from: number;
+    to: number;
+  }) => BlockEditorChainedCommands;
+  extendMarkRange: (name?: string) => BlockEditorChainedCommands;
+  run: () => boolean;
+  setHorizontalRule: () => BlockEditorChainedCommands;
+  setLink: (attributes: { href: string }) => BlockEditorChainedCommands;
+  setNode: (
+    typeOrName: string,
+    attributes?: Record<string, unknown>
+  ) => BlockEditorChainedCommands;
+  setParagraph: () => BlockEditorChainedCommands;
+  setColor: (color: string) => BlockEditorChainedCommands;
+  setHighlight: (attributes: { color: string }) => BlockEditorChainedCommands;
+  setTextAlign: (alignment: string) => BlockEditorChainedCommands;
+  toggleBlockquote: () => BlockEditorChainedCommands;
+  toggleBold: () => BlockEditorChainedCommands;
+  toggleBulletList: () => BlockEditorChainedCommands;
+  toggleCode: () => BlockEditorChainedCommands;
+  toggleCodeBlock: (attributes?: {
+    language?: string;
+  }) => BlockEditorChainedCommands;
+  toggleHeading: (attributes: {
+    level: 1 | 2 | 3 | 4 | 5 | 6;
+  }) => BlockEditorChainedCommands;
+  toggleItalic: () => BlockEditorChainedCommands;
+  toggleNode: (
+    typeOrName: string,
+    innerTypeOrName: string,
+    attributes?: Record<string, unknown>
+  ) => BlockEditorChainedCommands;
+  toggleOrderedList: () => BlockEditorChainedCommands;
+  toggleStrike: () => BlockEditorChainedCommands;
+  toggleTaskList: () => BlockEditorChainedCommands;
+  toggleUnderline: () => BlockEditorChainedCommands;
+  unsetColor: () => BlockEditorChainedCommands;
+  unsetHighlight: () => BlockEditorChainedCommands;
+  unsetLink: () => BlockEditorChainedCommands;
+}
+
+export const chainFocus = (editor: Editor): BlockEditorChainedCommands =>
+  editor.chain().focus() as unknown as BlockEditorChainedCommands;
+
+export const copyBlock = async (editor: Editor): Promise<void> => {
+  const { from } = editor.state.selection;
+  const $from = editor.state.doc.resolve(from);
+  const start = $from.before($from.depth);
+  const end = $from.after($from.depth);
+  if (start < 0 || end <= start) {
+    return;
+  }
+  const text = editor.state.doc.textBetween(start, end, "\n", "\n");
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    /* ignored */
+  }
+};
+
+export const deleteBlock = (editor: Editor): void => {
+  const { from } = editor.state.selection;
+  const $from = editor.state.doc.resolve(from);
+  const { depth } = $from;
+  const start = $from.before(depth);
+  const end = $from.after(depth);
+  if (start < 0 || end <= start) {
+    return;
+  }
+  editor.chain().focus().deleteRange({ from: start, to: end }).run();
+};
+
+export {
+  CODE_BLOCK_LANGUAGES,
+  getLanguageLabel,
+} from "../editor/bubble-menu-utils";
+export type { ChainedCommands };
