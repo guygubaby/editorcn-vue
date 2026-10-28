@@ -184,6 +184,15 @@ Link.configure({ openOnClick: false, autolink: true });
 />
 ```
 
+不需要注册 `@tiptap/extension-character-count`：组件直接统计文档文本。
+
+计数规则：
+
+- **词数**：每个中日韩字符算一个词，其他语言的连续字母/数字算一个词（`"Hello 世界"` = 3）。
+- **字符数**：可见字符，不含换行。
+- 表格、代码块里的文字同样计入。
+- 想要 Tiptap 默认（按空格切词）的行为，用 `wordCountFormatter` 自行计算即可。
+
 ## 自定义控件
 
 ```ts

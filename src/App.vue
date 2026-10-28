@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CharacterCount from "@tiptap/extension-character-count";
 import Highlight from "@tiptap/extension-highlight";
 import { TaskItem, TaskList } from "@tiptap/extension-list";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -156,7 +155,6 @@ const editor = useEditor({
     TaskList,
     TaskItem.configure({ nested: true }),
     Placeholder.configure({ placeholder: "Start typing..." }),
-    CharacterCount,
   ],
 });
 
@@ -179,7 +177,6 @@ const extensionEditor = useEditor({
     Video,
     VideoPlaceholder.configure({ upload: fakeUpload }),
     MediaUpload.configure({ upload: fakeUpload, maxSize: 20 * 1024 * 1024 }),
-    CharacterCount,
   ],
 });
 

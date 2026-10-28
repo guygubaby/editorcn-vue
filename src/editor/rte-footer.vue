@@ -5,6 +5,7 @@ import { useEditorVersion } from "./composables";
 import { useRichTextEditorContext } from "./context";
 import type { WordCountInfo } from "./types";
 import { cn } from "./utils";
+import { countCharacters, countWords } from "./word-count";
 
 const props = withDefaults(
   defineProps<{
@@ -27,14 +28,13 @@ const wordCount = computed<WordCountInfo | null>(() => {
   if (!current || !props.showWordCount) {
     return null;
   }
-  const counter = (
-    current.storage as unknown as Record<string, unknown>
-  ).characterCount as
-    | { words: () => number; characters: () => number }
-    | undefined;
+  // Counted from the document itself, so no CharacterCount extension is
+  // required, and CJK text counts per character rather than per space.
+  const { doc } = current.state;
+  const text = doc.textBetween(0, doc.content.size, "\n", " ");
   return {
-    characters: counter?.characters() ?? 0,
-    words: counter?.words() ?? 0,
+    characters: countCharacters(text),
+    words: countWords(text),
   };
 });
 
