@@ -7,13 +7,71 @@ settings:
 importers:
 
   .:
+    devDependencies:
+      '@tiptap/extension-highlight':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))
+      '@tiptap/extension-list':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)
+      '@tiptap/extension-placeholder':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))
+      '@tiptap/extension-text-align':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))
+      '@tiptap/extension-text-style':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))
+      '@tiptap/starter-kit':
+        specifier: ^3.32.0
+        version: 3.32.0
+      '@tiptap/vue-3':
+        specifier: ^3.32.0
+        version: 3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(vue@3.5.44(typescript@5.9.3))
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.10
+        version: 6.0.10(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))(vue@3.5.44(typescript@5.9.3))
+      jsdom:
+        specifier: ^30.1.3
+        version: 30.1.3
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+      vite:
+        specifier: ^8.3.5
+        version: 8.3.5(esbuild@0.28.2)(jiti@2.7.0)
+      vitepress:
+        specifier: ^1.6.4
+        version: 1.6.4(@algolia/client-search@5.60.0)(lightningcss@1.33.0)(postcss@8.5.31)(search-insights@2.17.3)(typescript@5.9.3)
+      vitest:
+        specifier: ^5.0.5
+        version: 5.0.5(jsdom@30.1.3)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))
+      vue:
+        specifier: ^3.5.44
+        version: 3.5.44(typescript@5.9.3)
+      vue-tsc:
+        specifier: ^3.3.13
+        version: 3.3.13(typescript@5.9.3)
+
+  apps/playground:
     dependencies:
+      editorcn-vue:
+        specifier: workspace:*
+        version: link:../../packages/editorcn-vue
+      vue:
+        specifier: ^3.5.44
+        version: 3.5.44(typescript@5.9.3)
+    devDependencies:
       '@floating-ui/dom':
         specifier: ^1.8.0
         version: 1.8.0
       '@lucide/vue':
         specifier: ^1.62.0
         version: 1.62.0(vue@3.5.44(typescript@5.9.3))
+      '@tailwindcss/vite':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))
       '@tiptap/core':
         specifier: ^3.32.0
         version: 3.32.0(@tiptap/pm@3.32.0)
@@ -59,9 +117,75 @@ importers:
       '@tiptap/extension-text-style':
         specifier: ^3.32.0
         version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))
-      '@tiptap/extension-underline':
+      '@tiptap/pm':
+        specifier: ^3.32.0
+        version: 3.32.0
+      '@tiptap/starter-kit':
+        specifier: ^3.32.0
+        version: 3.32.0
+      '@tiptap/static-renderer':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@tiptap/suggestion':
+        specifier: ^3.32.0
+        version: 3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)
+      '@tiptap/vue-3':
+        specifier: ^3.32.0
+        version: 3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(vue@3.5.44(typescript@5.9.3))
+      '@vitejs/plugin-vue':
+        specifier: ^6.0.10
+        version: 6.0.10(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))(vue@3.5.44(typescript@5.9.3))
+      lowlight:
+        specifier: ^3.3.0
+        version: 3.3.0
+      reka-ui:
+        specifier: ^2.11.0
+        version: 2.11.0(vue@3.5.44(typescript@5.9.3))
+      tailwindcss:
+        specifier: ^4.3.3
+        version: 4.3.3
+      typescript:
+        specifier: ^5.9.0
+        version: 5.9.3
+      vite:
+        specifier: ^8.3.5
+        version: 8.3.5(esbuild@0.28.2)(jiti@2.7.0)
+      vue-tsc:
+        specifier: ^3.3.13
+        version: 3.3.13(typescript@5.9.3)
+
+  packages/editorcn-vue:
+    devDependencies:
+      '@floating-ui/dom':
+        specifier: ^1.8.0
+        version: 1.8.0
+      '@lucide/vue':
+        specifier: ^1.62.0
+        version: 1.62.0(vue@3.5.44(typescript@5.9.3))
+      '@tiptap/core':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/pm@3.32.0)
+      '@tiptap/extension-bubble-menu':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)
+      '@tiptap/extension-code-block-lowlight':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/extension-code-block@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(highlight.js@11.11.2)(lowlight@3.3.0)
+      '@tiptap/extension-drag-handle-vue-3':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/extension-drag-handle@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/extension-collaboration@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/y-tiptap@3.0.10(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.8)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33))(yjs@13.6.33))(@tiptap/extension-node-range@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(@tiptap/y-tiptap@3.0.10(prosemirror-model@1.25.12)(prosemirror-state@1.4.4)(prosemirror-view@1.42.8)(y-protocols@1.0.7(yjs@13.6.33))(yjs@13.6.33)))(@tiptap/pm@3.32.0)(@tiptap/vue-3@3.32.0(@floating-ui/dom@1.8.0)(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)(vue@3.5.44(typescript@5.9.3)))(vue@3.5.44(typescript@5.9.3))
+      '@tiptap/extension-gapcursor':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/extensions@3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0))
+      '@tiptap/extension-image':
         specifier: ^3.32.0
         version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))
+      '@tiptap/extension-link':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)
+      '@tiptap/extension-table':
+        specifier: ^3.32.0
+        version: 3.32.0(@tiptap/core@3.32.0(@tiptap/pm@3.32.0))(@tiptap/pm@3.32.0)
       '@tiptap/pm':
         specifier: ^3.32.0
         version: 3.32.0
@@ -86,34 +210,6 @@ importers:
       vue:
         specifier: ^3.5.44
         version: 3.5.44(typescript@5.9.3)
-    devDependencies:
-      '@tailwindcss/vite':
-        specifier: ^4.3.3
-        version: 4.3.3(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))
-      '@vitejs/plugin-vue':
-        specifier: ^6.0.10
-        version: 6.0.10(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))(vue@3.5.44(typescript@5.9.3))
-      jsdom:
-        specifier: ^30.1.3
-        version: 30.1.3
-      tailwindcss:
-        specifier: ^4.3.3
-        version: 4.3.3
-      typescript:
-        specifier: ^5.9.0
-        version: 5.9.3
-      vite:
-        specifier: ^8.3.5
-        version: 8.3.5(esbuild@0.28.2)(jiti@2.7.0)
-      vitepress:
-        specifier: ^1.6.4
-        version: 1.6.4(@algolia/client-search@5.60.0)(lightningcss@1.33.0)(postcss@8.5.31)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)(typescript@5.9.3)
-      vitest:
-        specifier: ^5.0.5
-        version: 5.0.5(jsdom@30.1.3)(vite@8.3.5(esbuild@0.28.2)(jiti@2.7.0))
-      vue-tsc:
-        specifier: ^3.3.13
-        version: 3.3.13(typescript@5.9.3)
 
 packages:
 
@@ -2409,9 +2505,9 @@ snapshots:
 
   '@docsearch/css@3.8.2': {}
 
-  '@docsearch/js@3.8.2(@algolia/client-search@5.60.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)':
+  '@docsearch/js@3.8.2(@algolia/client-search@5.60.0)(search-insights@2.17.3)':
     dependencies:
-      '@docsearch/react': 3.8.2(@algolia/client-search@5.60.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)
+      '@docsearch/react': 3.8.2(@algolia/client-search@5.60.0)(search-insights@2.17.3)
       preact: 10.29.8
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -2421,15 +2517,13 @@ snapshots:
       - react-dom
       - search-insights
 
-  '@docsearch/react@3.8.2(@algolia/client-search@5.60.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)':
+  '@docsearch/react@3.8.2(@algolia/client-search@5.60.0)(search-insights@2.17.3)':
     dependencies:
       '@algolia/autocomplete-core': 1.17.7(@algolia/client-search@5.60.0)(algoliasearch@5.60.0)(search-insights@2.17.3)
       '@algolia/autocomplete-preset-algolia': 1.17.7(@algolia/client-search@5.60.0)(algoliasearch@5.60.0)
       '@docsearch/css': 3.8.2
       algoliasearch: 5.60.0
     optionalDependencies:
-      react: 19.3.1
-      react-dom: 19.3.1(react@19.3.1)
       search-insights: 2.17.3
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -4039,10 +4133,10 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.7.0
 
-  vitepress@1.6.4(@algolia/client-search@5.60.0)(lightningcss@1.33.0)(postcss@8.5.31)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)(typescript@5.9.3):
+  vitepress@1.6.4(@algolia/client-search@5.60.0)(lightningcss@1.33.0)(postcss@8.5.31)(search-insights@2.17.3)(typescript@5.9.3):
     dependencies:
       '@docsearch/css': 3.8.2
-      '@docsearch/js': 3.8.2(@algolia/client-search@5.60.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(search-insights@2.17.3)
+      '@docsearch/js': 3.8.2(@algolia/client-search@5.60.0)(search-insights@2.17.3)
       '@iconify-json/simple-icons': 1.2.101
       '@shikijs/core': 2.5.0
       '@shikijs/transformers': 2.5.0

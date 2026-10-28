@@ -35,14 +35,23 @@ NODE_USE_ENV_PROXY=1 HTTPS_PROXY=http://127.0.0.1:7890 \
 
 ## Local development
 
+The repo is a pnpm monorepo:
+
+```
+apps/playground        demo app consuming the components
+packages/editorcn-vue  component source
+registry/              generated shadcn-vue registry items
+docs/                  VitePress site
+```
+
 ```bash
 pnpm install
-pnpm dev          # demo app
+pnpm dev          # playground (apps/playground)
 pnpm test
 pnpm docs:dev     # documentation site
 ```
 
-`pnpm build` type-checks with `vue-tsc` and builds the demo; `pnpm build:registry` regenerates `registry/*.json` from `src/`.
+`pnpm build` type-checks with `vue-tsc` and builds the playground; `pnpm build:registry` regenerates `registry/*.json` from `packages/editorcn-vue/src`.
 
 ## Documentation
 

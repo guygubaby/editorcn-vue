@@ -16,8 +16,8 @@ import {
   Link,
   SlashCommand,
   getSlashCommandSuggestion,
-} from "./block-editor";
-import { RichTextEditor } from "./editor";
+} from "editorcn-vue/block-editor";
+import { RichTextEditor } from "editorcn-vue/editor";
 import {
   ImagePlaceholder,
   ImagePlaceholderToolbar,
@@ -29,10 +29,10 @@ import {
   Video,
   VideoPlaceholder,
   VideoToolbar,
-} from "./extensions";
-import type { UploadHandler } from "./extensions";
-import { StaticRenderer } from "./static-renderer";
-import type { RichTextEditorVariant } from "./editor";
+} from "editorcn-vue/extensions";
+import type { UploadHandler } from "editorcn-vue/extensions";
+import { StaticRenderer } from "editorcn-vue/static-renderer";
+import type { RichTextEditorVariant } from "editorcn-vue/editor";
 
 const toolbarContent = `
 <h2>Welcome to editorcn-vue</h2>
@@ -209,7 +209,7 @@ const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];
         </p>
       </div>
 
-      <div class="flex items-center gap-2 text-xs">
+      <div class="flex flex-wrap items-center gap-2 text-xs">
         <div class="flex rounded-md border border-border p-0.5">
           <button
             v-for="option in (['toolbar', 'block', 'extensions', 'static'] as const)"

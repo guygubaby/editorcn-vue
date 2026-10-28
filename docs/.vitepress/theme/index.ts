@@ -2,13 +2,13 @@ import DefaultTheme from "vitepress/theme";
 import type { Theme } from "vitepress";
 
 import "./docs.css";
-import "../../../src/editor/style.css";
-import "../../../src/block-editor/style.css";
-import "../../../src/extensions/ui/style.css";
-import "../../../src/extensions/table/style.css";
-import "../../../src/extensions/image-placeholder/style.css";
-import "../../../src/extensions/video/style.css";
-import "../../../src/static-renderer/style.css";
+import "../../../packages/editorcn-vue/src/editor/style.css";
+import "../../../packages/editorcn-vue/src/block-editor/style.css";
+import "../../../packages/editorcn-vue/src/extensions/ui/style.css";
+import "../../../packages/editorcn-vue/src/extensions/table/style.css";
+import "../../../packages/editorcn-vue/src/extensions/image-placeholder/style.css";
+import "../../../packages/editorcn-vue/src/extensions/video/style.css";
+import "../../../packages/editorcn-vue/src/static-renderer/style.css";
 
 import DemoRichText from "./demos/demo-rich-text.vue";
 import DemoVariants from "./demos/demo-variants.vue";

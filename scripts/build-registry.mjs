@@ -17,7 +17,7 @@ const SCHEMA = "https://shadcn-vue.com/schema/registry-item.json";
 const packages = [
   {
     name: "editor",
-    dir: "src/editor",
+    dir: "packages/editorcn-vue/src/editor",
     title: "Toolbar editor",
     description:
       "Rich text editor with 25+ toolbar controls, bubble menu, link popover and word count.",
@@ -36,7 +36,7 @@ const packages = [
   },
   {
     name: "block-editor",
-    dir: "src/block-editor",
+    dir: "packages/editorcn-vue/src/block-editor",
     title: "Block editor",
     description:
       "Notion-style block editor with slash commands, drag handle and a mobile bottom bar.",
@@ -52,7 +52,7 @@ const packages = [
   },
   {
     name: "extensions",
-    dir: "src/extensions",
+    dir: "packages/editorcn-vue/src/extensions",
     title: "Editor extensions",
     description:
       "Table with hover controls, image and video blocks with pluggable uploads, paste/drop uploads.",
@@ -69,7 +69,7 @@ const packages = [
   },
   {
     name: "static-renderer",
-    dir: "src/static-renderer",
+    dir: "packages/editorcn-vue/src/static-renderer",
     title: "Static renderer",
     description: "Read-only rendering of editor HTML or ProseMirror JSON.",
     deps: ["@tiptap/core", "@tiptap/pm", "@tiptap/static-renderer", "@tiptap/vue-3"],

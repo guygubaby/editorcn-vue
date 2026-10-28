@@ -3,7 +3,7 @@ import { useEditor } from "@tiptap/vue-3";
 import type { ShallowRef } from "vue";
 import type { Editor } from "@tiptap/vue-3";
 
-import { RichTextEditor, type RichTextEditorVariant } from "../../../../src/editor";
+import { RichTextEditor, type RichTextEditorVariant } from "../../../../packages/editorcn-vue/src/editor";
 import { baseExtensions, placeholder } from "./base";
 
 // Each editor stays a top-level ref; the table holds the refs themselves and

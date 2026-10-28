@@ -6,7 +6,7 @@ import {
   BlockEditor,
   SlashCommand,
   getSlashCommandSuggestion,
-} from "../../../../src/block-editor";
+} from "../../../../packages/editorcn-vue/src/block-editor";
 import { baseExtensions, placeholder } from "./base";
 
 const content = `

@@ -1209,6 +1209,19 @@
   scrollbar-width: thin;
 }
 
+/* Flipped by rte-dropdown.vue when the trigger is too close to a viewport edge. */
+.rte .rte-bubble-dropdown--end {
+  left: auto;
+  right: 0;
+}
+
+.rte .rte-bubble-dropdown--above {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
 .rte .rte-bubble-dropdown-item {
   display: flex;
   align-items: center;

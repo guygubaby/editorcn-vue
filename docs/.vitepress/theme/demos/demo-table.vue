@@ -6,12 +6,12 @@ import { Color, TextStyle } from "@tiptap/extension-text-style";
 import { useEditor } from "@tiptap/vue-3";
 import { ref } from "vue";
 
-import { RichTextEditor, CodeBlock, Link } from "../../../../src/editor";
+import { RichTextEditor, CodeBlock, Link } from "../../../../packages/editorcn-vue/src/editor";
 import {
   Table,
   TableHoverOverlay,
   TableToolbar,
-} from "../../../../src/extensions";
+} from "../../../../packages/editorcn-vue/src/extensions";
 import { placeholder } from "./base";
 
 const content = `

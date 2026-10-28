@@ -1,12 +1,12 @@
 {
-  "name": "editorcn-vue",
+  "name": "editorcn-vue-monorepo",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "dev": "pnpm --filter playground dev",
+    "build": "pnpm typecheck && pnpm --filter playground build",
+    "preview": "pnpm --filter playground preview",
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit",
     "build:registry": "node scripts/build-registry.mjs",
@@ -15,43 +15,21 @@
     "docs:preview": "vitepress preview docs",
     "docs:llms": "node scripts/build-llms.mjs"
   },
-  "dependencies": {
-    "@floating-ui/dom": "^1.8.0",
-    "@lucide/vue": "^1.62.0",
-    "@tiptap/core": "^3.32.0",
-    "@tiptap/extension-bubble-menu": "^3.32.0",
-    "@tiptap/extension-code-block-lowlight": "^3.32.0",
-    "@tiptap/extension-drag-handle-vue-3": "^3.32.0",
-    "@tiptap/extension-gapcursor": "^3.32.0",
+  "devDependencies": {
     "@tiptap/extension-highlight": "^3.32.0",
-    "@tiptap/extension-image": "^3.32.0",
-    "@tiptap/extension-link": "^3.32.0",
     "@tiptap/extension-list": "^3.32.0",
     "@tiptap/extension-placeholder": "^3.32.0",
-    "@tiptap/extension-subscript": "^3.32.0",
-    "@tiptap/extension-superscript": "^3.32.0",
-    "@tiptap/extension-table": "^3.32.0",
     "@tiptap/extension-text-align": "^3.32.0",
     "@tiptap/extension-text-style": "^3.32.0",
-    "@tiptap/extension-underline": "^3.32.0",
-    "@tiptap/pm": "^3.32.0",
     "@tiptap/starter-kit": "^3.32.0",
-    "@tiptap/static-renderer": "^3.32.0",
-    "@tiptap/suggestion": "^3.32.0",
     "@tiptap/vue-3": "^3.32.0",
-    "lowlight": "^3.3.0",
-    "reka-ui": "^2.11.0",
-    "vue": "^3.5.44"
-  },
-  "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-vue": "^6.0.10",
     "jsdom": "^30.1.3",
-    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.0",
     "vite": "^8.3.5",
     "vitepress": "^1.6.4",
     "vitest": "^5.0.5",
+    "vue": "^3.5.44",
     "vue-tsc": "^3.3.13"
   }
 }

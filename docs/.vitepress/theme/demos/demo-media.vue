@@ -4,7 +4,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import { Color, TextStyle } from "@tiptap/extension-text-style";
 import { useEditor } from "@tiptap/vue-3";
 
-import { RichTextEditor, CodeBlock, Link } from "../../../../src/editor";
+import { RichTextEditor, CodeBlock, Link } from "../../../../packages/editorcn-vue/src/editor";
 import {
   ImagePlaceholder,
   ImagePlaceholderToolbar,
@@ -13,7 +13,7 @@ import {
   Video,
   VideoPlaceholder,
   VideoToolbar,
-} from "../../../../src/extensions";
+} from "../../../../packages/editorcn-vue/src/extensions";
 import { demoUpload, placeholder } from "./base";
 
 const content = `

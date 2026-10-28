@@ -3,7 +3,7 @@ import { TaskItem, TaskList } from "@tiptap/extension-list";
 import { useEditor } from "@tiptap/vue-3";
 import { ref } from "vue";
 
-import { RichTextEditor, type RichTextEditorVariant } from "../../../../src/editor";
+import { RichTextEditor, type RichTextEditorVariant } from "../../../../packages/editorcn-vue/src/editor";
 import { baseExtensions, placeholder } from "./base";
 
 const variants: RichTextEditorVariant[] = ["default", "subtle", "compact"];

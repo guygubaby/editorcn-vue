@@ -5,8 +5,8 @@ import TextAlign from "@tiptap/extension-text-align";
 import { Color, TextStyle } from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
 
-import { CodeBlock, Link } from "../../../../src/editor";
-import { StaticRenderer } from "../../../../src/static-renderer";
+import { CodeBlock, Link } from "../../../../packages/editorcn-vue/src/editor";
+import { StaticRenderer } from "../../../../packages/editorcn-vue/src/static-renderer";
 
 const json = {
   type: "doc",

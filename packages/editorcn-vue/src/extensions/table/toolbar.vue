@@ -38,7 +38,9 @@ const findFirstCellPos = (current: Editor): number => {
       return false;
     }
     if (node.type.name === "tableCell" || node.type.name === "tableHeader") {
-      position = nodePos + 1;
+      // +1 is inside the cell, +2 lands in its first paragraph, where a
+      // TextSelection endpoint is valid.
+      position = nodePos + 2;
       return false;
     }
     return true;

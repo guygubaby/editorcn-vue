@@ -2,7 +2,7 @@
 import { useEditor } from "@tiptap/vue-3";
 import { computed, ref } from "vue";
 
-import { RichTextEditor } from "../../../../src/editor";
+import { RichTextEditor } from "../../../../packages/editorcn-vue/src/editor";
 import { baseExtensions, placeholder } from "./base";
 
 // A single accent token drives the editor chrome, which is the point of the

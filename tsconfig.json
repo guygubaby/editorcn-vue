@@ -12,11 +12,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-    "types": ["vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "vite.config.ts"]
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.vue",
+    "apps/**/*.ts",
+    "apps/**/*.vue",
+    "vitest.config.ts"
+  ]
 }
